@@ -8,10 +8,20 @@ interface Props {
 }
 
 const { listings } = Astro.props;
-const { cities, neighborhoods, types } = getListingFilterOptions(listings);
+const { cities, neighborhoods, types, amenities } = getListingFilterOptions(listings);
 const locationSeed = [
-  ...cities.map((name) => ({ name, kind: 'cidade' as const })),
-  ...neighborhoods.map((name) => ({ name, kind: 'bairro' as const })),
+  ...cities.map((name) => ({
+    name,
+    kind: 'cidade' as const,
+    city: name,
+    label: name,
+  })),
+  ...neighborhoods.map(({ name, city }) => ({
+    name,
+    kind: 'bairro' as const,
+    city,
+    label: city ? `${name}, ${city}` : name,
+  })),
 ];
 ---
 
@@ -32,11 +42,13 @@ const locationSeed = [
               <div class="location-select__box" data-location-box>
                 <div class="location-select__chips" data-location-chips></div>
                 <input
-                  type="search"
+                  type="text"
                   class="location-select__input"
                   data-location-input
                   placeholder="Localização"
                   autocomplete="off"
+                  spellcheck="false"
+                  inputmode="search"
                   aria-label="Localização"
                   aria-autocomplete="list"
                   aria-controls="location-suggestions"
@@ -59,6 +71,7 @@ const locationSeed = [
                 type="button"
                 class="multi-select__trigger"
                 data-multi-select-trigger
+                data-empty-label="Tipo"
                 aria-label="Tipo de imóvel"
               >
                 Tipo
@@ -99,27 +112,57 @@ const locationSeed = [
                 <path d="M3.5 5.25 7 8.75l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
             </button>
-
-            <p class="filters-form__count" data-results-count aria-live="polite">
-              {listings.length} imóveis
-            </p>
           </div>
 
           <div class="filters-form__more" id="filters-more" data-filters-more hidden>
             <label class="filters-form__field">
               <span class="filters-form__label">Preço mín.</span>
-              <input type="number" name="priceMin" min="0" step="100000" placeholder="500000" />
+              <input type="number" name="priceMin" min="0" step="100000" placeholder="500000" inputmode="numeric" />
             </label>
 
             <label class="filters-form__field">
               <span class="filters-form__label">Preço máx.</span>
-              <input type="number" name="priceMax" min="0" step="100000" placeholder="2000000" />
+              <input type="number" name="priceMax" min="0" step="100000" placeholder="2000000" inputmode="numeric" />
             </label>
 
             <label class="filters-form__field">
               <span class="filters-form__label">Área mín.</span>
-              <input type="number" name="areaMin" min="0" step="10" placeholder="80" />
+              <input type="number" name="areaMin" min="0" step="10" placeholder="80" inputmode="numeric" />
             </label>
+
+            <label class="filters-form__field">
+              <span class="filters-form__label">Banheiros</span>
+              <select name="bathrooms" aria-label="Banheiros">
+                <option value="">Qualquer</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
+              </select>
+            </label>
+
+            <div class="multi-select filters-form__amenities" data-multi-select="amenities">
+              <span class="filters-form__label">Comodidades</span>
+              <button
+                type="button"
+                class="multi-select__trigger"
+                data-multi-select-trigger
+                data-empty-label="Comodidades"
+                aria-label="Comodidades"
+              >
+                Comodidades
+              </button>
+              <div class="multi-select__dropdown" data-multi-select-dropdown hidden>
+                {
+                  amenities.map((item) => (
+                    <label class="multi-select__option">
+                      <input type="checkbox" name="amenity" value={item} />
+                      <span>{item}</span>
+                    </label>
+                  ))
+                }
+              </div>
+            </div>
 
             <div class="filters-form__actions">
               <button class="btn btn-primary btn-motion" type="submit">Aplicar</button>
@@ -144,8 +187,10 @@ const locationSeed = [
             data-city={listing.city}
             data-type={listing.type}
             data-bedrooms={listing.bedrooms}
+            data-bathrooms={listing.bathrooms}
             data-price={listing.priceValue}
             data-area={listing.area}
+            data-amenities={listing.amenities.join('|')}
           >
             <ListingCard listing={listing} />
           </div>
@@ -169,19 +214,18 @@ const locationSeed = [
   const PAGE_SIZE = 15;
   const form = document.querySelector('[data-listings-filter]');
   const items = [...document.querySelectorAll('[data-listing-item]')];
-  const countEl = document.querySelector('[data-results-count]');
   const emptyEl = document.querySelector('[data-listings-empty]');
   const gridEl = document.querySelector('[data-listings-grid]');
   const loadMoreBtn = document.querySelector('[data-load-more]');
 
   let visibleLimit = PAGE_SIZE;
 
-  /* ---- Multi-select (tipo etc.) ---- */
+  /* ---- Multi-select (tipo, comodidades) ---- */
   document.querySelectorAll('[data-multi-select]').forEach((container) => {
     const trigger = container.querySelector('[data-multi-select-trigger]');
     const dropdown = container.querySelector('[data-multi-select-dropdown]');
     const checkboxes = dropdown?.querySelectorAll('input[type="checkbox"]') ?? [];
-    const emptyLabel = trigger?.getAttribute('aria-label')?.split(' ')[0] || 'Tipo';
+    const emptyLabel = trigger?.getAttribute('data-empty-label') || 'Todos';
 
     function updateTriggerText() {
       const checked = [...checkboxes].filter((cb) => cb.checked);
@@ -228,7 +272,7 @@ const locationSeed = [
 
   /* ---- Localização: multi-select + autocomplete ≥3 chars ---- */
   const locationRoot = document.querySelector('[data-location-select]');
-  /** @type {{ name: string, kind: 'cidade' | 'bairro' }[]} */
+  /** @type {{ name: string, kind: 'cidade' | 'bairro', city?: string, label?: string }[]} */
   let selectedLocations = [];
 
   function syncLocationHidden() {
@@ -252,8 +296,9 @@ const locationSeed = [
       const chip = document.createElement('button');
       chip.type = 'button';
       chip.className = 'location-select__chip';
-      chip.innerHTML = `<span>${loc.name}</span><span class="location-select__chip-kind">${loc.kind}</span><span aria-hidden="true">×</span>`;
-      chip.setAttribute('aria-label', `Remover ${loc.name}`);
+      const label = loc.label || loc.name;
+      chip.innerHTML = `<span>${label}</span><span aria-hidden="true">×</span>`;
+      chip.setAttribute('aria-label', `Remover ${label}`);
       chip.addEventListener('click', () => {
         selectedLocations.splice(index, 1);
         renderLocationChips();
@@ -263,6 +308,14 @@ const locationSeed = [
       });
       chips.appendChild(chip);
     });
+  }
+
+  function normalizeText(value) {
+    return String(value || '')
+      .trim()
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/\p{M}/gu, '');
   }
 
   if (locationRoot) {
@@ -287,7 +340,7 @@ const locationSeed = [
         const li = document.createElement('li');
         li.setAttribute('role', 'option');
         li.className = 'location-select__suggestion';
-        li.innerHTML = `<strong>${item.name}</strong><span>${item.kind}</span>`;
+        li.textContent = item.label || item.name;
         li.addEventListener('mousedown', (e) => {
           e.preventDefault();
           const exists = selectedLocations.some((s) => s.name === item.name && s.kind === item.kind);
@@ -308,23 +361,16 @@ const locationSeed = [
     }
 
     input?.addEventListener('input', () => {
-      const q = String(input.value || '')
-        .trim()
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/\p{M}/gu, '');
+      const q = normalizeText(input.value);
       if (q.length < 3) {
         closeSuggestions();
         return;
       }
       const matches = seed
         .filter((item) => {
-          const name = String(item.name)
-            .toLowerCase()
-            .normalize('NFD')
-            .replace(/\p{M}/gu, '');
+          const haystack = normalizeText(item.label || item.name);
           const already = selectedLocations.some((s) => s.name === item.name && s.kind === item.kind);
-          return !already && name.includes(q);
+          return !already && haystack.includes(q);
         })
         .slice(0, 12);
       openSuggestions(matches);
@@ -354,7 +400,9 @@ const locationSeed = [
     const cities = data.getAll('city').filter(Boolean);
     const neighborhoods = data.getAll('neighborhood').filter(Boolean);
     const types = data.getAll('type').filter(Boolean);
+    const selectedAmenities = data.getAll('amenity').filter(Boolean);
     const bedrooms = Number(data.get('bedrooms') || 0);
+    const bathrooms = Number(data.get('bathrooms') || 0);
     const priceMin = Number(data.get('priceMin') || 0);
     const priceMax = Number(data.get('priceMax') || 0);
     const areaMin = Number(data.get('areaMin') || 0);
@@ -365,18 +413,29 @@ const locationSeed = [
       const itemNeighborhood = item.getAttribute('data-neighborhood') ?? '';
       const itemType = item.getAttribute('data-type') ?? '';
       const itemBedrooms = Number(item.getAttribute('data-bedrooms') ?? 0);
+      const itemBathrooms = Number(item.getAttribute('data-bathrooms') ?? 0);
       const itemPrice = Number(item.getAttribute('data-price') ?? 0);
       const itemArea = Number(item.getAttribute('data-area') ?? 0);
+      const itemAmenities = (item.getAttribute('data-amenities') ?? '')
+        .split('|')
+        .map((value) => value.trim())
+        .filter(Boolean);
 
       const matchesLocation =
         (cities.length === 0 && neighborhoods.length === 0) ||
         cities.includes(itemCity) ||
         neighborhoods.includes(itemNeighborhood);
 
+      const matchesAmenities =
+        selectedAmenities.length === 0 ||
+        selectedAmenities.every((amenity) => itemAmenities.includes(amenity));
+
       const show =
         matchesLocation &&
+        matchesAmenities &&
         (types.length === 0 || types.includes(itemType)) &&
         (!bedrooms || itemBedrooms >= bedrooms) &&
+        (!bathrooms || itemBathrooms >= bathrooms) &&
         (!priceMin || itemPrice >= priceMin) &&
         (!priceMax || itemPrice <= priceMax) &&
         (!areaMin || itemArea >= areaMin);
@@ -385,7 +444,7 @@ const locationSeed = [
       if (show) visible += 1;
     }
     renderVisible();
-    updateCount(visible);
+    updateEmptyState(visible);
   }
 
   function renderVisible() {
@@ -412,13 +471,7 @@ const locationSeed = [
     }
   }
 
-  function updateCount(visible) {
-    const shown = items.filter((item) => !item.hasAttribute('hidden')).length;
-    if (countEl) {
-      countEl.textContent = `${visible} imóvel${visible === 1 ? '' : 'es'}${
-        visible !== shown ? ` · exibindo ${shown}` : ''
-      }`;
-    }
+  function updateEmptyState(visible) {
     emptyEl?.toggleAttribute('hidden', visible > 0);
     gridEl?.toggleAttribute('hidden', visible === 0);
   }
@@ -439,7 +492,7 @@ const locationSeed = [
       cb.checked = false;
     });
     document.querySelectorAll('[data-multi-select-trigger]').forEach((btn) => {
-      btn.textContent = 'Tipo';
+      btn.textContent = btn.getAttribute('data-empty-label') || 'Todos';
     });
     visibleLimit = PAGE_SIZE;
     window.setTimeout(applyFilters, 0);
@@ -455,7 +508,7 @@ const locationSeed = [
   loadMoreBtn?.addEventListener('click', () => {
     visibleLimit += PAGE_SIZE;
     renderVisible();
-    updateCount(items.filter((item) => item.dataset.filtered === 'true').length);
+    updateEmptyState(items.filter((item) => item.dataset.filtered === 'true').length);
   });
 
   items.forEach((item) => {
@@ -536,21 +589,6 @@ const locationSeed = [
     flex: 0 0 auto;
   }
 
-  .filters-form__count {
-    display: none;
-    margin: 0;
-    font-size: 0.72rem;
-    color: var(--color-muted);
-    white-space: nowrap;
-  }
-
-  @media (min-width: 900px) {
-    .filters-form__count {
-      display: block;
-      margin-left: auto;
-    }
-  }
-
   .filters-form__more {
     display: grid;
     gap: 0.45rem;
@@ -563,10 +601,29 @@ const locationSeed = [
     display: none;
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 720px) {
     .filters-form__more {
-      grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       align-items: end;
+    }
+
+    .filters-form__amenities {
+      grid-column: 1 / -1;
+    }
+
+    .filters-form__actions {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .filters-form__more {
+      grid-template-columns: repeat(4, minmax(0, 0.85fr)) minmax(12rem, 1.4fr) auto;
+    }
+
+    .filters-form__amenities,
+    .filters-form__actions {
+      grid-column: auto;
     }
   }
 
@@ -597,6 +654,17 @@ const locationSeed = [
     background: var(--color-stone);
     color: var(--color-ink-soft);
     min-height: 2rem;
+  }
+
+  .filters-form input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  .filters-form input[type='number']::-webkit-outer-spin-button,
+  .filters-form input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 
   .filters-form input::placeholder {
@@ -682,13 +750,6 @@ const locationSeed = [
     cursor: pointer;
   }
 
-  .location-select__chip-kind {
-    font-size: 0.58rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--color-muted);
-  }
-
   .location-select__input {
     flex: 1 1 8rem;
     min-width: 7rem;
@@ -699,6 +760,15 @@ const locationSeed = [
     font-size: 0.82rem !important;
     outline: none;
     box-shadow: none;
+  }
+
+  .location-select__input::-webkit-search-decoration,
+  .location-select__input::-webkit-search-cancel-button,
+  .location-select__input::-webkit-search-results-button,
+  .location-select__input::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+    display: none;
   }
 
   .location-select__suggestions {
@@ -719,9 +789,6 @@ const locationSeed = [
   }
 
   .location-select__suggestion {
-    display: flex;
-    justify-content: space-between;
-    gap: 0.75rem;
     padding: 0.4rem 0.6rem;
     cursor: pointer;
     color: var(--color-ink-soft);
@@ -730,18 +797,7 @@ const locationSeed = [
 
   .location-select__suggestion:hover {
     background: var(--color-stone);
-  }
-
-  .location-select__suggestion strong {
-    font-weight: 500;
     color: var(--color-ink);
-  }
-
-  .location-select__suggestion span {
-    font-size: 0.65rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-muted);
   }
 
   .multi-select {
@@ -770,8 +826,12 @@ const locationSeed = [
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-soft);
-    max-height: 200px;
+    max-height: 220px;
     overflow-y: auto;
+  }
+
+  .filters-form__amenities .multi-select__dropdown {
+    min-width: min(20rem, 80vw);
   }
 
   .multi-select__option {

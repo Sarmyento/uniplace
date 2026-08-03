@@ -14,6 +14,7 @@ export interface Listing {
   condominioFee: string;
   iptuFee: string;
   bedrooms: number;
+  bathrooms: number;
   suites: number;
   area: number;
   parking: number;
@@ -77,6 +78,10 @@ function parseListings(xml: string): Listing[] {
       condominioFee: getTag(block, 'condominio_fee'),
       iptuFee: getTag(block, 'iptu_fee'),
       bedrooms: Number(getTag(block, 'bedrooms')) || 0,
+      bathrooms:
+        Number(getTag(block, 'bathrooms')) ||
+        Number(getTag(block, 'banheiros')) ||
+        0,
       suites: Number(getTag(block, 'suites')) || 0,
       area: Number(getTag(block, 'area')) || 0,
       parking: Number(getTag(block, 'parking')) || 0,
@@ -150,9 +155,30 @@ export function isMockFeed(): boolean {
   return listings.every((l) => l.id.startsWith('ex-'));
 }
 
-export function getListingFilterOptions(listings: { city: string; neighborhood: string; type: string }[]) {
-  const cities = [...new Set(listings.map((item) => item.city).filter(Boolean))].sort();
-  const neighborhoods = [...new Set(listings.map((item) => item.neighborhood).filter(Boolean))].sort();
-  const types = [...new Set(listings.map((item) => item.type).filter(Boolean))].sort();
-  return { cities, neighborhoods, types };
+export function getListingFilterOptions(
+  listings: { city: string; neighborhood: string; type: string; amenities: string[] }[],
+) {
+  const cities = [...new Set(listings.map((item) => item.city).filter(Boolean))].sort((a, b) =>
+    a.localeCompare(b, 'pt-BR'),
+  );
+  const types = [...new Set(listings.map((item) => item.type).filter(Boolean))].sort((a, b) =>
+    a.localeCompare(b, 'pt-BR'),
+  );
+  const amenities = [
+    ...new Set(listings.flatMap((item) => item.amenities).filter(Boolean)),
+  ].sort((a, b) => a.localeCompare(b, 'pt-BR'));
+
+  const neighborhoodCity = new Map<string, string>();
+  for (const item of listings) {
+    if (!item.neighborhood) continue;
+    if (!neighborhoodCity.has(item.neighborhood)) {
+      neighborhoodCity.set(item.neighborhood, item.city || '');
+    }
+  }
+
+  const neighborhoods = [...neighborhoodCity.entries()]
+    .map(([name, city]) => ({ name, city }))
+    .sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
+
+  return { cities, neighborhoods, types, amenities };
 }
