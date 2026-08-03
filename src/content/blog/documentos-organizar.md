@@ -96,11 +96,11 @@ Se a venda ou a compra ainda é ideia, a semana 1 já vale ouro.
 
 ## Na Uniplace
 
-A Uniplace reúne compra, venda, avaliação, diligência e contratos em um só lugar. A Maria é o primeiro contato no WhatsApp. Roberto Fonseca é o sócio público; a corretores associados conduz visitas e encaminhamentos. Documentação bem organizada acelera cada etapa sem transformar o processo em corrida irresponsável.
+A Uniplace reúne compra, venda, avaliação, diligência e contratos em um só lugar. O WhatsApp é o primeiro contato no WhatsApp. Roberto Fonseca é o sócio público; a corretores associados conduz visitas e encaminhamentos. Documentação bem organizada acelera cada etapa sem transformar o processo em corrida irresponsável.
 
 ## Quer ajuda para ordenar a próxima etapa?
 
-Se você está comprando ou vendendo em BH, Nova Lima ou Contagem e quer um ponto de partida claro, fale com a Uniplace pelo [contato](/contato) ou chame a Maria no WhatsApp. Leve o que já tiver na pasta. A gente ajuda a ver o que falta antes da tela ficar vermelha de urgência.
+Se você está comprando ou vendendo em BH, Nova Lima ou Contagem e quer um ponto de partida claro, fale com a Uniplace pelo [contato](/contato) ou chame a Uniplace no WhatsApp. Leve o que já tiver na pasta. A gente ajuda a ver o que falta antes da tela ficar vermelha de urgência.
 
 ## FAQ
 

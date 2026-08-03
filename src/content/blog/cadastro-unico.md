@@ -21,7 +21,7 @@ Cadastro único não é comodidade de sistema. É organização comercial. Este 
 
 É registrar o imóvel uma vez, com dados, fotos, preço e regras de visita alinhados, e a partir daí publicar nos canais combinados. No modelo Uniplace, isso significa site, Quinto Andar e corretores associados partindo da mesma base, em vez de cinco planilhas paralelas.
 
-O proprietário conversa com um ponto de entrada (WhatsApp com a Maria). A operação distribui. Você não vira gerente de cinco anúncios conflitantes.
+O proprietário conversa com um ponto de entrada (WhatsApp da Uniplace). A operação distribui. Você não vira gerente de cinco anúncios conflitantes.
 
 ## O problema dos anúncios duplicados
 
@@ -98,11 +98,11 @@ Proprietário ansioso que altera preço em um portal e esquece os outros recria 
 
 ## Na Uniplace
 
-Anunciar na Uniplace parte do princípio "um cadastro, vários canais". A Maria recebe o primeiro contato no WhatsApp. Roberto Fonseca é o sócio público; a captação e as visitas seguem com a corretores associados. O objetivo é sua unidade aparecer com coerência no site e nos canais parceiros, sem você virar central telefônica de versões conflitantes.
+Anunciar na Uniplace parte do princípio "um cadastro, vários canais". A Uniplace recebe o primeiro contato no WhatsApp. Roberto Fonseca é o sócio público; a captação e as visitas seguem com a corretores associados. O objetivo é sua unidade aparecer com coerência no site e nos canais parceiros, sem você virar central telefônica de versões conflitantes.
 
 ## Quer organizar o anúncio sem espalhar cadastro?
 
-Se o imóvel está em BH, Nova Lima ou Contagem e você quer divulgação ampla com controle, comece pelo [fluxo de anunciar](/anunciar) e fale com a Maria no WhatsApp. Cadastro único primeiro. Canais depois. Assim lead e visita param de se perder no caminho.
+Se o imóvel está em BH, Nova Lima ou Contagem e você quer divulgação ampla com controle, comece pelo [fluxo de anunciar](/anunciar) e fale no WhatsApp da Uniplace. Cadastro único primeiro. Canais depois. Assim lead e visita param de se perder no caminho.
 
 ## FAQ
 

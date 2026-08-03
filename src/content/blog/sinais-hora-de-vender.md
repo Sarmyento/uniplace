@@ -70,11 +70,11 @@ Vender não é falha de gestão. Às vezes é escolha de qualidade de vida.
 
 ## Na Uniplace
 
-A Uniplace existe para reunir venda, avaliação e anúncio em um só lugar. Roberto Fonseca é a face pública da sociedade; o atendimento de visitas e captação passa pela corretores associados. A Maria recebe você no WhatsApp, entende o momento e encaminha o fluxo. Sem drama de urgência falsa. Com clareza de processo.
+A Uniplace existe para reunir venda, avaliação e anúncio em um só lugar. Roberto Fonseca é a face pública da sociedade; o atendimento de visitas e captação passa pela corretores associados. A Uniplace recebe você no WhatsApp, entende o momento e encaminha o fluxo. Sem drama de urgência falsa. Com clareza de processo.
 
 ## Quer conversar sobre anunciar?
 
-Se vários sinais acima soaram familiares, o próximo passo pode ser simples: [conhecer como anunciar na Uniplace](/anunciar) e falar com a Maria no WhatsApp. Assim você organiza cadastro único, canais e expectativa de mercado sem transformar a decisão em novela.
+Se vários sinais acima soaram familiares, o próximo passo pode ser simples: [conhecer como anunciar na Uniplace](/anunciar) e falar no WhatsApp da Uniplace. Assim você organiza cadastro único, canais e expectativa de mercado sem transformar a decisão em novela.
 
 ## FAQ
 

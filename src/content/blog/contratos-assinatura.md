@@ -73,7 +73,7 @@ Na hora de assinar, a imobiliária:
 - valida se anexos e condições batem com o combinado
 - orienta o próximo passo (ITBI, cartório, banco, entrega de chaves)
 
-Quando a dúvida é jurídica complexa, o caminho correto é análise humana especializada. A Maria no WhatsApp não substitui parecer jurídico. Ela (e a operação) organizam e encaminham.
+Quando a dúvida é jurídica complexa, o caminho correto é análise humana especializada. A Uniplace no WhatsApp não substitui parecer jurídico. Ela (e a operação) organizam e encaminham.
 
 ## O que a imobiliária NÃO resolve sozinha
 
@@ -107,7 +107,7 @@ Quanto mais cedo isso estiver organizado, menos a assinatura vira correria.
 
 ## Fluxo resumido (dos dois lados)
 
-1. Interesse e visita (Maria → corretores associados)  
+1. Interesse e visita (WhatsApp → corretores associados)  
 2. Proposta e aceitação  
 3. Checklist documental e diligência  
 4. Instrumento contratual adequado  
@@ -140,9 +140,9 @@ Seu foco é garantir que a documentação do imóvel e a sua capacidade de trans
 
 A corretores associados e a operação Uniplace mantêm o fio: você não precisa coordenar sozinho cinco contatos soltos no WhatsApp.
 
-## Como a Maria e os corretores associados entram nesse momento
+## Como o receptivo e os corretores associados entram nesse momento
 
-A Maria continua útil para tirar dúvida operacional rápida e encaminhar. Assinatura e análise documental fina passam para a equipe humana da imobiliária e, quando necessário, para especialistas. Isso evita misturar receptivo com parecer jurídico.
+O atendimento continua útil para tirar dúvida operacional rápida e encaminhar. Assinatura e análise documental fina passam para a equipe humana da imobiliária e, quando necessário, para especialistas. Isso evita misturar receptivo com parecer jurídico.
 
 Roberto Fonseca, como sócio público, dá face institucional ao processo. A execução no dia a dia fica com os corretores associados. O comprador e o vendedor sentem continuidade: mesma marca, mesmos critérios de clareza, sem sumiço entre a visita e o papel.
 

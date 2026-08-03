@@ -10,12 +10,14 @@ const { listing } = Astro.props;
 const href = `/imoveis/${listing.slug}`;
 const address = formatListingAddress(listing);
 
-const specs = [
-  { icon: '/icons/3d/bed.webp', value: listing.bedrooms, label: 'quartos', show: listing.bedrooms > 0 },
-  { icon: '/icons/3d/suite.webp', value: listing.suites, label: 'suítes', show: listing.suites > 0 },
-  { icon: '/icons/3d/area.webp', value: listing.area ? `${listing.area}` : '', label: 'm²', show: listing.area > 0 },
-  { icon: '/icons/3d/garage.webp', value: listing.parking, label: 'vagas', show: listing.parking > 0 },
-].filter((s) => s.show);
+const meta = [
+  listing.bedrooms ? `${listing.bedrooms} quartos` : '',
+  listing.suites ? `${listing.suites} suítes` : '',
+  listing.area ? `${listing.area} m²` : '',
+  listing.parking ? `${listing.parking} vagas` : '',
+]
+  .filter(Boolean)
+  .join(' · ');
 ---
 
 <article class="listing-card card-hover">
@@ -37,24 +39,11 @@ const specs = [
         )
       }
       {listing.type && <span class="listing-card__type">{listing.type}</span>}
-      {
-        specs.length > 0 && (
-          <ul class="listing-card__specs" aria-label="Características">
-            {specs.map((spec) => (
-              <li>
-                <img src={spec.icon} alt="" width="28" height="28" loading="lazy" decoding="async" />
-                <span>
-                  <strong>{spec.value}</strong> {spec.label}
-                </span>
-              </li>
-            ))}
-          </ul>
-        )
-      }
     </div>
     <div class="listing-card__body">
       <p class="listing-card__location">{address || `${listing.neighborhood}, ${listing.city}`}</p>
       <h3 class="listing-card__title">{listing.title}</h3>
+      {meta && <p class="listing-card__meta">{meta}</p>}
       <p class="listing-card__price">{listing.price}</p>
     </div>
   </a>
@@ -109,41 +98,6 @@ const specs = [
     border-radius: var(--radius-sm);
   }
 
-  .listing-card__specs {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem 0.75rem;
-    list-style: none;
-    margin: 0;
-    padding: 0.65rem 0.75rem;
-    background: linear-gradient(180deg, transparent, rgb(45 45 45 / 0.72));
-    color: #fff;
-  }
-
-  .listing-card__specs li {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.72rem;
-    letter-spacing: 0.02em;
-  }
-
-  .listing-card__specs img {
-    width: 1.35rem;
-    height: 1.35rem;
-    object-fit: contain;
-    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.35));
-  }
-
-  .listing-card__specs strong {
-    font-weight: 600;
-  }
-
   .listing-card__body {
     padding: 1rem 1.1rem 1.15rem;
   }
@@ -159,9 +113,15 @@ const specs = [
   .listing-card__title {
     font-size: 1.15rem;
     font-weight: 400;
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.4rem;
     color: var(--color-neutral-900);
     line-height: 1.35;
+  }
+
+  .listing-card__meta {
+    color: var(--color-neutral-500);
+    font-size: 0.9rem;
+    margin: 0 0 0.55rem;
   }
 
   .listing-card__price {

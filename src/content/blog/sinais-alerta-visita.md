@@ -101,11 +101,11 @@ Se restar dúvida técnica, peça complemento antes de se apaixonar pelo acabame
 
 ## Na Uniplace
 
-Na Uniplace, a visita acontece com corretor associado. A Maria organiza o primeiro contato no WhatsApp, entende o que você busca e encaminha. Roberto Fonseca aparece como sócio público da operação; o atendimento no imóvel fica com o corretor associado. O objetivo é você olhar com calma, fazer as perguntas certas e avançar só quando a ficha e a visita conversarem.
+Na Uniplace, a visita acontece com corretor associado. A Uniplace organiza o primeiro contato no WhatsApp, entende o que você busca e encaminha. Roberto Fonseca aparece como sócio público da operação; o atendimento no imóvel fica com o corretor associado. O objetivo é você olhar com calma, fazer as perguntas certas e avançar só quando a ficha e a visita conversarem.
 
 ## Quer agendar uma visita com esse olhar?
 
-Se você já tem imóveis em mente em BH, Nova Lima ou Contagem, chame a Maria no WhatsApp e peça para agendar visita com corretor associado. Leve este checklist. Compare sem pressa. E quando quiser explorar opções, veja também a [carteira de imóveis](/imoveis).
+Se você já tem imóveis em mente em BH, Nova Lima ou Contagem, chame a Uniplace no WhatsApp e peça para agendar visita com corretor associado. Leve este checklist. Compare sem pressa. E quando quiser explorar opções, veja também a [carteira de imóveis](/imoveis).
 
 ## FAQ
 

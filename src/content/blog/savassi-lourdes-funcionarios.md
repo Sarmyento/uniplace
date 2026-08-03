@@ -114,7 +114,7 @@ Se dois bairros empatam, a visita em horários diferentes desempata mais do que 
 
 ## Na Uniplace
 
-Na Uniplace, bairro e imóvel caminham juntos: você lê o território, vê o catálogo e agenda visita com corretor associado. A Maria no WhatsApp organiza o primeiro contato; Roberto Fonseca e a imobiliária sustentam o processo de compra com diligência e contratos. Tudo em um só lugar, para Savassi, Lourdes ou Funcionários deixarem de ser só nomes e virarem escolha consciente.
+Na Uniplace, bairro e imóvel caminham juntos: você lê o território, vê o catálogo e agenda visita com corretor associado. A Uniplace no WhatsApp organiza o primeiro contato; Roberto Fonseca e a imobiliária sustentam o processo de compra com diligência e contratos. Tudo em um só lugar, para Savassi, Lourdes ou Funcionários deixarem de ser só nomes e virarem escolha consciente.
 
 ## Próximo passo
 

@@ -1,6 +1,6 @@
 ---
 title: "Do WhatsApp ao anúncio no ar: jornada do vendedor com a Uniplace"
-description: "Passo a passo do Fluxo B: do 'quero anunciar' no WhatsApp com a Maria até o cadastro único no site Uniplace, Quinto Andar e corretores associados."
+description: "Passo a passo do Fluxo B: do 'quero anunciar' no WhatsApp da Uniplace até o cadastro único no site Uniplace, Quinto Andar e corretores associados."
 slug: "jornada-vendedor-uniplace"
 pubDate: 2026-08-22
 fase: 1
@@ -15,13 +15,13 @@ draft: false
 
 Colocar um imóvel à venda costuma travar em duas pontas: ou o proprietário se perde em vários cadastros, ou anuncia em um canal só e espera o telefone tocar. A Uniplace existe para centralizar isso.
 
-A jornada do vendedor começa, na maioria das vezes, no WhatsApp. Você escreve que quer anunciar (ou avaliar). A Maria reconhece o Fluxo B, explica o modelo em poucas linhas e encaminha a visita de captação. Depois, o cadastro único coloca o imóvel no ar em mais de um canal, sem você virar operador de portal.
+A jornada do vendedor começa, na maioria das vezes, no WhatsApp. Você escreve que quer anunciar (ou avaliar). A Uniplace reconhece o Fluxo B, explica o modelo em poucas linhas e encaminha a visita de captação. Depois, o cadastro único coloca o imóvel no ar em mais de um canal, sem você virar operador de portal.
 
 Este post descreve o caminho completo: do primeiro contato ao anúncio publicado, com o que acontece em cada etapa e o que não prometemos.
 
 ## Etapa 1: WhatsApp e o Fluxo B
 
-No receptivo, a Maria classifica o contato. Se você é proprietário e quer vender, anunciar ou avaliar, entra o **Fluxo B**.
+No receptivo, a Uniplace classifica o contato. Se você é proprietário e quer vender, anunciar ou avaliar, entra o **Fluxo B**.
 
 O que ela costuma deixar claro logo de início:
 
@@ -73,7 +73,7 @@ A Uniplace organiza a publicação no site, no Quinto Andar (quando fizer parte 
 
 ## Etapa 4: leads, visitas de compradores e feedback
 
-Com o anúncio no ar, o jogo muda: entram interessados. A Maria e a operação fazem a triagem do que chega pelo WhatsApp e pelos canais. Visitas de compradores são feitas pelos corretores associados.
+Com o anúncio no ar, o jogo muda: entram interessados. A Uniplace e a operação fazem a triagem do que chega pelo WhatsApp e pelos canais. Visitas de compradores são feitas pelos corretores associados.
 
 O que o vendedor deve cobrar (e a Uniplace deve entregar com clareza):
 
@@ -110,7 +110,7 @@ Detalhes comerciais entram na conversa com o especialista na visita. No chat, o 
 
 ## Na Uniplace
 
-Tudo em um só lugar para quem vende: WhatsApp com a Maria (Fluxo B), visita de captação, cadastro gratuito multi-canal, corretores associados e acompanhamento até a negociação. Roberto Fonseca como face pública da imobiliária. Equipe plural na operação.
+Tudo em um só lugar para quem vende: WhatsApp da Uniplace (Fluxo B), visita de captação, cadastro gratuito multi-canal, corretores associados e acompanhamento até a negociação. Roberto Fonseca como face pública da imobiliária. Equipe plural na operação.
 
 ## Próximo passo
 
@@ -130,5 +130,5 @@ Nem sempre. Arrumação básica e boas fotos já mudam a percepção. Reforma s�
 
 ### Posso enviar fotos e matrícula pelo WhatsApp?
 
-Sim. A Maria pode receber e anexar para a análise na visita. Avaliação técnica fina e precificação séria acontecem com visita e contexto de mercado, não só por chat.
+Sim. A Uniplace pode receber e anexar para a análise na visita. Avaliação técnica fina e precificação séria acontecem com visita e contexto de mercado, não só por chat.
 

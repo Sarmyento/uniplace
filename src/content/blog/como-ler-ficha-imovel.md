@@ -25,7 +25,7 @@ Armadilha de anúncio raramente é fraude cinematográfica. É omissão, ambigui
 4. Em que estado está (novo, reformado, para reformar)
 5. Se encaixa no seu financiamento / forma de pagamento
 
-Se faltar um desses pontos, a primeira mensagem à Maria (ou ao corretor) já pode pedir o complemento.
+Se faltar um desses pontos, a primeira mensagem à Uniplace (ou ao corretor) já pode pedir o complemento.
 
 ## Metragem: privativa, total e "área" sem sobrenome
 
@@ -109,7 +109,7 @@ No site Uniplace, as fichas vêm do catálogo alimentado pelo CRM, com a propost
 
 ## Na Uniplace
 
-Na Uniplace, ler a ficha é o começo de um caminho contínuo: você escolhe imóveis, tira dúvidas com a Maria no WhatsApp e visita com corretor associado. Roberto Fonseca e a estrutura da imobiliária acompanham compra com diligência e contratos. Tudo em um só lugar, para a ficha virar decisão informada, não só clique.
+Na Uniplace, ler a ficha é o começo de um caminho contínuo: você escolhe imóveis, tira dúvidas no WhatsApp da Uniplace e visita com corretor associado. Roberto Fonseca e a estrutura da imobiliária acompanham compra com diligência e contratos. Tudo em um só lugar, para a ficha virar decisão informada, não só clique.
 
 ## Próximo passo
 

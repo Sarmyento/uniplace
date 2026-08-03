@@ -80,7 +80,7 @@ Em prédios de Lourdes ou Savassi, a primeira impressão do hall e a organizaç�
 
 O fluxo saudável para o vendedor costuma ser:
 
-1. Contato inicial (WhatsApp com a Maria ou formulário em Anunciar)
+1. Contato inicial (WhatsApp da Uniplace ou formulário em Anunciar)
 2. Conversa sobre o imóvel e expectativa
 3. Avaliação / visita de captação com corretor associado
 4. Cadastro único para anúncio multi-canal
@@ -90,7 +90,7 @@ Assim, preço e estratégia nascem antes do anúncio "queimar" atenção.
 
 ## Na Uniplace
 
-Na Uniplace, avaliar antes de vender faz parte do mesmo lugar em que você anuncia e acompanha a venda. Um cadastro. Vários canais. Roberto Fonseca e a corretores associados leem o mercado local; a Maria organiza o primeiro contato. Avaliação, anúncio, diligência e contratos ficam conectados, com tom claro e sem pressão de promessa irreal.
+Na Uniplace, avaliar antes de vender faz parte do mesmo lugar em que você anuncia e acompanha a venda. Um cadastro. Vários canais. Roberto Fonseca e a corretores associados leem o mercado local; a Uniplace organiza o primeiro contato. Avaliação, anúncio, diligência e contratos ficam conectados, com tom claro e sem pressão de promessa irreal.
 
 ## Próximo passo
 

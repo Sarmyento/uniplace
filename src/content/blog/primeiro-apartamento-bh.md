@@ -97,7 +97,7 @@ Tire fotos e anote. Depois de três visitas, a memória mistura tudo.
 
 ## Na Uniplace
 
-A Uniplace reúne compra, visita com corretor associado e, se fizer sentido no caminho, avaliação e diligência no mesmo ecossistema. Roberto Fonseca é o sócio público; o atendimento de campo passa pelos corretores associados. O primeiro contato no WhatsApp é com a Maria.
+A Uniplace reúne compra, visita com corretor associado e, se fizer sentido no caminho, avaliação e diligência no mesmo ecossistema. Roberto Fonseca é o sócio público; o atendimento de campo passa pelos corretores associados. O primeiro contato no WhatsApp é com a Uniplace.
 
 Quando quiser ver opções reais, abra /imoveis, filtre pela região que cabe na sua rotina e fale no WhatsApp para agendar visita. Sem pressa artificial: o primeiro apartamento pede clareza, não pressa.
 
@@ -113,5 +113,5 @@ Vale se a rotina e o orçamento pedirem. Compare tempo de deslocamento e custo d
 
 ### Como agendo visita com a Uniplace?
 
-Pelo WhatsApp, com a Maria, a partir do interesse em um imóvel ou bairro. A equipe encaminha um corretor associado.
+Pelo WhatsApp, com a Uniplace, a partir do interesse em um imóvel ou bairro. A equipe encaminha um corretor associado.
 

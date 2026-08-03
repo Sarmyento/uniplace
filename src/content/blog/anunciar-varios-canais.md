@@ -106,7 +106,7 @@ Resposta clara aqui vale mais do que discurso genérico de máxima exposição.
 
 ## Na Uniplace
 
-A Uniplace existe para o proprietário que quer vários canais sem espalhar o cadastro: site, Quinto Andar e corretores associados a partir de um registro só. A Maria recebe o primeiro WhatsApp; a equipe conduz a captação com os corretores associados; Roberto Fonseca é a face pública da imobiliária.
+A Uniplace existe para o proprietário que quer vários canais sem espalhar o cadastro: site, Quinto Andar e corretores associados a partir de um registro só. A Uniplace recebe o primeiro WhatsApp; a equipe conduz a captação com os corretores associados; Roberto Fonseca é a face pública da imobiliária.
 
 Se você quer anunciar com essa lógica, comece em /anunciar e diga no WhatsApp: Quero anunciar meu imóvel. Menos abas abertas, mais controle do que está no ar.
 

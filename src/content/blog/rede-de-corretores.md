@@ -1,6 +1,6 @@
 ---
 title: "Corretores associados: o que muda versus um corretor só"
-description: "Por que a Uniplace atende com corretores associados, o papel do Roberto Fonseca e da Maria no WhatsApp, e o que isso muda na visita e na venda."
+description: "Por que a Uniplace atende com corretores associados, o papel do Roberto Fonseca e da Uniplace no WhatsApp, e o que isso muda na visita e na venda."
 slug: "rede-de-corretores"
 pubDate: 2026-08-23
 fase: 1
@@ -15,7 +15,7 @@ draft: false
 
 Quando alguém digita "imobiliária em BH" ou "corretor em Nova Lima", a imagem mental ainda é, muitas vezes, um profissional único com agenda lotada e um celular que não para. Funciona em alguns casos. Em outros, vira gargalo: visita que não encaixa, lead que esfria, proprietário sem retorno.
 
-A Uniplace escolheu outro desenho. Somos **imobiliária** com face pública clara (Roberto Fonseca como sócio) e **corretores associados** (sem exclusividade). A Maria organiza o primeiro contato no WhatsApp. A visita e o acompanhamento seguem com um corretor associado.
+A Uniplace escolheu outro desenho. Somos **imobiliária** com face pública clara (Roberto Fonseca como sócio) e **corretores associados** (sem exclusividade). A Uniplace organiza o primeiro contato no WhatsApp. A visita e o acompanhamento seguem com um corretor associado.
 
 Este texto explica o que muda na prática para quem compra e para quem vende.
 
@@ -36,7 +36,7 @@ Na Uniplace, corretores associados significa:
 
 - profissionais vinculados à imobiliária, sob o mesmo padrão de acolhimento e clareza
 - cobertura de visitas em BH, Nova Lima e Contagem com mais flexibilidade de agenda
-- encaminhamento a partir do receptivo (Maria), sem você precisar caçar contato em grupo de WhatsApp
+- encaminhamento a partir do receptivo (receptivo), sem você precisar caçar contato em grupo de WhatsApp
 - sócio público identificável (Roberto), sem fingir que ele é o único agente da operação
 
 Não inventamos time de "elite agents" com foto de banco de imagens. Quando houver autorização nominal de associados, citamos com cuidado. Até lá, a mensagem é genérica e honesta: contamos com corretores associados na região.
@@ -44,7 +44,7 @@ Não inventamos time de "elite agents" com foto de banco de imagens. Quando houv
 ## O que muda para o comprador
 
 1. **Primeiro contato sem fricção**  
-   Você manda interesse no WhatsApp. A Maria identifica o imóvel ou a preferência e encaminha.
+   Você manda interesse no WhatsApp. A Uniplace identifica o imóvel ou a preferência e encaminha.
 
 2. **Visita com quem está disponível entre os associados**  
    O objetivo é marcar horário concreto, não esperar "quando o único corretor puder".
@@ -93,7 +93,7 @@ A tagline que resume o espírito: tudo em um só lugar. Compra, venda, avaliaç�
 
 ## Na Uniplace
 
-Acolhedora, clara, confiável. WhatsApp com a Maria. Visitas com corretor associado. Roberto como sócio público. Sem tom de embaixada internacional. Sem pressa inventada. Com processo que cabe na vida real de quem compra e de quem vende em BH e região.
+Acolhedora, clara, confiável. WhatsApp da Uniplace. Visitas com corretor associado. Roberto como sócio público. Sem tom de embaixada internacional. Sem pressa inventada. Com processo que cabe na vida real de quem compra e de quem vende em BH e região.
 
 ## Próximo passo
 
@@ -107,9 +107,9 @@ Quer conhecer como a Uniplace se apresenta e como os corretores associados entra
 
 Não. Roberto Fonseca é o sócio apresentado publicamente e atua na operação. Visitas e atendimento contam com corretores associados.
 
-### A Maria é corretora?
+### O receptivo é corretor?
 
-A Maria é o receptivo no WhatsApp. Ela organiza o primeiro contato e o encaminhamento. A visita em si é com corretor associado.
+O WhatsApp é o receptivo no WhatsApp. Ela organiza o primeiro contato e o encaminhamento. A visita em si é com corretor associado.
 
 ### Associados atrasam a resposta?
 

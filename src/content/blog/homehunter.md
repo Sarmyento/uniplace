@@ -61,7 +61,7 @@ Uma boa conversa de homehunter cobre:
 
 Exemplo de preferência bem dita (sem número de endereço): "Apartamento em Lourdes ou Savassi, perto da Rua da Bahia, 3 quartos, 2 vagas, para morar."
 
-Com isso, a operação filtra. A Maria no WhatsApp pode abrir o contato e encaminhar. A busca e as visitas seguem com a corretores associados. Roberto Fonseca é a face pública da imobiliária; a execução é com corretores associados.
+Com isso, a operação filtra. A Uniplace no WhatsApp pode abrir o contato e encaminhar. A busca e as visitas seguem com a corretores associados. Roberto Fonseca é a face pública da imobiliária; a execução é com corretores associados.
 
 ## Homehunter versus "fica me mandando tudo"
 
@@ -101,7 +101,7 @@ Acolhedora, clara, confiável. Sem pressão de fechamento no primeiro "oi". Sem 
 
 ## Próximo passo
 
-Se faz sentido alguém buscar com você, chame no WhatsApp e diga: bairros, tipologias e faixa. A Maria abre o contato e a operação segue com corretor associado.
+Se faz sentido alguém buscar com você, chame no WhatsApp e diga: bairros, tipologias e faixa. A Uniplace abre o contato e a operação segue com corretor associado.
 
 [Falar no WhatsApp sobre homehunter](https://wa.me/?text=Quero%20ajuda%20de%20homehunter%20%7C%20utm_content%3Dblog-homehunter)
 

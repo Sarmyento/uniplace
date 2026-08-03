@@ -79,11 +79,11 @@ A regra continua a mesma: honestidade visual. Ampliar sala com lente agressiva g
 
 ## Na Uniplace
 
-Quando você anuncia com a Uniplace, o cadastro único organiza a entrada do imóvel no site, no Quinto Andar e na corretores associados. A Maria recebe o primeiro contato no WhatsApp e encaminha para o fluxo de captação. Roberto Fonseca e os corretores associados ajudam a alinhar o que precisa estar pronto antes das fotos e das visitas, sem teatralizar o imóvel e sem prometer milagre de prazo.
+Quando você anuncia com a Uniplace, o cadastro único organiza a entrada do imóvel no site, no Quinto Andar e na corretores associados. A Uniplace recebe o primeiro contato no WhatsApp e encaminha para o fluxo de captação. Roberto Fonseca e os corretores associados ajudam a alinhar o que precisa estar pronto antes das fotos e das visitas, sem teatralizar o imóvel e sem prometer milagre de prazo.
 
 ## Pronto para anunciar com o imóvel apresentável?
 
-Se o seu apartamento em BH, Nova Lima ou Contagem já está (ou pode ficar) pronto para fotos, o próximo passo é cadastrar com clareza. [Anuncie na Uniplace](/anunciar) e fale com a Maria no WhatsApp para iniciar o cadastro único. Assim o imóvel chega aos canais certos com apresentação coerente desde o primeiro clique.
+Se o seu apartamento em BH, Nova Lima ou Contagem já está (ou pode ficar) pronto para fotos, o próximo passo é cadastrar com clareza. [Anuncie na Uniplace](/anunciar) e fale no WhatsApp da Uniplace para iniciar o cadastro único. Assim o imóvel chega aos canais certos com apresentação coerente desde o primeiro clique.
 
 ## FAQ
 

@@ -125,11 +125,11 @@ Tire fotos (com permissão) das plantas, do quadro de luz, de detalhes que quise
 
 ## Na Uniplace
 
-Na Uniplace, a visita faz parte de um fluxo contínuo: você encontra imóveis, fala com a Maria no WhatsApp e é atendido por um corretor associado. Roberto Fonseca e a equipe organizam compra com acompanhamento local em BH, Nova Lima e Contagem. Tudo em um só lugar: busca, visita, diligência e contratos, sem você precisar recomeçar a história a cada contato.
+Na Uniplace, a visita faz parte de um fluxo contínuo: você encontra imóveis, fala no WhatsApp da Uniplace e é atendido por um corretor associado. Roberto Fonseca e a equipe organizam compra com acompanhamento local em BH, Nova Lima e Contagem. Tudo em um só lugar: busca, visita, diligência e contratos, sem você precisar recomeçar a história a cada contato.
 
 ## Próximo passo
 
-Quer visitar com checklist e alguém que conhece o bairro? Chame no WhatsApp, diga os bairros e o que é inegociável para você. A Maria recebe e encaminha para agendar visita com um corretor associado da Uniplace.
+Quer visitar com checklist e alguém que conhece o bairro? Chame no WhatsApp, diga os bairros e o que é inegociável para você. A Uniplace recebe e encaminha para agendar visita com um corretor associado da Uniplace.
 
 **CTA:** Agende sua visita pelo WhatsApp.
 

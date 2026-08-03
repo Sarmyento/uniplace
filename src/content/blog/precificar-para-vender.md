@@ -105,11 +105,11 @@ Na Uniplace, a avaliação entra no mesmo ecossistema de venda: cadastro, anúnc
 
 ## Na Uniplace
 
-Na Uniplace, precificar faz parte do processo de vender com clareza. Roberto Fonseca e a corretores associados ajudam a ler o mercado de BH, Nova Lima e Contagem; a Maria no WhatsApp organiza o primeiro contato para avaliação. Tudo em um só lugar: avaliação, anúncio, diligência e acompanhamento, sem dispersar o cadastro em vários canais soltos.
+Na Uniplace, precificar faz parte do processo de vender com clareza. Roberto Fonseca e a corretores associados ajudam a ler o mercado de BH, Nova Lima e Contagem; a Uniplace no WhatsApp organiza o primeiro contato para avaliação. Tudo em um só lugar: avaliação, anúncio, diligência e acompanhamento, sem dispersar o cadastro em vários canais soltos.
 
 ## Próximo passo
 
-Se você está prestes a anunciar (ou já anunciou e as visitas não vêm), peça uma avaliação pelo WhatsApp. Conte o bairro, a tipologia e o que já tentou no preço. A Maria recebe e encaminha para o fluxo de avaliação com a equipe Uniplace.
+Se você está prestes a anunciar (ou já anunciou e as visitas não vêm), peça uma avaliação pelo WhatsApp. Conte o bairro, a tipologia e o que já tentou no preço. A Uniplace recebe e encaminha para o fluxo de avaliação com a equipe Uniplace.
 
 **CTA:** Fale no WhatsApp e solicite uma avaliação do seu imóvel.
 

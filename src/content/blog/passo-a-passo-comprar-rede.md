@@ -15,13 +15,13 @@ draft: false
 
 Muita gente em Belo Horizonte começa a busca sozinha no celular e só chama um corretor quando já está perdida entre dez anúncios parecidos. O caminho inverso costuma ser mais leve: alinhar o perfil cedo, visitar com acompanhamento e avançar documentação com alguém que conhece o processo local.
 
-Na Uniplace, a compra não depende de um profissional único. Você fala no WhatsApp com a Maria, vê imóveis no site e agenda visita com corretor associado. Roberto Fonseca é o sócio público da imobiliária; a operação de visitas e acompanhamento fica com os corretores associados.
+Na Uniplace, a compra não depende de um profissional único. Você fala no WhatsApp da Uniplace, vê imóveis no site e agenda visita com corretor associado. Roberto Fonseca é o sócio público da imobiliária; a operação de visitas e acompanhamento fica com os corretores associados.
 
 Este guia descreve o passo a passo realista, do primeiro contato à proposta, sem prometer prazo de fechamento nem o imóvel ideal garantido.
 
 ## Visão geral da jornada
 
-1. WhatsApp (Maria) ou navegação em /imoveis
+1. WhatsApp (receptivo) ou navegação em /imoveis
 2. Alinhamento de perfil e orçamento
 3. Seleção de opções e agendamento de visitas
 4. Visitas com corretor associado
@@ -33,7 +33,7 @@ Nem todo mundo percorre as etapas na mesma velocidade. O valor está em saber o 
 
 ## Passo 1: primeiro contato no WhatsApp
 
-A Maria é a porta de entrada. Mensagem clara acelera o atendimento:
+A Uniplace é a porta de entrada. Mensagem clara acelera o atendimento:
 
 - Bairro ou região (ex.: Savassi, Lourdes, Contagem)
 - Tipo (apartamento, cobertura, área privativa)
@@ -122,15 +122,15 @@ A Uniplace também atua com avaliação, diligência, homehunter e contratos qua
 | Cobertura de agenda | Depende de uma agenda só | Mais flexibilidade entre parceiros |
 | Carteira | Limitada ao que aquela pessoa capta | Site + canais + associados |
 | Continuidade | Risco de sumiço se a pessoa viaja | Fluxo com a imobiliária |
-| Entrada | Contato direto variável | WhatsApp Maria + site |
+| Entrada | Contato direto variável | WhatsApp Uniplace + site |
 
 Imobiliária com corretores associados não significa atendimento impessoal. Significa estrutura por trás do atendimento.
 
 ## Na Uniplace
 
-Comprar com a Uniplace é caminhar do WhatsApp à visita com clareza: Maria na entrada, imóveis no site, corretor associado no campo, Roberto como face pública da imobiliária. Tudo em um só lugar, no ritmo da sua decisão.
+Comprar com a Uniplace é caminhar do WhatsApp à visita com clareza: Uniplace na entrada, imóveis no site, corretor associado no campo, Roberto como face pública da imobiliária. Tudo em um só lugar, no ritmo da sua decisão.
 
-Se quiser começar agora, fale no WhatsApp pedindo visita e diga bairro, faixa e o que é inegociável. Você também pode escolher um imóvel em /imoveis e chamar a Maria a partir da ficha.
+Se quiser começar agora, fale no WhatsApp pedindo visita e diga bairro, faixa e o que é inegociável. Você também pode escolher um imóvel em /imoveis e chamar a Uniplace a partir da ficha.
 
 ## FAQ
 

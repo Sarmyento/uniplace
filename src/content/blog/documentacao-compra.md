@@ -130,7 +130,7 @@ Em BH, imóveis com histórico simples e documentação em ordem fluem melhor. O
 
 ## Na Uniplace
 
-Na Uniplace, documentação e diligência entram no mesmo lugar que a busca e a visita. Você conversa com a Maria no WhatsApp, visita com corretor associado e segue o processo com acompanhamento até contratos e registro, com a face pública de Roberto Fonseca e a estrutura de imobiliária completa: compra, venda, avaliação, homehunter e contratos. Clareza no meio do caminho evita susto no cartório.
+Na Uniplace, documentação e diligência entram no mesmo lugar que a busca e a visita. Você conversa no WhatsApp da Uniplace, visita com corretor associado e segue o processo com acompanhamento até contratos e registro, com a face pública de Roberto Fonseca e a estrutura de imobiliária completa: compra, venda, avaliação, homehunter e contratos. Clareza no meio do caminho evita susto no cartório.
 
 ## Próximo passo
 

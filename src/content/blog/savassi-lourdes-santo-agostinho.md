@@ -108,13 +108,13 @@ Comece por Santo Agostinho. Se sentir falta de comércio imediato, complemente c
 
 ## Como a Uniplace ajuda sem substituir sua escolha
 
-Nas landings de bairro você aprofunda e vê imóveis. No WhatsApp, a Maria encaminha visita com corretor associado. Roberto Fonseca é o sócio público; a operação de campo fica com os corretores associados. O comparativo serve para chegar na visita com pergunta certa, não com expectativa genérica.
+Nas landings de bairro você aprofunda e vê imóveis. No WhatsApp, a Uniplace encaminha visita com corretor associado. Roberto Fonseca é o sócio público; a operação de campo fica com os corretores associados. O comparativo serve para chegar na visita com pergunta certa, não com expectativa genérica.
 
 ## Na Uniplace
 
 Se Savassi, Lourdes ou Santo Agostinho estão na sua lista, use as páginas de bairro para explorar e chame no WhatsApp para agendar visita. A Uniplace concentra compra, corretores associados e acompanhamento em um só lugar, no ritmo da sua decisão.
 
-Próximo passo sugerido: abra /bairros/savassi, /bairros/lourdes ou /bairros/santo-agostinho, escolha duas fichas e fale com a Maria pedindo visita. Se ainda estiver em dúvida entre os três, diga isso na primeira mensagem: o corretor associado monta um roteiro curto e honesto.
+Próximo passo sugerido: abra /bairros/savassi, /bairros/lourdes ou /bairros/santo-agostinho, escolha duas fichas e fale com a Uniplace pedindo visita. Se ainda estiver em dúvida entre os três, diga isso na primeira mensagem: o corretor associado monta um roteiro curto e honesto.
 
 ## FAQ
 

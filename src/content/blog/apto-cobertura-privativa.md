@@ -90,11 +90,11 @@ Família com crianças pode amar garden. Quem viaja muito pode preferir apartame
 
 ## Na Uniplace
 
-A Uniplace reúne tipologias residenciais (apartamento, cobertura e unidades com área privativa) em um só lugar, com fichas da carteira e visitas com corretores associados. A Maria te atende no WhatsApp, entende o perfil e encaminha. Roberto Fonseca é o sócio apresentado publicamente; a equipe de campo são os corretores associados. O foco é ajudar você a escolher com clareza, não com glamour vazio.
+A Uniplace reúne tipologias residenciais (apartamento, cobertura e unidades com área privativa) em um só lugar, com fichas da carteira e visitas com corretores associados. A Uniplace te atende no WhatsApp, entende o perfil e encaminha. Roberto Fonseca é o sócio apresentado publicamente; a equipe de campo são os corretores associados. O foco é ajudar você a escolher com clareza, não com glamour vazio.
 
 ## Quer ver opções reais por tipologia?
 
-Explore os [imóveis à venda](/imoveis) e filtre pelo que combina com sua rotina. Se quiser ajuda para separar desejo de uso real, fale com a Maria no WhatsApp e peça indicação de visitas com corretor associado em BH, Nova Lima ou Contagem.
+Explore os [imóveis à venda](/imoveis) e filtre pelo que combina com sua rotina. Se quiser ajuda para separar desejo de uso real, fale no WhatsApp da Uniplace e peça indicação de visitas com corretor associado em BH, Nova Lima ou Contagem.
 
 ## FAQ
 

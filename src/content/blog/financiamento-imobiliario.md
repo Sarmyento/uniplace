@@ -111,7 +111,7 @@ A Uniplace não substitui o banco. O papel da imobiliária é ajudar você a:
 - Avançar documentação e contratos no momento certo
 - Acionar diligência quando o caso pedir mais cuidado
 
-A Maria recebe o primeiro contato no WhatsApp. Roberto Fonseca é o sócio público. A conversa de crédito acontece com transparência: sem promessa de aprovação e sem pressa artificial.
+A Uniplace recebe o primeiro contato no WhatsApp. Roberto Fonseca é o sócio público. A conversa de crédito acontece com transparência: sem promessa de aprovação e sem pressa artificial.
 
 ## Erros comuns em BH (e como evitar)
 
@@ -125,7 +125,7 @@ A Maria recebe o primeiro contato no WhatsApp. Roberto Fonseca é o sócio públ
 
 Se você está montando o cenário de financiamento e quer conversar com alguém que conhece o fluxo local de compra, fale com a Uniplace. Compra, visita, documentação e contratos ficam no mesmo ecossistema; o banco continua sendo o banco.
 
-Comece por /contato ou chame no WhatsApp com a Maria: diga se já tem simulação, qual a faixa e se a busca é BH, Nova Lima ou Contagem. Assim o próximo passo (filtro de imóveis ou visita) nasce do bolso real, não da ansiedade do anúncio.
+Comece por /contato ou chame no WhatsApp da Uniplace: diga se já tem simulação, qual a faixa e se a busca é BH, Nova Lima ou Contagem. Assim o próximo passo (filtro de imóveis ou visita) nasce do bolso real, não da ansiedade do anúncio.
 
 ## FAQ
 

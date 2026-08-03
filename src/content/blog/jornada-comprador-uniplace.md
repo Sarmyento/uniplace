@@ -1,6 +1,6 @@
 ---
 title: "Do WhatsApp à chave: jornada do comprador com a Uniplace"
-description: "Como funciona a compra com a Uniplace, do primeiro contato com a Maria no WhatsApp até a visita com a corretores associados e a entrega das chaves."
+description: "Como funciona a compra com a Uniplace, do primeiro contato no WhatsApp da Uniplace até a visita com a corretores associados e a entrega das chaves."
 slug: "jornada-comprador-uniplace"
 pubDate: 2026-08-20
 fase: 1
@@ -15,13 +15,13 @@ draft: false
 
 Comprar imóvel em Belo Horizonte, Nova Lima ou Contagem raramente começa com uma escritura. Começa com uma dúvida, um anúncio salvo no celular e a vontade de falar com alguém que organize o próximo passo.
 
-Na Uniplace, esse primeiro passo costuma ser o WhatsApp. Você fala com a Maria, explica o que busca (ou manda o código do imóvel) e a conversa vira visita com um corretor associado. Sem pressão de fechamento no chat. Sem sumiço depois do "oi".
+Na Uniplace, esse primeiro passo costuma ser o WhatsApp. Você fala com a Uniplace, explica o que busca (ou manda o código do imóvel) e a conversa vira visita com um corretor associado. Sem pressão de fechamento no chat. Sem sumiço depois do "oi".
 
 Este guia mostra a jornada completa do comprador: do primeiro "tenho interesse" até a chave na mão, com o que acontece em cada etapa e o que você pode esperar de nós.
 
-## O ponto de partida: WhatsApp com a Maria
+## O ponto de partida: WhatsApp da Uniplace
 
-A Maria é o receptivo da Uniplace. Ela não substitui o corretor na visita. Ela organiza o começo para você não ficar perdido entre portais, prints e mensagens sem resposta.
+O WhatsApp é o receptivo da Uniplace. Ela não substitui o corretor na visita. Ela organiza o começo para você não ficar perdido entre portais, prints e mensagens sem resposta.
 
 No primeiro contato, o ideal é trazer o essencial:
 
@@ -30,7 +30,7 @@ No primeiro contato, o ideal é trazer o essencial:
 - se a busca é para morar ou investir
 - se você já está decidido a comprar ou ainda pesquisando
 
-Se ainda não tiver um imóvel escolhido, também funciona. Diga faixa de valor, número de quartos e os bairros que fazem sentido (Savassi, Lourdes, Belvedere, Vila da Serra, Contagem, e assim por diante). A Maria registra a preferência e encaminha para um corretor associado.
+Se ainda não tiver um imóvel escolhido, também funciona. Diga faixa de valor, número de quartos e os bairros que fazem sentido (Savassi, Lourdes, Belvedere, Vila da Serra, Contagem, e assim por diante). A Uniplace registra a preferência e encaminha para um corretor associado.
 
 O objetivo do chat não é negociar preço por mensagem. É chegar em uma visita concreta, com dia e horário alinhados.
 
@@ -95,11 +95,11 @@ Para evitar frustração, vale deixar explícito:
 
 ## Na Uniplace
 
-Tudo em um só lugar: imóveis à venda no site, WhatsApp com a Maria, visita com a corretores associados, e acompanhamento até a documentação. Você começa pelo interesse. Nós organizamos o caminho até a visita (e, se fizer sentido, até a chave).
+Tudo em um só lugar: imóveis à venda no site, WhatsApp da Uniplace, visita com a corretores associados, e acompanhamento até a documentação. Você começa pelo interesse. Nós organizamos o caminho até a visita (e, se fizer sentido, até a chave).
 
 ## Próximo passo
 
-Quer marcar uma visita ou mandar o código do imóvel que viu? Fale no WhatsApp com a Uniplace e diga o bairro ou o anúncio. A Maria direciona para um corretor associado e você sai do "salvo no celular" para um horário concreto.
+Quer marcar uma visita ou mandar o código do imóvel que viu? Fale no WhatsApp com a Uniplace e diga o bairro ou o anúncio. A Uniplace direciona para um corretor associado e você sai do "salvo no celular" para um horário concreto.
 
 [Agendar visita no WhatsApp](https://wa.me/?text=Tenho%20interesse%20em%20visitar%20um%20im%C3%B3vel%20%7C%20utm_content%3Dblog-jornada-comprador-uniplace)
 
@@ -107,9 +107,9 @@ Enquanto isso, você também pode [ver imóveis à venda](/imoveis) e filtrar po
 
 ## FAQ
 
-### A Maria faz a visita comigo?
+### O receptivo faz a visita comigo?
 
-Não. A Maria organiza o primeiro contato e o encaminhamento. A visita é com um corretor associado da Uniplace.
+Não. A Uniplace organiza o primeiro contato e o encaminhamento. A visita é com um corretor associado da Uniplace.
 
 ### Preciso já ter um imóvel escolhido?
 

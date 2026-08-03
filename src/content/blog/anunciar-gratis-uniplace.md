@@ -41,9 +41,9 @@ A Uniplace é imobiliária com corretores associados, não um corretor só. Robe
 
 ## Passo a passo do cadastro ao anúncio
 
-### Passo 1: WhatsApp com a Maria
+### Passo 1: WhatsApp da Uniplace
 
-O primeiro contato costuma ser pelo WhatsApp. A Maria recebe a mensagem, entende se você quer anunciar e encaminha o fluxo de captação. Não precisa chegar com laudo completo: bairro, tipo do imóvel e uma ideia do momento da venda já ajudam.
+O primeiro contato costuma ser pelo WhatsApp. A Uniplace recebe a mensagem, entende se você quer anunciar e encaminha o fluxo de captação. Não precisa chegar com laudo completo: bairro, tipo do imóvel e uma ideia do momento da venda já ajudam.
 
 Exemplo de mensagem objetiva: Quero anunciar meu apartamento em Lourdes, Rua Espírito Santo.
 
@@ -92,9 +92,9 @@ O cadastro único da Uniplace existe justamente para reduzir esses atritos.
 
 ## Na Uniplace
 
-Anunciar grátis na Uniplace é o caminho do proprietário que quer um cadastro só e presença no site, no Quinto Andar e com a corretores associados. Se fizer sentido para o seu momento, comece pela página /anunciar ou fale com a Maria no WhatsApp pedindo para anunciar o imóvel.
+Anunciar grátis na Uniplace é o caminho do proprietário que quer um cadastro só e presença no site, no Quinto Andar e com a corretores associados. Se fizer sentido para o seu momento, comece pela página /anunciar ou fale no WhatsApp da Uniplace pedindo para anunciar o imóvel.
 
-Quando estiver pronto, acesse /anunciar e envie a mensagem inicial. A Maria organiza o próximo passo com a equipe da Uniplace, sem enrolação e sem promessa que o mercado não pode cumprir.
+Quando estiver pronto, acesse /anunciar e envie a mensagem inicial. A Uniplace organiza o próximo passo com a equipe da Uniplace, sem enrolação e sem promessa que o mercado não pode cumprir.
 
 ## FAQ
 

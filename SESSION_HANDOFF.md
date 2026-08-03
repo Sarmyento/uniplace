@@ -12,7 +12,7 @@ Path: `C:\Users\sarmy\Dev\Sarmy\sites-clientes\uniplace`
 
 ## Pendente
 
-- Número WhatsApp Maria real em `src/config/site.ts`
+- Número WhatsApp Uniplace real em `src/config/site.ts`
 - Secret `LISTINGS_FEED_URL` no Cloudflare Pages / CI (quando houver deploy)
 - `deploy_hook_url` no `site_feeds` (rebuild ao editar imóvel)
 - IDs GTM / Stape `v1.uniplace.com.br`

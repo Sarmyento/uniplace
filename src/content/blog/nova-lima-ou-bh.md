@@ -97,7 +97,7 @@ A Uniplace evita tom de catálogo internacional. Aqui a conversa é prática: on
 
 ## Na Uniplace
 
-Somos imobiliária em BH, Nova Lima e Contagem. No site você vê a carteira; no WhatsApp a Maria organiza o interesse; a visita fica com corretor associado. Tudo em um só lugar, do filtro inicial ao horário marcado.
+Somos imobiliária em BH, Nova Lima e Contagem. No site você vê a carteira; no WhatsApp a Uniplace organiza o interesse; a visita fica com corretor associado. Tudo em um só lugar, do filtro inicial ao horário marcado.
 
 ## Próximo passo
 

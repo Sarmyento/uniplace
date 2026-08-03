@@ -1,6 +1,6 @@
 /**
  * Configuração do site Uniplace.
- * WhatsApp Maria: confirmar número oficial antes do go-live.
+ * WhatsApp: confirmar número oficial antes do go-live.
  */
 export const site = {
   name: 'Uniplace Imóveis',
@@ -9,7 +9,7 @@ export const site = {
   domain: 'https://uniplace.com.br',
   locale: 'pt-BR',
   whatsapp: {
-    /** TODO: número oficial da Maria (E.164 sem +) */
+    /** TODO: número oficial WhatsApp Uniplace (E.164 sem +) */
     number: '5531999999999',
     message: 'Olá! Vim pelo site da Uniplace.',
   },
