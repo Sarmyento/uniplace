@@ -46,9 +46,17 @@ function parseListings(xml: string): Listing[] {
           .map((item) => item.trim())
           .filter(Boolean)
       : [];
-    const images = galleryItems.length ? galleryItems : image ? [image] : [];
+    const images = galleryItems.length
+      ? galleryItems[0] === image
+        ? galleryItems
+        : image
+          ? [image, ...galleryItems.filter((item) => item !== image)]
+          : galleryItems
+      : image
+        ? [image]
+        : [];
     const priceValue =
-      Number(getTag(block, 'priceValue')) || Number(getTag(block, 'price_value')) || 0;
+      Number(getTag(block, 'price_value')) || Number(getTag(block, 'priceValue')) || 0;
 
     return {
       id,
@@ -101,8 +109,15 @@ export function formatPrice(value: number): string {
   }).format(value);
 }
 
-/** Endereço público: bairro + rua (sem número). */
+/** Endereço público: rua (sem número) + bairro + cidade. */
 export function formatListingAddress(listing: Listing): string {
   const parts = [listing.street, listing.neighborhood, listing.city].filter(Boolean);
   return parts.join(', ');
+}
+
+/** True quando o XML ainda é o mock local (sem CRM). */
+export function isMockFeed(): boolean {
+  const listings = getListings();
+  if (!listings.length) return true;
+  return listings.every((l) => l.id.startsWith('ex-'));
 }

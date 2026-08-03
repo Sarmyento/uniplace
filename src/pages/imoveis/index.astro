@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ListingCard from '../../components/listings/ListingCard.astro';
-import { getListings } from '../../lib/listings';
+import { getListings, isMockFeed } from '../../lib/listings';
 import { site, waUrl } from '../../config/site';
 
 const listings = getListings();
-const isMock = listings.every((l) => l.id.startsWith('ex-') || l.priceValue === 0);
+const isMock = isMockFeed();
 ---
 
 <BaseLayout
