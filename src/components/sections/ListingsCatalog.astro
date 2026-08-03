@@ -821,9 +821,12 @@ const locationSeed = [
     position: absolute;
     top: 100%;
     left: 0;
-    right: 0;
+    right: auto;
     z-index: 45;
     margin-top: 2px;
+    min-width: 100%;
+    width: max-content;
+    max-width: min(18rem, 85vw);
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -834,6 +837,7 @@ const locationSeed = [
 
   .filters-form__amenities .multi-select__dropdown {
     min-width: min(20rem, 80vw);
+    width: min(20rem, 80vw);
   }
 
   .multi-select__option {
@@ -845,6 +849,7 @@ const locationSeed = [
     font-weight: 400;
     font-size: 0.82rem;
     color: var(--color-ink-soft);
+    white-space: nowrap;
   }
 
   .multi-select__option:hover {
