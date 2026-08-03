@@ -19,88 +19,112 @@ const locationSeed = [
   <div class="filters-sticky">
     <div class="container">
       <div class="filters-bar">
-        <div class="filters-bar__top">
-          <h2 id="filtros-title" class="filters-bar__title">Filtros</h2>
-          <p class="filters-bar__count" data-results-count aria-live="polite">
-            {listings.length} imóveis
-          </p>
-        </div>
+        <h2 id="filtros-title" class="visually-hidden">Filtros de imóveis</h2>
 
-        <form class="filters-form" data-listings-filter aria-label="Filtros de imóveis">
-          <div
-            class="filters-form__wide location-select"
-            data-location-select
-            data-seed={JSON.stringify(locationSeed)}
-          >
-            <span class="filters-form__label">Localização</span>
-            <div class="location-select__box" data-location-box>
-              <div class="location-select__chips" data-location-chips></div>
-              <input
-                type="search"
-                class="location-select__input"
-                data-location-input
-                placeholder="Bairro ou cidade (mín. 3 letras)"
-                autocomplete="off"
-                aria-autocomplete="list"
-                aria-controls="location-suggestions"
-                aria-expanded="false"
-              />
+        <form class="filters-form" data-listings-filter aria-labelledby="filtros-title">
+          <div class="filters-form__primary">
+            <div
+              class="location-select"
+              data-location-select
+              data-seed={JSON.stringify(locationSeed)}
+            >
+              <span class="visually-hidden">Localização</span>
+              <div class="location-select__box" data-location-box>
+                <div class="location-select__chips" data-location-chips></div>
+                <input
+                  type="search"
+                  class="location-select__input"
+                  data-location-input
+                  placeholder="Localização"
+                  autocomplete="off"
+                  aria-label="Localização"
+                  aria-autocomplete="list"
+                  aria-controls="location-suggestions"
+                  aria-expanded="false"
+                />
+              </div>
+              <ul
+                id="location-suggestions"
+                class="location-select__suggestions"
+                data-location-suggestions
+                hidden
+                role="listbox"
+              ></ul>
+              <div data-location-hidden></div>
             </div>
-            <ul
-              id="location-suggestions"
-              class="location-select__suggestions"
-              data-location-suggestions
-              hidden
-              role="listbox"
-            ></ul>
-            <div data-location-hidden></div>
+
+            <div class="multi-select" data-multi-select="type">
+              <span class="visually-hidden">Tipo</span>
+              <button
+                type="button"
+                class="multi-select__trigger"
+                data-multi-select-trigger
+                aria-label="Tipo de imóvel"
+              >
+                Tipo
+              </button>
+              <div class="multi-select__dropdown" data-multi-select-dropdown hidden>
+                {
+                  types.map((t) => (
+                    <label class="multi-select__option">
+                      <input type="checkbox" name="type" value={t} />
+                      <span>{t}</span>
+                    </label>
+                  ))
+                }
+              </div>
+            </div>
+
+            <label class="filters-form__field">
+              <span class="visually-hidden">Quartos</span>
+              <select name="bedrooms" aria-label="Quartos">
+                <option value="">Quartos</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
+                <option value="5">5+</option>
+              </select>
+            </label>
+
+            <button
+              type="button"
+              class="filters-form__toggle"
+              data-filters-toggle
+              aria-expanded="false"
+              aria-controls="filters-more"
+            >
+              <span data-filters-toggle-label>Mais</span>
+              <svg class="filters-form__toggle-icon" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+                <path d="M3.5 5.25 7 8.75l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+
+            <p class="filters-form__count" data-results-count aria-live="polite">
+              {listings.length} imóveis
+            </p>
           </div>
 
-          <div class="multi-select" data-multi-select="type">
-            <span class="multi-select__label">Tipo</span>
-            <button type="button" class="multi-select__trigger" data-multi-select-trigger>Todos</button>
-            <div class="multi-select__dropdown" data-multi-select-dropdown hidden>
-              {
-                types.map((t) => (
-                  <label class="multi-select__option">
-                    <input type="checkbox" name="type" value={t} />
-                    <span>{t}</span>
-                  </label>
-                ))
-              }
+          <div class="filters-form__more" id="filters-more" data-filters-more hidden>
+            <label class="filters-form__field">
+              <span class="filters-form__label">Preço mín.</span>
+              <input type="number" name="priceMin" min="0" step="100000" placeholder="500000" />
+            </label>
+
+            <label class="filters-form__field">
+              <span class="filters-form__label">Preço máx.</span>
+              <input type="number" name="priceMax" min="0" step="100000" placeholder="2000000" />
+            </label>
+
+            <label class="filters-form__field">
+              <span class="filters-form__label">Área mín.</span>
+              <input type="number" name="areaMin" min="0" step="10" placeholder="80" />
+            </label>
+
+            <div class="filters-form__actions">
+              <button class="btn btn-primary btn-motion" type="submit">Aplicar</button>
+              <button class="btn btn-secondary btn-motion filters-form__reset" type="reset">Limpar</button>
             </div>
-          </div>
-
-          <label>
-            <span>Quartos</span>
-            <select name="bedrooms">
-              <option value="">Qualquer</option>
-              <option value="1">1+</option>
-              <option value="2">2+</option>
-              <option value="3">3+</option>
-              <option value="4">4+</option>
-              <option value="5">5+</option>
-            </select>
-          </label>
-
-          <label>
-            <span>Preço mín.</span>
-            <input type="number" name="priceMin" min="0" step="100000" placeholder="500000" />
-          </label>
-
-          <label>
-            <span>Preço máx.</span>
-            <input type="number" name="priceMax" min="0" step="100000" placeholder="2000000" />
-          </label>
-
-          <label>
-            <span>Área mín.</span>
-            <input type="number" name="areaMin" min="0" step="10" placeholder="80" />
-          </label>
-
-          <div class="filters-form__actions">
-            <button class="btn btn-primary btn-motion" type="submit">Aplicar</button>
-            <button class="btn btn-secondary btn-motion filters-form__reset" type="reset">Limpar</button>
           </div>
         </form>
       </div>
@@ -157,13 +181,14 @@ const locationSeed = [
     const trigger = container.querySelector('[data-multi-select-trigger]');
     const dropdown = container.querySelector('[data-multi-select-dropdown]');
     const checkboxes = dropdown?.querySelectorAll('input[type="checkbox"]') ?? [];
+    const emptyLabel = trigger?.getAttribute('aria-label')?.split(' ')[0] || 'Tipo';
 
     function updateTriggerText() {
       const checked = [...checkboxes].filter((cb) => cb.checked);
       if (trigger) {
         trigger.textContent = checked.length
           ? `${checked.length} selecionado${checked.length === 1 ? '' : 's'}`
-          : 'Todos';
+          : emptyLabel;
       }
     }
 
@@ -186,6 +211,19 @@ const locationSeed = [
     document.addEventListener('click', (e) => {
       if (!container.contains(e.target)) dropdown?.setAttribute('hidden', '');
     });
+  });
+
+  /* ---- Expandir / recolher filtros extras ---- */
+  const filtersMore = document.querySelector('[data-filters-more]');
+  const filtersToggle = document.querySelector('[data-filters-toggle]');
+  const filtersToggleLabel = document.querySelector('[data-filters-toggle-label]');
+
+  filtersToggle?.addEventListener('click', () => {
+    const isOpen = !filtersMore?.hasAttribute('hidden');
+    filtersMore?.toggleAttribute('hidden', isOpen);
+    filtersToggle.setAttribute('aria-expanded', String(!isOpen));
+    filtersToggle.classList.toggle('is-open', !isOpen);
+    if (filtersToggleLabel) filtersToggleLabel.textContent = isOpen ? 'Mais' : 'Menos';
   });
 
   /* ---- Localização: multi-select + autocomplete ≥3 chars ---- */
@@ -401,7 +439,7 @@ const locationSeed = [
       cb.checked = false;
     });
     document.querySelectorAll('[data-multi-select-trigger]').forEach((btn) => {
-      btn.textContent = 'Todos';
+      btn.textContent = 'Tipo';
     });
     visibleLimit = PAGE_SIZE;
     window.setTimeout(applyFilters, 0);
@@ -439,7 +477,7 @@ const locationSeed = [
     position: sticky;
     top: var(--header-height);
     z-index: 40;
-    padding: 0.55rem 0 0.65rem;
+    padding: 0.45rem 0 0.55rem;
     background: color-mix(in srgb, var(--color-background) 92%, transparent);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--color-border);
@@ -450,73 +488,89 @@ const locationSeed = [
   }
 
   .filters-bar {
-    padding: 0.55rem 0.75rem 0.65rem;
+    padding: 0.45rem 0.65rem;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     box-shadow: 0 2px 14px rgb(63 59 55 / 0.06);
   }
 
-  .filters-bar__top {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.35rem 0.75rem;
-    margin-bottom: 0.45rem;
-  }
-
-  .filters-bar__title {
-    font-family: var(--font-body);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin: 0;
-    color: var(--color-muted);
-  }
-
-  .filters-bar__count {
-    margin: 0;
-    font-size: 0.75rem;
-    color: var(--color-muted);
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   .filters-form {
     display: grid;
+    gap: 0.55rem;
+  }
+
+  .filters-form__primary {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 0;
+  }
+
+  .filters-form__primary > .location-select {
+    flex: 1 1 11rem;
+    min-width: 9rem;
+  }
+
+  .filters-form__primary > .multi-select {
+    flex: 0 0 6.75rem;
+  }
+
+  .filters-form__primary > .filters-form__field {
+    flex: 0 0 5.75rem;
+  }
+
+  .filters-form__toggle {
+    flex: 0 0 auto;
+  }
+
+  .filters-form__count {
+    display: none;
+    margin: 0;
+    font-size: 0.72rem;
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  @media (min-width: 900px) {
+    .filters-form__count {
+      display: block;
+      margin-left: auto;
+    }
+  }
+
+  .filters-form__more {
+    display: grid;
     gap: 0.45rem;
+    padding-top: 0.45rem;
+    border-top: 1px solid var(--color-border);
     grid-template-columns: minmax(0, 1fr);
   }
 
-  @media (min-width: 640px) {
-    .filters-form {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .filters-form__more[hidden] {
+    display: none;
   }
 
-  @media (min-width: 1100px) {
-    .filters-form {
-      grid-template-columns: minmax(12rem, 1.6fr) repeat(4, minmax(0, 1fr)) auto;
+  @media (min-width: 640px) {
+    .filters-form__more {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
       align-items: end;
     }
-
-    .filters-form__wide {
-      grid-column: auto;
-    }
-
-    .filters-form__actions {
-      grid-column: auto;
-      align-self: end;
-    }
   }
 
-  .filters-form__wide {
-    grid-column: 1 / -1;
-  }
-
-  .filters-form__label,
-  .filters-form > label > span,
-  .multi-select__label {
+  .filters-form__label {
     display: block;
     margin-bottom: 0.18rem;
     font-size: 0.65rem;
@@ -526,13 +580,15 @@ const locationSeed = [
     color: var(--color-muted);
   }
 
-  .filters-form > label {
+  .filters-form__field {
     display: grid;
+    min-width: 0;
   }
 
   .filters-form input,
   .filters-form select,
-  .multi-select__trigger {
+  .multi-select__trigger,
+  .filters-form__toggle {
     font: inherit;
     font-size: 0.82rem;
     padding: 0.38rem 0.5rem;
@@ -547,11 +603,35 @@ const locationSeed = [
     color: var(--color-muted);
   }
 
+  .filters-form__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.28rem;
+    cursor: pointer;
+    white-space: nowrap;
+    color: var(--color-ink-soft);
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .filters-form__toggle:hover {
+    border-color: color-mix(in srgb, var(--color-ink) 18%, var(--color-border));
+  }
+
+  .filters-form__toggle.is-open .filters-form__toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  .filters-form__toggle-icon {
+    display: block;
+    transition: transform 0.18s ease;
+  }
+
   .filters-form__actions {
-    grid-column: 1 / -1;
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
+    align-items: end;
   }
 
   .filters-form__actions .btn {
@@ -566,14 +646,17 @@ const locationSeed = [
 
   .location-select {
     position: relative;
+    min-width: 0;
   }
 
   .location-select__box {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     gap: 0.28rem;
     min-height: 2rem;
+    max-height: 2rem;
+    overflow-x: auto;
     padding: 0.22rem 0.4rem;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
@@ -589,6 +672,7 @@ const locationSeed = [
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
+    flex: 0 0 auto;
     padding: 0.12rem 0.4rem;
     border: 1px solid var(--color-border);
     border-radius: 999px;
@@ -607,7 +691,7 @@ const locationSeed = [
 
   .location-select__input {
     flex: 1 1 8rem;
-    min-width: 8rem;
+    min-width: 7rem;
     border: none !important;
     background: transparent !important;
     padding: 0.2rem 0.15rem !important;
