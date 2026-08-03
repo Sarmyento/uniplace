@@ -14,14 +14,17 @@ const features = [
   {
     title: 'Quero comprar',
     description: 'Imóveis reais em BH, Nova Lima e Contagem. Visita com corretor associado.',
+    icon: '/icons/3d/buy.webp',
   },
   {
     title: 'Quero vender',
     description: 'Um cadastro gratuito: site Uniplace, Quinto Andar e corretores associados.',
+    icon: '/icons/3d/sell.webp',
   },
   {
     title: 'Quero me associar',
     description: 'Carteira Uniplace, Comunidade CRM e imóveis Quinto Andar. Comissão até 50% bruta. Sem exclusividade.',
+    icon: '/icons/3d/visit.webp',
   },
 ];
 ---
@@ -33,16 +36,19 @@ const features = [
   <UniplaceHero />
 
   <section class="section">
-    <div class="container paths">
-      <a class="path" href="/imoveis">
+    <div class="container paths reveal-stagger">
+      <a class="path path-motion" href="/imoveis">
+        <img src="/icons/3d/buy.webp" alt="" width="48" height="48" loading="lazy" />
         <h2>Comprar</h2>
         <p>Ver imóveis e agendar visita.</p>
       </a>
-      <a class="path" href="/anunciar">
+      <a class="path path-motion" href="/anunciar">
+        <img src="/icons/3d/sell.webp" alt="" width="48" height="48" loading="lazy" />
         <h2>Vender</h2>
         <p>Anunciar com cadastro único.</p>
       </a>
-      <a class="path path--accent" href="/associar">
+      <a class="path path-motion path--accent" href="/associar">
+        <img src="/icons/3d/visit.webp" alt="" width="48" height="48" loading="lazy" />
         <h2>Associar</h2>
         <p>Corretor: cresça com a Uniplace.</p>
       </a>
@@ -51,20 +57,21 @@ const features = [
 
   <FeatureGrid
     title="Por que a Uniplace"
-    items={features.map((f) => ({ title: f.title, description: f.description }))}
+    items={features.map((f) => ({ title: f.title, description: f.description, icon: f.icon }))}
   />
 
   {
     featured.length > 0 && (
       <section class="section">
         <div class="container">
-          <h2>Imóveis em destaque</h2>
-          <div class="listing-grid">
+          <span class="motion-line motion-line--wide reveal" aria-hidden="true"></span>
+          <h2 class="reveal">Imóveis em destaque</h2>
+          <div class="listing-grid reveal-stagger">
             {featured.map((listing) => (
               <ListingCard listing={listing} />
             ))}
           </div>
-          <p>
+          <p class="reveal">
             <a href="/imoveis">Ver todos os imóveis</a>
           </p>
         </div>
@@ -73,7 +80,8 @@ const features = [
   }
 
   <section class="section">
-    <div class="container about-teaser">
+    <div class="container about-teaser reveal-up">
+      <span class="motion-line motion-line--wide" aria-hidden="true"></span>
       <h2>Imobiliária com corretores associados</h2>
       <p>
         Sócio público: {site.publicPartner}. Atendimento no WhatsApp com a Maria. Equipe de corretores associados,
@@ -128,15 +136,18 @@ const features = [
     background: var(--color-surface);
     text-decoration: none;
     color: inherit;
-    transition: border-color var(--transition-base);
   }
 
-  .path:hover {
-    border-color: var(--color-primary);
+  .path img {
+    width: 3rem;
+    height: 3rem;
+    object-fit: contain;
+    margin-bottom: 0.75rem;
   }
 
   .path h2 {
     font-size: 1.35rem;
+    font-weight: 400;
     color: var(--color-primary);
   }
 

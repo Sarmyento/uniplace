@@ -15,6 +15,7 @@ interface Props {
   description?: string;
   image?: string;
   noindex?: boolean;
+  bodyClass?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
@@ -23,6 +24,7 @@ const {
   description = site.tagline,
   image = '/og-default.svg',
   noindex = false,
+  bodyClass = '',
   jsonLd,
 } = Astro.props;
 
@@ -66,7 +68,7 @@ const gtmOrigin = (import.meta.env.PUBLIC_GTM_SERVER_ORIGIN as string | undefine
     <script type="application/ld+json" set:html={JSON.stringify(allLd)} />
     <Tracking />
   </head>
-  <body>
+  <body class={bodyClass || undefined}>
     {
       gtmId && gtmOrigin && (
         <noscript>

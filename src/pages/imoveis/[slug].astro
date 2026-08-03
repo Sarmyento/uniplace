@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getListingBySlug, getListingSlugs, formatListingAddress } from '../../lib/listings';
+import ListingDetail from '../../components/listings/ListingDetail.astro';
+import RevealInit from '../../components/sections/RevealInit.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import { getListingBySlug, getListingSlugs } from '../../lib/listings';
 import { waUrl } from '../../config/site';
 
 export function getStaticPaths() {
@@ -18,39 +21,17 @@ const listing = slug ? getListingBySlug(slug) : undefined;
     <BaseLayout
       title={`${listing.title} | Uniplace`}
       description={listing.description || `${listing.type} em ${listing.neighborhood}, ${listing.city}.`}
+      image={listing.image || undefined}
+      bodyClass="page-listing-detail"
     >
-      <section class="section">
-        <div class="container detail">
-          <p class="eyebrow">
-            {listing.type} · {formatListingAddress(listing)}
-          </p>
-          <h1>{listing.title}</h1>
-          <p class="price">{listing.price}</p>
-          <p class="meta">
-            {[
-              listing.bedrooms ? `${listing.bedrooms} quartos` : '',
-              listing.suites ? `${listing.suites} suítes` : '',
-              listing.area ? `${listing.area} m²` : '',
-              listing.parking ? `${listing.parking} vagas` : '',
-            ]
-              .filter(Boolean)
-              .join(' · ')}
-          </p>
-          {listing.image && (
-            <img class="hero-img" src={listing.image} alt="" width="960" height="540" />
-          )}
-          {listing.description && <p>{listing.description}</p>}
-          <a
-            class="btn btn-primary"
-            href={waUrl(`Olá! Tenho interesse no imóvel ${listing.title} (${listing.id}).`)}
-          >
-            Agendar visita no WhatsApp
-          </a>
-          <p>
-            <a href="/imoveis">Voltar aos imóveis</a>
-          </p>
-        </div>
-      </section>
+      <ListingDetail listing={listing} />
+      <CTASection
+        title="Quer visitar este imóvel?"
+        text="A Maria agenda com o corretor associado."
+        ctaLabel="WhatsApp"
+        ctaHref={waUrl(`Olá! Quero visitar o imóvel ${listing.title} (${listing.id}).`)}
+      />
+      <RevealInit />
     </BaseLayout>
   ) : (
     <BaseLayout title="Imóvel | Uniplace" noindex={true}>
@@ -65,39 +46,3 @@ const listing = slug ? getListingBySlug(slug) : undefined;
     </BaseLayout>
   )
 }
-
-<style>
-  .detail {
-    max-width: 44rem;
-  }
-  .eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: var(--text-eyebrow);
-    color: var(--color-primary);
-    font-weight: 600;
-  }
-  .price {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--color-primary);
-  }
-  .meta {
-    color: var(--color-neutral-500);
-  }
-  .hero-img {
-    width: 100%;
-    border-radius: var(--radius-lg);
-    margin: 1rem 0;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    background: var(--color-stone);
-  }
-  .btn {
-    display: inline-block;
-    margin: 1rem 0;
-    padding: 0.75rem 1.25rem;
-    border-radius: var(--radius-md);
-    text-decoration: none;
-  }
-</style>

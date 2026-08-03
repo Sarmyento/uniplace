@@ -1,20 +1,172 @@
-.reveal {
+:root {
+  --motion-fast: 180ms;
+  --motion-base: 280ms;
+  --motion-reveal: 700ms;
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow-card-hover: 0 12px 32px rgb(45 45 45 / 0.14);
+  --header-height: 88px;
+}
+
+.reveal,
+.reveal-up,
+.reveal-left,
+.reveal-right,
+.reveal-scale {
+  opacity: 0;
+  transition:
+    opacity var(--motion-reveal) var(--ease-smooth),
+    transform var(--motion-reveal) var(--ease-smooth);
+}
+
+.reveal,
+.reveal-up {
+  transform: translateY(22px);
+}
+
+.reveal-left {
+  transform: translateX(-24px);
+}
+
+.reveal-right {
+  transform: translateX(24px);
+}
+
+.reveal-scale {
+  transform: scale(0.97);
+}
+
+.reveal.is-visible,
+.reveal-up.is-visible,
+.reveal-left.is-visible,
+.reveal-right.is-visible,
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-stagger > * {
   opacity: 0;
   transform: translateY(16px);
   transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
+    opacity 0.55s var(--ease-smooth),
+    transform 0.55s var(--ease-smooth);
 }
 
-.reveal.is-visible {
+.reveal-stagger.is-visible > *:nth-child(1) {
+  transition-delay: 40ms;
+}
+.reveal-stagger.is-visible > *:nth-child(2) {
+  transition-delay: 100ms;
+}
+.reveal-stagger.is-visible > *:nth-child(3) {
+  transition-delay: 160ms;
+}
+.reveal-stagger.is-visible > *:nth-child(4) {
+  transition-delay: 220ms;
+}
+.reveal-stagger.is-visible > *:nth-child(5) {
+  transition-delay: 280ms;
+}
+.reveal-stagger.is-visible > *:nth-child(6) {
+  transition-delay: 340ms;
+}
+
+.reveal-stagger.is-visible > * {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+}
+
+.motion-line {
+  display: block;
+  width: 3.5rem;
+  height: 2px;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--motion-reveal) var(--ease-smooth);
+}
+
+.motion-line--wide {
+  width: 5rem;
+}
+
+.is-visible .motion-line,
+.reveal.is-visible .motion-line,
+.reveal-up.is-visible .motion-line,
+.reveal-left.is-visible .motion-line,
+.reveal-right.is-visible .motion-line {
+  transform: scaleX(1);
+}
+
+.card-hover {
+  transition:
+    transform var(--motion-base) var(--ease-smooth),
+    box-shadow var(--motion-base) var(--ease-smooth);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.card-hover .card-hover__media .listing-card__photo {
+  transition: transform var(--motion-base) var(--ease-smooth);
+}
+
+.card-hover:hover .card-hover__media .listing-card__photo {
+  transform: scale(1.03);
+}
+
+.btn-motion {
+  transition:
+    background var(--motion-fast) var(--ease-smooth),
+    color var(--motion-fast) var(--ease-smooth),
+    transform var(--motion-fast) var(--ease-smooth),
+    border-color var(--motion-fast) var(--ease-smooth);
+}
+
+.btn-motion:hover {
+  transform: translateY(-2px);
+}
+
+.path-motion {
+  transition:
+    transform var(--motion-base) var(--ease-smooth),
+    border-color var(--motion-base) var(--ease-smooth),
+    box-shadow var(--motion-base) var(--ease-smooth);
+}
+
+.path-motion:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-hover);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .reveal,
+  .reveal-up,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale,
+  .reveal-stagger > * {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .motion-line {
+    transform: none;
+  }
+
+  .card-hover,
+  .card-hover .card-hover__media img,
+  .btn-motion,
+  .path-motion {
+    transition: none;
+  }
+
+  .card-hover:hover,
+  .btn-motion:hover,
+  .path-motion:hover {
+    transform: none;
   }
 }

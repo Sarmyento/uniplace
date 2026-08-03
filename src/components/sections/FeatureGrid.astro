@@ -2,6 +2,7 @@
 interface Item {
   title: string;
   description: string;
+  icon?: string;
 }
 
 interface Props {
@@ -14,11 +15,13 @@ const { title = 'Por que nos escolher', items } = Astro.props;
 
 <section class="section">
   <div class="container">
+    <span class="motion-line motion-line--wide reveal" aria-hidden="true"></span>
     <h2 class="reveal">{title}</h2>
-    <ul class="grid">
+    <ul class="grid reveal-stagger">
       {
         items.map((item) => (
-          <li class="card reveal">
+          <li class="card path-motion">
+            {item.icon && <img src={item.icon} alt="" width="48" height="48" loading="lazy" />}
             <h3>{item.title}</h3>
             <p>{item.description}</p>
           </li>
@@ -48,9 +51,18 @@ const { title = 'Por que nos escolher', items } = Astro.props;
     border-radius: var(--radius-lg);
     padding: var(--space-3);
     box-shadow: var(--shadow-soft);
+    border: 1px solid var(--color-border);
+  }
+
+  .card img {
+    width: 3rem;
+    height: 3rem;
+    object-fit: contain;
+    margin-bottom: 0.65rem;
   }
 
   .card h3 {
     color: var(--color-primary);
+    font-weight: 400;
   }
 </style>

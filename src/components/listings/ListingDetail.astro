@@ -1,0 +1,659 @@
+---
+import type { Listing } from '../../lib/listings';
+import {
+  formatListingAddress,
+  getListingMapEmbedUrl,
+  getListingMapExternalUrl,
+} from '../../lib/listings';
+import { waUrl } from '../../config/site';
+
+interface Props {
+  listing: Listing;
+}
+
+const { listing } = Astro.props;
+const addressLine = formatListingAddress(listing);
+const mapEmbedUrl = getListingMapEmbedUrl(listing);
+const mapExternalUrl = getListingMapExternalUrl(listing);
+const galleryImages = listing.images.length ? listing.images : listing.image ? [listing.image] : [];
+const mainSrc = galleryImages[0] ?? '';
+const defaultMessage = `Olá! Tenho interesse no imóvel ${listing.title} (cód. ${listing.id}).`;
+
+const specs = [
+  { icon: '/icons/3d/bed.webp', value: String(listing.bedrooms), label: 'quartos', show: true },
+  { icon: '/icons/3d/suite.webp', value: String(listing.suites), label: 'suítes', show: true },
+  { icon: '/icons/3d/area.webp', value: String(listing.area || '—'), label: 'm²', show: true },
+  { icon: '/icons/3d/garage.webp', value: String(listing.parking), label: 'vagas', show: true },
+];
+---
+
+<article class="listing-detail">
+  <div class="container listing-detail__shell">
+    <div class="listing-detail__intro">
+      <header class="listing-detail__head reveal-left">
+        <span class="motion-line motion-line--wide" aria-hidden="true"></span>
+        <p class="listing-detail__code">{listing.type} · Cód. {listing.id}</p>
+        <h1 class="listing-detail__title">{listing.title}</h1>
+      </header>
+      <p class="listing-detail__address reveal-left">{addressLine}</p>
+      <div class="listing-detail__spec-bar reveal-stagger" aria-label="Resumo do imóvel">
+        {
+          specs.map((spec) => (
+            <div class="listing-detail__spec-item">
+              <img src={spec.icon} alt="" width="40" height="40" loading="lazy" decoding="async" />
+              <span class="listing-detail__spec-value">{spec.value}</span>
+              <span class="listing-detail__spec-label">{spec.label}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="listing-detail__body">
+      {
+        galleryImages.length > 0 && (
+          <div
+            class="listing-detail__gallery reveal-scale"
+            data-listing-gallery
+            data-gallery-count={galleryImages.length}
+          >
+            <figure class="listing-detail__featured">
+              <img
+                src={mainSrc}
+                alt={listing.title}
+                width="1400"
+                height="900"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+                data-gallery-main
+              />
+              {galleryImages.length > 1 && (
+                <>
+                  <button type="button" class="listing-detail__nav listing-detail__nav--prev" data-gallery-main-prev aria-label="Foto anterior">
+                    ‹
+                  </button>
+                  <button type="button" class="listing-detail__nav listing-detail__nav--next" data-gallery-main-next aria-label="Próxima foto">
+                    ›
+                  </button>
+                  <p class="listing-detail__counter" data-gallery-counter>
+                    1 / {galleryImages.length}
+                  </p>
+                </>
+              )}
+            </figure>
+
+            {galleryImages.length > 1 && (
+              <div class="listing-detail__thumbs" data-gallery-thumbs>
+                <div class="listing-detail__thumbs-track" data-gallery-track>
+                  {galleryImages.map((image, index) => (
+                    <button
+                      type="button"
+                      class:list={['listing-detail__thumb', { 'is-active': index === 0 }]}
+                      data-gallery-thumb
+                      data-index={index}
+                      data-src={image}
+                      aria-label={`Ver foto ${index + 1} de ${galleryImages.length}`}
+                      aria-current={index === 0 ? 'true' : undefined}
+                    >
+                      <img
+                        src={image}
+                        alt=""
+                        width="160"
+                        height="120"
+                        loading={index < 6 ? 'eager' : 'lazy'}
+                        decoding="async"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )
+      }
+
+      <section class="listing-detail__block reveal-up">
+        <span class="motion-line motion-line--wide" aria-hidden="true"></span>
+        <h2>Descrição</h2>
+        <div class="listing-detail__description">
+          <p>{listing.description || 'Descrição em atualização. Fale conosco para mais detalhes.'}</p>
+        </div>
+      </section>
+
+      {
+        listing.amenities.length > 0 && (
+          <section class="listing-detail__block reveal-up">
+            <span class="motion-line motion-line--wide" aria-hidden="true"></span>
+            <h2>Comodidades</h2>
+            <ul class="listing-detail__amenities reveal-stagger">
+              {listing.amenities.map((amenity) => (
+                <li>{amenity}</li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      {
+        listing.features.length > 0 && listing.amenities.length === 0 && (
+          <section class="listing-detail__block reveal-up">
+            <span class="motion-line motion-line--wide" aria-hidden="true"></span>
+            <h2>Destaques</h2>
+            <ul class="listing-detail__amenities reveal-stagger">
+              {listing.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      <section class="listing-detail__block reveal-up">
+        <span class="motion-line motion-line--wide" aria-hidden="true"></span>
+        <h2>Localização</h2>
+        <p class="listing-detail__location-text">{addressLine}</p>
+        <div
+          class="listing-detail__map-facade"
+          data-map-facade
+          data-map-src={mapEmbedUrl}
+        >
+          <p>{addressLine}</p>
+          <button type="button" class="btn btn-primary btn-motion" data-map-load>
+            Carregar mapa
+          </button>
+          <a href={mapExternalUrl} target="_blank" rel="noopener noreferrer">
+            Abrir no Google Maps
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <aside class="listing-detail__sidebar reveal-right">
+      <div class="listing-detail__lead-panel">
+        <span class="motion-line motion-line--wide" aria-hidden="true"></span>
+        <p class="listing-detail__lead-price">{listing.price}</p>
+        {listing.condominioFee && <p class="listing-detail__lead-fee">Condomínio: {listing.condominioFee}</p>}
+        {listing.iptuFee && <p class="listing-detail__lead-fee">IPTU: {listing.iptuFee}</p>}
+        <p class="listing-detail__lead-note">Agende visita com a Maria no WhatsApp</p>
+
+        <form class="listing-detail__form" id="listing-lead-form" novalidate>
+          <div class="listing-detail__field">
+            <label for="lead-nome">Nome</label>
+            <input id="lead-nome" type="text" name="nome" required autocomplete="name" />
+          </div>
+          <div class="listing-detail__field">
+            <label for="lead-email">E-mail</label>
+            <input id="lead-email" type="email" name="email" required autocomplete="email" />
+          </div>
+          <div class="listing-detail__field">
+            <label for="lead-telefone">Telefone</label>
+            <input id="lead-telefone" type="tel" name="telefone" autocomplete="tel" />
+          </div>
+          <div class="listing-detail__field">
+            <label for="lead-msg">Mensagem</label>
+            <textarea id="lead-msg" name="msg" rows="5" required>{defaultMessage}</textarea>
+          </div>
+          <button class="btn btn-primary btn-motion listing-detail__submit" type="submit">
+            Enviar no WhatsApp
+          </button>
+        </form>
+        <p class="listing-detail__privacy">
+          Ao informar seus dados, você concorda com a <a href="/privacidade">política de privacidade</a>.
+        </p>
+        <a class="listing-detail__wa-direct" href={waUrl(defaultMessage)}>
+          Ou abrir WhatsApp direto
+        </a>
+      </div>
+    </aside>
+  </div>
+</article>
+
+<script>
+  const form = document.getElementById('listing-lead-form');
+  const waAnchor = document.querySelector('.listing-detail__wa-direct');
+  const waHref = waAnchor?.getAttribute('href') ?? '';
+  const waMatch = waHref.match(/wa\.me\/(\d+)/);
+  const waNumber = waMatch?.[1] ?? '';
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const nome = String(data.get('nome') ?? '').trim();
+    const email = String(data.get('email') ?? '').trim();
+    const telefone = String(data.get('telefone') ?? '').trim();
+    const msg = String(data.get('msg') ?? '').trim();
+    const text = `${msg}\n\nNome: ${nome}\nE-mail: ${email}\nTelefone: ${telefone}`;
+    const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
+
+  /* Galeria abvtek: foto grande + thumbs verticais + wheel scroll ao hover */
+  const galleryRoot = document.querySelector('[data-listing-gallery]');
+  if (galleryRoot) {
+    const mainImg = galleryRoot.querySelector('[data-gallery-main]');
+    const thumbs = [...galleryRoot.querySelectorAll('[data-gallery-thumb]')];
+    const counter = galleryRoot.querySelector('[data-gallery-counter]');
+    const mainPrevBtn = galleryRoot.querySelector('[data-gallery-main-prev]');
+    const mainNextBtn = galleryRoot.querySelector('[data-gallery-main-next]');
+    let currentIndex = 0;
+    let wheelLock = false;
+
+    const setActiveThumb = (index) => {
+      thumbs.forEach((thumb, thumbIndex) => {
+        const isActive = thumbIndex === index;
+        thumb.classList.toggle('is-active', isActive);
+        thumb.setAttribute('aria-current', isActive ? 'true' : 'false');
+      });
+    };
+
+    const goToIndex = (index) => {
+      if (!thumbs.length || !mainImg) return;
+      currentIndex = (index + thumbs.length) % thumbs.length;
+      const thumb = thumbs[currentIndex];
+      const src = thumb.getAttribute('data-src');
+      if (!src) return;
+      mainImg.classList.add('is-fading');
+      window.setTimeout(() => {
+        mainImg.src = src;
+        mainImg.classList.remove('is-fading');
+      }, 120);
+      setActiveThumb(currentIndex);
+      if (counter) counter.textContent = `${currentIndex + 1} / ${thumbs.length}`;
+      thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+    };
+
+    thumbs.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => goToIndex(index));
+      thumb.addEventListener('mouseenter', () => {
+        if (window.matchMedia('(pointer: fine)').matches) goToIndex(index);
+      });
+    });
+
+    mainPrevBtn?.addEventListener('click', () => goToIndex(currentIndex - 1));
+    mainNextBtn?.addEventListener('click', () => goToIndex(currentIndex + 1));
+
+    galleryRoot.addEventListener(
+      'wheel',
+      (event) => {
+        if (thumbs.length <= 1) return;
+        const delta = event.deltaY !== 0 ? event.deltaY : event.deltaX;
+        if (Math.abs(delta) < 6) return;
+        event.preventDefault();
+        if (wheelLock) return;
+        wheelLock = true;
+        goToIndex(currentIndex + (delta > 0 ? 1 : -1));
+        window.setTimeout(() => {
+          wheelLock = false;
+        }, 220);
+      },
+      { passive: false }
+    );
+  }
+
+  const mapFacade = document.querySelector('[data-map-facade]');
+  mapFacade?.querySelector('[data-map-load]')?.addEventListener('click', () => {
+    const src = mapFacade.getAttribute('data-map-src');
+    if (!src) return;
+    const iframe = document.createElement('iframe');
+    iframe.title = 'Mapa do imóvel';
+    iframe.src = src;
+    iframe.loading = 'lazy';
+    iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    iframe.allowFullscreen = true;
+    iframe.setAttribute('width', '100%');
+    iframe.setAttribute('height', '100%');
+    iframe.style.border = '0';
+    mapFacade.replaceChildren(iframe);
+    mapFacade.classList.remove('listing-detail__map-facade');
+  });
+</script>
+
+<style>
+  .listing-detail {
+    padding-top: calc(var(--header-height) + 1.5rem);
+    padding-bottom: 3rem;
+  }
+
+  .listing-detail__shell {
+    display: grid;
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  @media (min-width: 1024px) {
+    .listing-detail__shell {
+      grid-template-columns: minmax(0, 1fr) min(380px, 34%);
+      grid-template-rows: auto 1fr;
+      column-gap: 2rem;
+      row-gap: 1rem;
+    }
+
+    .listing-detail__intro {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .listing-detail__body {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .listing-detail__sidebar {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      position: sticky;
+      top: calc(var(--header-height) + 1rem);
+    }
+  }
+
+  .listing-detail__code {
+    font-size: var(--text-eyebrow);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent-dark);
+    margin: 0.75rem 0 0.5rem;
+  }
+
+  .listing-detail__title {
+    font-size: clamp(1.75rem, 3.5vw, 2.6rem);
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .listing-detail__address {
+    margin: 0.5rem 0 0;
+    color: var(--color-neutral-500);
+  }
+
+  .listing-detail__spec-bar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-top: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .listing-detail__spec-bar {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .listing-detail__spec-item {
+    display: grid;
+    justify-items: center;
+    gap: 0.2rem;
+    padding: 0.85rem 0.5rem;
+    text-align: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .listing-detail__spec-item img {
+    width: 2.25rem;
+    height: 2.25rem;
+    object-fit: contain;
+  }
+
+  .listing-detail__spec-value {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--color-primary);
+  }
+
+  .listing-detail__spec-label {
+    font-size: var(--text-eyebrow);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent-dark);
+  }
+
+  .listing-detail__body {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    min-width: 0;
+  }
+
+  /* Galeria abvtek: grande à esquerda + thumbs verticais à direita */
+  .listing-detail__gallery {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    .listing-detail__gallery {
+      grid-template-columns: minmax(0, 1fr) 7.5rem;
+      align-items: stretch;
+      min-height: 28rem;
+    }
+  }
+
+  .listing-detail__featured {
+    position: relative;
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background: var(--color-stone);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .listing-detail__featured img {
+    width: 100%;
+    height: 100%;
+    min-height: 16rem;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    transition: opacity 160ms var(--ease-smooth);
+  }
+
+  @media (min-width: 768px) {
+    .listing-detail__featured img {
+      aspect-ratio: auto;
+      min-height: 28rem;
+    }
+  }
+
+  .listing-detail__featured img.is-fading {
+    opacity: 0.35;
+  }
+
+  .listing-detail__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--color-neutral-900) 55%, transparent);
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .listing-detail__nav--prev {
+    left: 0.65rem;
+  }
+  .listing-detail__nav--next {
+    right: 0.65rem;
+  }
+
+  .listing-detail__counter {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    margin: 0;
+    padding: 0.25rem 0.55rem;
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--color-neutral-900) 65%, transparent);
+    color: #fff;
+    font-size: var(--text-small);
+  }
+
+  .listing-detail__thumbs {
+    min-height: 0;
+  }
+
+  .listing-detail__thumbs-track {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    padding-bottom: 0.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .listing-detail__thumbs {
+      max-height: 28rem;
+    }
+
+    .listing-detail__thumbs-track {
+      flex-direction: column;
+      overflow-x: hidden;
+      overflow-y: auto;
+      height: 100%;
+      max-height: 28rem;
+      padding: 0;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+    }
+  }
+
+  .listing-detail__thumb {
+    flex: 0 0 auto;
+    width: 6.5rem;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    background: none;
+    cursor: pointer;
+    opacity: 0.7;
+    overflow: hidden;
+    transition:
+      opacity var(--motion-fast) var(--ease-smooth),
+      border-color var(--motion-fast) var(--ease-smooth);
+  }
+
+  @media (min-width: 768px) {
+    .listing-detail__thumb {
+      width: 100%;
+    }
+  }
+
+  .listing-detail__thumb:hover,
+  .listing-detail__thumb.is-active {
+    opacity: 1;
+    border-color: var(--color-primary);
+  }
+
+  .listing-detail__thumb img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .listing-detail__block h2 {
+    margin: 0.65rem 0 0.75rem;
+    font-size: 1.5rem;
+  }
+
+  .listing-detail__description p {
+    white-space: pre-line;
+    line-height: 1.7;
+  }
+
+  .listing-detail__amenities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .listing-detail__amenities li {
+    padding: 0.4rem 0.7rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    font-size: var(--text-small);
+  }
+
+  .listing-detail__map-facade {
+    display: grid;
+    gap: 0.75rem;
+    place-items: start;
+    min-height: 14rem;
+    padding: 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-stone);
+  }
+
+  .listing-detail__map-facade:not(.listing-detail__map-facade) {
+    padding: 0;
+    min-height: 18rem;
+  }
+
+  .listing-detail__lead-panel {
+    padding: 1.25rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .listing-detail__lead-price {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    color: var(--color-primary);
+    margin: 0.75rem 0 0.35rem;
+  }
+
+  .listing-detail__lead-fee,
+  .listing-detail__lead-note,
+  .listing-detail__privacy {
+    font-size: var(--text-small);
+    color: var(--color-neutral-500);
+  }
+
+  .listing-detail__form {
+    display: grid;
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+
+  .listing-detail__field {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .listing-detail__field label {
+    font-size: var(--text-small);
+    font-weight: 500;
+  }
+
+  .listing-detail__field input,
+  .listing-detail__field textarea {
+    font: inherit;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-background);
+  }
+
+  .listing-detail__submit {
+    width: 100%;
+  }
+
+  .listing-detail__wa-direct {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: var(--text-small);
+  }
+</style>

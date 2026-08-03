@@ -1,0 +1,474 @@
+---
+import ListingCard from '../listings/ListingCard.astro';
+import type { Listing } from '../../lib/listings';
+import { getListingFilterOptions } from '../../lib/listings';
+
+interface Props {
+  listings: Listing[];
+}
+
+const { listings } = Astro.props;
+const { cities, neighborhoods, types } = getListingFilterOptions(listings);
+---
+
+<section class="section section--tight" id="filtros" aria-labelledby="filtros-title">
+  <div class="container">
+    <div class="filters-panel reveal">
+      <div class="filters-panel__head">
+        <div>
+          <p class="eyebrow">Busca avançada</p>
+          <h2 id="filtros-title">Encontre o imóvel ideal</h2>
+          <p class="filters-panel__lead">
+            Refine por localização, tipo, quartos, área e faixa de preço. Resultados na hora.
+          </p>
+        </div>
+        <p class="filters-panel__count" data-results-count aria-live="polite">
+          {listings.length} imóveis encontrados
+        </p>
+      </div>
+
+      <form class="filters-form" data-listings-filter aria-label="Filtros de busca">
+        <label class="filters-form__wide">
+          <span>Palavra-chave</span>
+          <input type="search" name="q" placeholder="Bairro, título ou código" autocomplete="off" />
+        </label>
+
+        <label>
+          <span>Cidade</span>
+          <select name="city">
+            <option value="">Todas</option>
+            {cities.map((city) => <option value={city}>{city}</option>)}
+          </select>
+        </label>
+
+        <div class="multi-select" data-multi-select="neighborhood">
+          <span class="multi-select__label">Bairro</span>
+          <button type="button" class="multi-select__trigger" data-multi-select-trigger>Todos</button>
+          <div class="multi-select__dropdown" data-multi-select-dropdown hidden>
+            {
+              neighborhoods.map((n) => (
+                <label class="multi-select__option">
+                  <input type="checkbox" name="neighborhood" value={n} />
+                  <span>{n}</span>
+                </label>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="multi-select" data-multi-select="type">
+          <span class="multi-select__label">Tipo</span>
+          <button type="button" class="multi-select__trigger" data-multi-select-trigger>Todos</button>
+          <div class="multi-select__dropdown" data-multi-select-dropdown hidden>
+            {
+              types.map((t) => (
+                <label class="multi-select__option">
+                  <input type="checkbox" name="type" value={t} />
+                  <span>{t}</span>
+                </label>
+              ))
+            }
+          </div>
+        </div>
+
+        <label>
+          <span>Quartos (mín.)</span>
+          <select name="bedrooms">
+            <option value="">Qualquer</option>
+            <option value="1">1+</option>
+            <option value="2">2+</option>
+            <option value="3">3+</option>
+            <option value="4">4+</option>
+            <option value="5">5+</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Preço mínimo</span>
+          <input type="number" name="priceMin" min="0" step="100000" placeholder="Ex: 500000" />
+        </label>
+
+        <label>
+          <span>Preço máximo</span>
+          <input type="number" name="priceMax" min="0" step="100000" placeholder="Ex: 2000000" />
+        </label>
+
+        <label>
+          <span>Área mínima (m²)</span>
+          <input type="number" name="areaMin" min="0" step="10" placeholder="Ex: 80" />
+        </label>
+
+        <div class="filters-form__actions">
+          <button class="btn btn-primary btn-motion" type="submit">Aplicar filtros</button>
+          <button class="btn btn-secondary btn-motion filters-form__reset" type="reset">Limpar</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="listings-grid reveal-stagger" data-listings-grid>
+      {
+        listings.map((listing) => (
+          <div
+            class="listings-grid__item"
+            data-listing-item
+            data-title={listing.title.toLowerCase()}
+            data-id={listing.id.toLowerCase()}
+            data-neighborhood={listing.neighborhood}
+            data-city={listing.city}
+            data-type={listing.type}
+            data-bedrooms={listing.bedrooms}
+            data-price={listing.priceValue}
+            data-area={listing.area}
+          >
+            <ListingCard listing={listing} />
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="listings-pagination">
+      <button class="btn btn-primary btn-motion" data-load-more hidden aria-label="Exibir mais imóveis">
+        Exibir mais 15 imóveis
+      </button>
+    </div>
+
+    <p class="listings-empty" data-listings-empty hidden>
+      Nenhum imóvel corresponde aos filtros. Ajuste a busca ou fale no WhatsApp.
+    </p>
+  </div>
+</section>
+
+<script>
+  const PAGE_SIZE = 15;
+  const form = document.querySelector('[data-listings-filter]');
+  const items = [...document.querySelectorAll('[data-listing-item]')];
+  const countEl = document.querySelector('[data-results-count]');
+  const emptyEl = document.querySelector('[data-listings-empty]');
+  const gridEl = document.querySelector('[data-listings-grid]');
+  const loadMoreBtn = document.querySelector('[data-load-more]');
+
+  let visibleLimit = PAGE_SIZE;
+
+  document.querySelectorAll('[data-multi-select]').forEach((container) => {
+    const trigger = container.querySelector('[data-multi-select-trigger]');
+    const dropdown = container.querySelector('[data-multi-select-dropdown]');
+    const checkboxes = dropdown?.querySelectorAll('input[type="checkbox"]') ?? [];
+
+    function updateTriggerText() {
+      const checked = [...checkboxes].filter((cb) => cb.checked);
+      if (trigger) {
+        trigger.textContent = checked.length
+          ? `${checked.length} selecionado${checked.length === 1 ? '' : 's'}`
+          : 'Todos';
+      }
+    }
+
+    trigger?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = !dropdown?.hasAttribute('hidden');
+      document.querySelectorAll('[data-multi-select-dropdown]').forEach((d) => d.setAttribute('hidden', ''));
+      dropdown?.toggleAttribute('hidden', isOpen);
+    });
+
+    checkboxes.forEach((cb) => {
+      cb.addEventListener('change', () => {
+        updateTriggerText();
+        visibleLimit = PAGE_SIZE;
+        applyFilters();
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!container.contains(e.target)) dropdown?.setAttribute('hidden', '');
+    });
+  });
+
+  function applyFilters() {
+    if (!form) return;
+    const data = new FormData(form);
+    const q = String(data.get('q') ?? '').trim().toLowerCase();
+    const city = String(data.get('city') ?? '');
+    const neighborhoods = data.getAll('neighborhood').filter(Boolean);
+    const types = data.getAll('type').filter(Boolean);
+    const bedrooms = Number(data.get('bedrooms') || 0);
+    const priceMin = Number(data.get('priceMin') || 0);
+    const priceMax = Number(data.get('priceMax') || 0);
+    const areaMin = Number(data.get('areaMin') || 0);
+
+    let visible = 0;
+    for (const item of items) {
+      const title = item.getAttribute('data-title') ?? '';
+      const id = item.getAttribute('data-id') ?? '';
+      const itemCity = item.getAttribute('data-city') ?? '';
+      const itemNeighborhood = item.getAttribute('data-neighborhood') ?? '';
+      const itemType = item.getAttribute('data-type') ?? '';
+      const itemBedrooms = Number(item.getAttribute('data-bedrooms') ?? 0);
+      const itemPrice = Number(item.getAttribute('data-price') ?? 0);
+      const itemArea = Number(item.getAttribute('data-area') ?? 0);
+
+      const show =
+        (!q || title.includes(q) || id.includes(q) || itemNeighborhood.toLowerCase().includes(q) || itemCity.toLowerCase().includes(q)) &&
+        (!city || itemCity === city) &&
+        (neighborhoods.length === 0 || neighborhoods.includes(itemNeighborhood)) &&
+        (types.length === 0 || types.includes(itemType)) &&
+        (!bedrooms || itemBedrooms >= bedrooms) &&
+        (!priceMin || itemPrice >= priceMin) &&
+        (!priceMax || itemPrice <= priceMax) &&
+        (!areaMin || itemArea >= areaMin);
+
+      item.dataset.filtered = show ? 'true' : 'false';
+      if (show) visible += 1;
+    }
+    renderVisible();
+    updateCount(visible);
+  }
+
+  function renderVisible() {
+    const visibleItems = items.filter((item) => item.dataset.filtered === 'true');
+    let shown = 0;
+    for (const item of items) {
+      const filtered = item.dataset.filtered === 'true';
+      if (filtered && shown < visibleLimit) {
+        item.removeAttribute('hidden');
+        shown += 1;
+      } else {
+        item.setAttribute('hidden', '');
+      }
+    }
+    const remaining = visibleItems.length - shown;
+    if (loadMoreBtn) {
+      if (remaining > 0) {
+        const nextBatch = Math.min(remaining, PAGE_SIZE);
+        loadMoreBtn.textContent = `Exibir mais ${nextBatch} imóvel${nextBatch === 1 ? '' : 'es'}`;
+        loadMoreBtn.removeAttribute('hidden');
+      } else {
+        loadMoreBtn.setAttribute('hidden', '');
+      }
+    }
+  }
+
+  function updateCount(visible) {
+    const shown = items.filter((item) => !item.hasAttribute('hidden')).length;
+    if (countEl) {
+      countEl.textContent = `${visible} imóvel${visible === 1 ? '' : 'es'} encontrado${visible === 1 ? '' : 's'}${
+        visible !== shown ? ` (exibindo ${shown})` : ''
+      }`;
+    }
+    emptyEl?.toggleAttribute('hidden', visible > 0);
+    gridEl?.toggleAttribute('hidden', visible === 0);
+  }
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    visibleLimit = PAGE_SIZE;
+    applyFilters();
+  });
+
+  form?.addEventListener('reset', () => {
+    document.querySelectorAll('[data-multi-select] input[type="checkbox"]').forEach((cb) => {
+      cb.checked = false;
+    });
+    document.querySelectorAll('[data-multi-select-trigger]').forEach((btn) => {
+      btn.textContent = 'Todos';
+    });
+    visibleLimit = PAGE_SIZE;
+    window.setTimeout(applyFilters, 0);
+  });
+
+  form?.querySelectorAll('select, input[type="search"], input[type="number"]').forEach((field) => {
+    field.addEventListener('change', () => {
+      visibleLimit = PAGE_SIZE;
+      applyFilters();
+    });
+  });
+
+  loadMoreBtn?.addEventListener('click', () => {
+    visibleLimit += PAGE_SIZE;
+    renderVisible();
+    updateCount(items.filter((item) => item.dataset.filtered === 'true').length);
+  });
+
+  items.forEach((item) => {
+    item.dataset.filtered = 'true';
+  });
+  applyFilters();
+
+  if (window.location.hash === '#filtros') {
+    document.getElementById('filtros')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+
+<style>
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: var(--text-eyebrow);
+    font-weight: 600;
+    color: var(--color-primary);
+    margin: 0 0 0.35rem;
+  }
+
+  .filters-panel {
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .filters-panel__head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .filters-panel__lead {
+    max-width: 52ch;
+    color: var(--color-neutral-500);
+    margin: 0;
+  }
+
+  .filters-panel__count {
+    align-self: end;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .filters-form {
+    display: grid;
+    gap: 0.85rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @media (min-width: 640px) {
+    .filters-form {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 900px) {
+    .filters-form {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .filters-form__wide {
+    grid-column: 1 / -1;
+  }
+
+  .filters-form > label {
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .filters-form input,
+  .filters-form select {
+    font: inherit;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-background);
+  }
+
+  .filters-form__actions {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .filters-form__reset {
+    color: var(--color-neutral-900);
+  }
+
+  .multi-select {
+    position: relative;
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .multi-select__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font: inherit;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-background);
+    cursor: pointer;
+    text-align: left;
+    color: var(--color-neutral-500);
+  }
+
+  .multi-select__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    margin-top: 2px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-soft);
+    max-height: 240px;
+    overflow-y: auto;
+  }
+
+  .multi-select__option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.65rem;
+    cursor: pointer;
+    font-weight: 400;
+  }
+
+  .multi-select__option:hover {
+    background: var(--color-stone);
+  }
+
+  .listings-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @media (min-width: 640px) {
+    .listings-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .listings-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .listings-empty {
+    margin-top: 1.25rem;
+    padding: 1.25rem;
+    text-align: center;
+    color: var(--color-neutral-500);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .listings-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+</style>

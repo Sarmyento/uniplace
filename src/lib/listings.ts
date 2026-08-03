@@ -11,6 +11,8 @@ export interface Listing {
   state: string;
   price: string;
   priceValue: number;
+  condominioFee: string;
+  iptuFee: string;
   bedrooms: number;
   suites: number;
   area: number;
@@ -20,6 +22,8 @@ export interface Listing {
   images: string[];
   featured: boolean;
   description: string;
+  features: string[];
+  amenities: string[];
 }
 
 function readXml(): string {
@@ -57,6 +61,8 @@ function parseListings(xml: string): Listing[] {
         : [];
     const priceValue =
       Number(getTag(block, 'price_value')) || Number(getTag(block, 'priceValue')) || 0;
+    const featuresRaw = getTag(block, 'features');
+    const amenitiesRaw = getTag(block, 'amenities');
 
     return {
       id,
@@ -68,6 +74,8 @@ function parseListings(xml: string): Listing[] {
       state: getTag(block, 'state') || 'MG',
       price: getTag(block, 'price') || (priceValue ? formatPrice(priceValue) : 'Sob consulta'),
       priceValue,
+      condominioFee: getTag(block, 'condominio_fee'),
+      iptuFee: getTag(block, 'iptu_fee'),
       bedrooms: Number(getTag(block, 'bedrooms')) || 0,
       suites: Number(getTag(block, 'suites')) || 0,
       area: Number(getTag(block, 'area')) || 0,
@@ -77,6 +85,18 @@ function parseListings(xml: string): Listing[] {
       images,
       featured: getTag(block, 'featured') === 'true',
       description: getTag(block, 'description'),
+      features: featuresRaw
+        ? featuresRaw
+            .split('|')
+            .map((item) => item.trim())
+            .filter(Boolean)
+        : [],
+      amenities: amenitiesRaw
+        ? amenitiesRaw
+            .split('|')
+            .map((item) => item.trim())
+            .filter(Boolean)
+        : [],
     };
   });
 }
@@ -109,15 +129,30 @@ export function formatPrice(value: number): string {
   }).format(value);
 }
 
-/** Endereço público: rua (sem número) + bairro + cidade. */
 export function formatListingAddress(listing: Listing): string {
   const parts = [listing.street, listing.neighborhood, listing.city].filter(Boolean);
   return parts.join(', ');
 }
 
-/** True quando o XML ainda é o mock local (sem CRM). */
+export function getListingMapEmbedUrl(listing: Listing): string {
+  const query = formatListingAddress(listing);
+  return `https://www.google.com/maps?q=${encodeURIComponent(query)}&hl=pt&z=15&output=embed`;
+}
+
+export function getListingMapExternalUrl(listing: Listing): string {
+  const query = formatListingAddress(listing);
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
 export function isMockFeed(): boolean {
   const listings = getListings();
   if (!listings.length) return true;
   return listings.every((l) => l.id.startsWith('ex-'));
+}
+
+export function getListingFilterOptions(listings: { city: string; neighborhood: string; type: string }[]) {
+  const cities = [...new Set(listings.map((item) => item.city).filter(Boolean))].sort();
+  const neighborhoods = [...new Set(listings.map((item) => item.neighborhood).filter(Boolean))].sort();
+  const types = [...new Set(listings.map((item) => item.type).filter(Boolean))].sort();
+  return { cities, neighborhoods, types };
 }
