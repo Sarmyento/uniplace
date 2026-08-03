@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { site, waUrl } from '../../config/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => data.draft !== true);
+  return posts.map((post) => ({
+    params: { slug: post.data.slug ?? post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const cta = post.data.cta_primary || '/imoveis';
+---
+
+<BaseLayout title={`${post.data.title} | ${site.name}`} description={post.data.description}>
+  <article class="section">
+    <div class="container prose">
+      <p class="date">
+        {
+          post.data.pubDate.toLocaleDateString('pt-BR', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          })
+        }
+      </p>
+      <h1>{post.data.title}</h1>
+      <p class="deck">{post.data.description}</p>
+      <Content />
+      <footer class="cta">
+        <a class="btn btn-primary" href={cta}>
+          Continuar no site
+        </a>
+        <a class="btn" href={waUrl(`Olá! Li o post: ${post.data.title}`)}>
+          WhatsApp
+        </a>
+        <p><a href="/blog">Voltar ao blog</a></p>
+      </footer>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .prose {
+    max-width: 42rem;
+  }
+  .date {
+    font-size: var(--text-small);
+    color: var(--color-neutral-500);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  h1 {
+    margin: 0.35rem 0 0.75rem;
+  }
+  .deck {
+    font-size: 1.1rem;
+    color: var(--color-neutral-500);
+    margin-bottom: 2rem;
+  }
+  .prose :global(h2) {
+    margin-top: 2rem;
+  }
+  .prose :global(p),
+  .prose :global(li) {
+    line-height: 1.65;
+  }
+  .cta {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .btn {
+    display: inline-block;
+    margin: 0 0.5rem 0.75rem 0;
+    padding: 0.65rem 1rem;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    border: 1px solid var(--color-border);
+    color: inherit;
+  }
+</style>

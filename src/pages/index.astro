@@ -4,7 +4,11 @@ import UniplaceHero from '../components/sections/UniplaceHero.astro';
 import FeatureGrid from '../components/sections/FeatureGrid.astro';
 import CTASection from '../components/sections/CTASection.astro';
 import RevealInit from '../components/sections/RevealInit.astro';
+import ListingCard from '../components/listings/ListingCard.astro';
+import { getListings } from '../lib/listings';
 import { site, waUrl } from '../config/site';
+
+const featured = getListings({ featuredOnly: true, limit: 3 });
 
 const features = [
   {
@@ -50,6 +54,24 @@ const features = [
     items={features.map((f) => ({ title: f.title, description: f.description }))}
   />
 
+  {
+    featured.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <h2>Imóveis em destaque</h2>
+          <div class="listing-grid">
+            {featured.map((listing) => (
+              <ListingCard listing={listing} />
+            ))}
+          </div>
+          <p>
+            <a href="/imoveis">Ver todos os imóveis</a>
+          </p>
+        </div>
+      </section>
+    )
+  }
+
   <section class="section">
     <div class="container about-teaser">
       <h2>Imobiliária com corretores associados</h2>
@@ -77,6 +99,16 @@ const features = [
 </BaseLayout>
 
 <style>
+  .listing-grid {
+    display: grid;
+    gap: 1.25rem;
+    margin: 1.25rem 0;
+  }
+  @media (min-width: 720px) {
+    .listing-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
   .paths {
     display: grid;
     gap: 1rem;

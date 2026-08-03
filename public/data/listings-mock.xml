@@ -1,22 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Mock P4: substituir por feed real via LISTINGS_FEED_URL. Sem imagens remotas = optimize:listings no-op. -->
+<!-- Mock Sprint 1: substituir por feed real via LISTINGS_FEED_URL. -->
 <listings>
   <listing>
     <id>ex-001</id>
-    <slug>exemplo-apartamento</slug>
-    <title>Apartamento exemplo</title>
+    <slug>apto-3-quartos-savassi</slug>
+    <title>Apartamento 3 quartos na Savassi</title>
     <type>Apartamento</type>
     <city>Belo Horizonte</city>
     <state>MG</state>
-    <neighborhood>Centro</neighborhood>
-    <price>R$ 0</price>
-    <priceValue>0</priceValue>
+    <neighborhood>Savassi</neighborhood>
+    <street>Rua Pernambuco</street>
+    <price>R$ 980.000</price>
+    <priceValue>980000</priceValue>
     <bedrooms>3</bedrooms>
-    <area>100</area>
+    <suites>1</suites>
+    <area>112</area>
     <parking>2</parking>
     <featured>true</featured>
     <image></image>
     <images></images>
-    <description>Item mock para build local sem CRM.</description>
+    <description>Apartamento amplo na Savassi, perto de comércio e serviços. Mock para desenvolvimento local.</description>
+  </listing>
+  <listing>
+    <id>ex-002</id>
+    <slug>cobertura-lourdes</slug>
+    <title>Cobertura com área privativa em Lourdes</title>
+    <type>Cobertura</type>
+    <city>Belo Horizonte</city>
+    <state>MG</state>
+    <neighborhood>Lourdes</neighborhood>
+    <street>Avenida do Contorno</street>
+    <price>R$ 1.850.000</price>
+    <priceValue>1850000</priceValue>
+    <bedrooms>4</bedrooms>
+    <suites>2</suites>
+    <area>220</area>
+    <parking>3</parking>
+    <featured>true</featured>
+    <image></image>
+    <images></images>
+    <description>Cobertura com vista e área externa. Item mock: valores ilustrativos.</description>
+  </listing>
+  <listing>
+    <id>ex-003</id>
+    <slug>apto-nova-lima-vale-do-sereno</slug>
+    <title>Apartamento 2 quartos no Vale do Sereno</title>
+    <type>Apartamento</type>
+    <city>Nova Lima</city>
+    <state>MG</state>
+    <neighborhood>Vale do Sereno</neighborhood>
+    <street>Alameda das Acácias</street>
+    <price>R$ 720.000</price>
+    <priceValue>720000</priceValue>
+    <bedrooms>2</bedrooms>
+    <suites>1</suites>
+    <area>85</area>
+    <parking>2</parking>
+    <featured>true</featured>
+    <image></image>
+    <images></images>
+    <description>Apartamento em condomínio em Nova Lima. Mock local até o CRM conectar.</description>
+  </listing>
+  <listing>
+    <id>ex-004</id>
+    <slug>apto-contagem-eldorado</slug>
+    <title>Apartamento 3 quartos no Eldorado</title>
+    <type>Apartamento</type>
+    <city>Contagem</city>
+    <state>MG</state>
+    <neighborhood>Eldorado</neighborhood>
+    <street>Avenida João César de Oliveira</street>
+    <price>R$ 450.000</price>
+    <priceValue>450000</priceValue>
+    <bedrooms>3</bedrooms>
+    <suites>0</suites>
+    <area>95</area>
+    <parking>1</parking>
+    <featured>false</featured>
+    <image></image>
+    <images></images>
+    <description>Opção em Contagem para quem prioriza ticket e rotina metropolitana. Mock.</description>
   </listing>
 </listings>

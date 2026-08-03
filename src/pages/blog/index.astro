@@ -1,6 +1,25 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
 import { site } from '../../config/site';
+
+const posts = (await getCollection('blog', ({ data }) => data.draft !== true)).sort((a, b) => {
+  const orderA = a.data.pub_order ?? 999;
+  const orderB = b.data.pub_order ?? 999;
+  if (orderA !== orderB) return orderA - orderB;
+  return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+});
+
+function postHref(post: (typeof posts)[number]) {
+  return `/blog/${post.data.slug ?? post.id}`;
+}
+
+function icpLabel(icp?: string) {
+  if (icp === 'comprador') return 'Comprar';
+  if (icp === 'vendedor') return 'Vender';
+  if (icp === 'corretor') return 'Corretores';
+  return 'Guia';
+}
 ---
 
 <BaseLayout
@@ -10,19 +29,76 @@ import { site } from '../../config/site';
   <section class="section">
     <div class="container">
       <h1>Blog</h1>
-      <p>
-        Fase 1 aprovada (24 posts) em produção no hub Docs. Import Astro Content Collection no próximo passo do
-        Sprint 1.
+      <p class="lead">
+        Guias práticos para comprar, vender ou se associar. Mercado real de BH, Nova Lima e Contagem.
       </p>
-      <p class="filters">Filtros planejados: Comprar · Vender · Corretores · Bairros · Mercado · Guia</p>
-      <p><a href="/associar">Corretor? Conheça a associação</a></p>
+
+      <ul class="list">
+        {
+          posts.map((post) => (
+            <li>
+              <a href={postHref(post)}>
+                <span class="tag">{icpLabel(post.data.icp)}</span>
+                <h2>{post.data.title}</h2>
+                <p>{post.data.description}</p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="foot">
+        <a href="/associar">Corretor? Conheça a associação</a>
+        ·
+        <a href="/imoveis">Ver imóveis</a>
+      </p>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .filters {
-    font-size: var(--text-small);
+  .lead {
+    max-width: 48ch;
+    margin-bottom: 2rem;
+  }
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+  }
+  .list a {
+    display: block;
+    padding: 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    background: var(--color-surface);
+  }
+  .list a:hover {
+    border-color: var(--color-primary);
+  }
+  .tag {
+    display: inline-block;
+    font-size: var(--text-eyebrow);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 0.35rem;
+  }
+  h2 {
+    font-size: 1.25rem;
+    margin: 0 0 0.35rem;
+  }
+  .list p {
+    margin: 0;
     color: var(--color-neutral-500);
+    font-size: var(--text-small);
+  }
+  .foot {
+    margin-top: 2rem;
   }
 </style>
