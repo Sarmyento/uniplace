@@ -5,10 +5,7 @@ dist/
 .env.*
 !.env.example
 .DS_Store
-*.log
-.vercel
-.wrangler
-coverage/
-.idea/
-.vscode/*
-!.vscode/extensions.json
+
+# P4: feed CRM e fotos otimizadas (gerados no prebuild)
+public/data/listings.xml
+public/images/listings/opt/

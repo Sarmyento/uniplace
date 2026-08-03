@@ -1,0 +1,37 @@
+{
+  "name": "uniplace-site",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site Uniplace Imóveis · Astro 7 · Sarmy",
+  "scripts": {
+    "dev": "astro dev",
+    "optimize:static": "node scripts/optimize-static-images.mjs",
+    "optimize:listings": "node scripts/optimize-listing-images.mjs",
+    "fetch:listings": "node scripts/fetch-listings.mjs",
+    "prebuild:p4": "node scripts/optimize-static-images.mjs && node scripts/fetch-listings.mjs && node scripts/optimize-listing-images.mjs",
+    "build": "astro build",
+    "preview": "astro preview",
+    "apply-brand": "node scripts/apply-brand.mjs",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^14.1.7",
+    "@astrojs/mdx": "^7.0.5",
+    "@astrojs/sitemap": "^3.7.0",
+    "@fontsource/dm-sans": "^5.3.0",
+    "@fontsource/dm-serif-display": "^5.3.0",
+    "astro": "^7.1.6"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "sharp": "^0.34.2",
+    "typescript": "^5.9.2"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "optionalDependencies": {
+    "@astrojs/markdown-remark": "7.2.2"
+  }
+}

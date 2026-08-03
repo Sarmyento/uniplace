@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mock P4: substituir por feed real via LISTINGS_FEED_URL. Sem imagens remotas = optimize:listings no-op. -->
+<listings>
+  <listing>
+    <id>ex-001</id>
+    <slug>exemplo-apartamento</slug>
+    <title>Apartamento exemplo</title>
+    <type>Apartamento</type>
+    <city>Belo Horizonte</city>
+    <state>MG</state>
+    <neighborhood>Centro</neighborhood>
+    <price>R$ 0</price>
+    <priceValue>0</priceValue>
+    <bedrooms>3</bedrooms>
+    <area>100</area>
+    <parking>2</parking>
+    <featured>true</featured>
+    <image></image>
+    <images></images>
+    <description>Item mock para build local sem CRM.</description>
+  </listing>
+</listings>

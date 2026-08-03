@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, waUrl } from '../config/site';
+---
+
+<BaseLayout
+  title={`Alerta de imóveis | ${site.name}`}
+  description="Salve seu filtro e receba imóveis novos compatíveis (radar Uniplace)."
+>
+  <section class="section">
+    <div class="container prose">
+      <h1>Alerta / radar</h1>
+      <p>
+        Cadastre um filtro (cidade, tipo, faixa, bairros) e receba novos imóveis do feed que derem match. E-mail
+        prioritário; WhatsApp com consentimento.
+      </p>
+      <p>Form completo + motor de match: Sprint 2 (ver plano de tracking).</p>
+      <a class="btn btn-primary" href={waUrl('Olá! Quero criar um alerta de imóveis na Uniplace.')}>
+        Pedir alerta no WhatsApp
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .prose {
+    max-width: 40rem;
+  }
+  .btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+  }
+</style>

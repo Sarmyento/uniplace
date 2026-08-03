@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+---
+
+<BaseLayout title={`Termos | ${site.name}`} description="Termos de uso do site Uniplace.">
+  <section class="section">
+    <div class="container prose">
+      <h1>Termos de uso</h1>
+      <p>
+        O site {site.domain} apresenta informações sobre imóveis e serviços da Uniplace Imóveis. Anúncios e
+        disponibilidade dependem do feed e da operação. Valores e condições estão sujeitos a confirmação.
+      </p>
+      <p>Endereços de imóveis em páginas públicas: apenas bairro e rua, sem número ou complemento.</p>
+      <p>Texto jurídico completo será revisado antes do go-live.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .prose {
+    max-width: 40rem;
+  }
+</style>

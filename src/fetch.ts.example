@@ -1,0 +1,23 @@
+/**
+ * Advanced Routing (Astro 7) — entrypoint reservado `src/fetch.ts`.
+ *
+ * Para ativar: copie este arquivo para `src/fetch.ts` e ajuste o pipeline.
+ * Não renomeie outros módulos para `fetch.ts` (nome reservado).
+ *
+ * Docs: https://docs.astro.build/en/guides/middleware/#advanced-routing
+ */
+import { astro, FetchState } from 'astro/fetch';
+
+export default {
+  fetch(request: Request) {
+    const state = new FetchState(request);
+
+    // Ex.: proxy de API antes das páginas Astro
+    // if (state.url.pathname.startsWith('/api/')) {
+    //   const url = new URL(state.url.pathname + state.url.search, 'https://backend.example.com');
+    //   return fetch(new Request(url, request));
+    // }
+
+    return astro(state);
+  },
+};

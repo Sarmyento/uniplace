@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { waUrl } from '../../config/site';
+
+export function getStaticPaths() {
+  return [{ params: { slug: 'exemplo' } }];
+}
+
+const { slug } = Astro.params;
+---
+
+<BaseLayout
+  title={`Imóvel ${slug} | Uniplace`}
+  description="Ficha de imóvel Uniplace. Conteúdo virá do feed CRM."
+  noindex={true}
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Ficha</p>
+      <h1>Imóvel em preparação</h1>
+      <p>
+        A rota <code>/imoveis/{slug}</code> receberá título, fotos, preço e dados do XML do CRM. Endereço público:
+        apenas bairro e rua.
+      </p>
+      <a class="btn btn-primary" href={waUrl(`Olá! Tenho interesse no imóvel ${slug}.`)}>WhatsApp sobre este imóvel</a>
+      <p><a href="/imoveis">Voltar aos imóveis</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: var(--text-eyebrow);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  .btn {
+    display: inline-block;
+    margin: 1rem 0;
+    padding: 0.65rem 1rem;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+  }
+</style>

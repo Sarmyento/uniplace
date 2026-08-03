@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+---
+
+<BaseLayout title={`Privacidade | ${site.name}`} description="Política de privacidade Uniplace (LGPD).">
+  <section class="section">
+    <div class="container prose">
+      <h1>Privacidade</h1>
+      <p>
+        A Uniplace trata dados pessoais conforme a LGPD. Usamos dados de formulários e WhatsApp para atendimento,
+        associação de corretores, alertas de imóveis e comunicações com consentimento.
+      </p>
+      <p>
+        Tracking (GTM / Meta / Google) e ferramentas de engajamento seguem o plano interno e só coletam o necessário.
+        Não enviamos PII no dataLayer de analytics.
+      </p>
+      <p>Para exercer direitos ou dúvidas: {site.contact.email}.</p>
+      <p>Texto jurídico completo será revisado antes do go-live com mídia paga.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .prose {
+    max-width: 40rem;
+  }
+</style>

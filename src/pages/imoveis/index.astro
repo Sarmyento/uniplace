@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site, waUrl } from '../../config/site';
+---
+
+<BaseLayout
+  title={`Imóveis | ${site.name}`}
+  description="Apartamentos e coberturas à venda em Belo Horizonte, Nova Lima e Contagem. Carteira Uniplace."
+>
+  <section class="section">
+    <div class="container">
+      <h1>Imóveis à venda</h1>
+      <p class="lead">
+        A carteira pública será alimentada pelo feed CRM. Enquanto o XML entra no ar, fale com a Maria para ver
+        opções em {site.markets.join(', ')}.
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href={waUrl('Olá! Quero ver imóveis na Uniplace.')}>Ver opções no WhatsApp</a>
+        <a class="btn" href="/bairros">Explorar bairros</a>
+        <a class="btn" href="/alerta">Criar alerta</a>
+      </div>
+      <p class="note">Feed CRM: conta Roberto · integração no Sprint 1 (LISTINGS_FEED_URL).</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lead {
+    max-width: 42ch;
+    font-size: 1.1rem;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+  }
+  .btn {
+    display: inline-block;
+    padding: 0.65rem 1rem;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    border: 1px solid var(--color-border);
+    color: inherit;
+  }
+  .note {
+    font-size: var(--text-small);
+    color: var(--color-neutral-500);
+  }
+</style>

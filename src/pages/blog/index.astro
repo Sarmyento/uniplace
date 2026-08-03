@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../config/site';
+---
+
+<BaseLayout
+  title={`Blog | ${site.name}`}
+  description="Guias para comprar, vender e se associar em Belo Horizonte e região."
+>
+  <section class="section">
+    <div class="container">
+      <h1>Blog</h1>
+      <p>
+        Fase 1 aprovada (24 posts) em produção no hub Docs. Import Astro Content Collection no próximo passo do
+        Sprint 1.
+      </p>
+      <p class="filters">Filtros planejados: Comprar · Vender · Corretores · Bairros · Mercado · Guia</p>
+      <p><a href="/associar">Corretor? Conheça a associação</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .filters {
+    font-size: var(--text-small);
+    color: var(--color-neutral-500);
+  }
+</style>

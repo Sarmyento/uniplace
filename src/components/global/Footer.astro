@@ -1,0 +1,89 @@
+---
+import { site, nav } from '../../config/site';
+const year = new Date().getFullYear();
+const footerNav = nav.filter((n) => n.href !== '/');
+---
+
+<footer class="footer section">
+  <div class="container footer__grid">
+    <div>
+      <strong>{site.name}</strong>
+      <p>{site.tagline}</p>
+      <p class="muted">{site.markets.join(' · ')}</p>
+    </div>
+    <div>
+      <p class="label">Contato</p>
+      <!--email_off-->
+      <p>{site.contact.email}</p>
+      <!--email_on-->
+      <p>{site.contact.address}</p>
+      <p><a href="/privacidade">Privacidade</a> · <a href="/termos">Termos</a></p>
+    </div>
+    <div>
+      <p class="label">Navegação</p>
+      <ul class="footer__nav">
+        {footerNav.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+  <div class="container footer__copy">
+    <small>&copy; {year} {site.name}. Imobiliária com corretores associados.</small>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-neutral-900);
+    color: var(--color-neutral-100);
+    padding-block: var(--space-8);
+  }
+
+  .footer a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .footer__grid {
+    display: grid;
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .footer__grid {
+      grid-template-columns: 1.4fr 1fr 1fr;
+    }
+  }
+
+  .label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .muted {
+    opacity: 0.85;
+    font-size: var(--text-small);
+  }
+
+  .footer__nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .footer__nav a {
+    text-decoration: none;
+  }
+
+  .footer__copy {
+    opacity: 0.75;
+    font-size: var(--text-small);
+  }
+</style>

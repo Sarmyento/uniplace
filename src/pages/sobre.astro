@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, waUrl } from '../config/site';
+---
+
+<BaseLayout
+  title={`Sobre | ${site.name}`}
+  description="Imobiliária Uniplace com corretores associados em BH, Nova Lima e Contagem. Sócio Roberto Fonseca."
+>
+  <section class="section">
+    <div class="container prose">
+      <p class="eyebrow">Sobre</p>
+      <h1>Tudo em um só lugar</h1>
+      <p>
+        A Uniplace é uma <strong>imobiliária</strong> com <strong>corretores associados</strong> (não uma “rede”).
+        Cuidamos de compra, venda, avaliação, diligência, homehunter e contratos em Belo Horizonte, Nova Lima e Contagem.
+      </p>
+      <p>
+        Sócio apresentado publicamente: <strong>{site.publicPartner}</strong>. O primeiro contato no WhatsApp é com a
+        Maria, que encaminha para um corretor associado.
+      </p>
+      <p>Não exigimos exclusividade dos corretores associados.</p>
+      <p>
+        <a class="btn btn-primary" href="/associar">Quero me associar</a>
+        <a class="btn" href={waUrl('Olá! Quero falar com a Uniplace.')}>WhatsApp</a>
+      </p>
+      <p class="addr">{site.contact.address}</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .prose {
+    max-width: 40rem;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: var(--text-eyebrow);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  .btn {
+    display: inline-block;
+    margin: 0.5rem 0.75rem 0.5rem 0;
+    padding: 0.65rem 1rem;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    border: 1px solid var(--color-border);
+    color: inherit;
+  }
+  .addr {
+    margin-top: 2rem;
+    font-size: var(--text-small);
+    color: var(--color-neutral-500);
+  }
+</style>

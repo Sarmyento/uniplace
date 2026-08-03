@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../config/site';
+
+const hubs = [
+  { href: '/bairros', label: 'Índice de bairros', note: 'SEO local A33' },
+  { href: '/bh', label: 'Belo Horizonte', note: 'Hub cidade · Sprint 2' },
+  { href: '/nova-lima', label: 'Nova Lima', note: 'Hub cidade · Sprint 2' },
+  { href: '/contagem', label: 'Contagem', note: 'Hub cidade · Sprint 2' },
+];
+---
+
+<BaseLayout
+  title={`Bairros | ${site.name}`}
+  description="Bairros com imóveis Uniplace em Belo Horizonte, Nova Lima e Contagem."
+>
+  <section class="section">
+    <div class="container">
+      <h1>Bairros</h1>
+      <p>Páginas de bairro com imóveis do feed (N≥1). Bloco inicial no Sprint 1; hubs de cidade no Sprint 2.</p>
+      <ul class="list">
+        {
+          hubs.map((h) => (
+            <li>
+              <a href={h.href}>{h.label}</a>
+              <span>{h.note}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .list li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+  .list span {
+    color: var(--color-neutral-500);
+    font-size: var(--text-small);
+  }
+</style>

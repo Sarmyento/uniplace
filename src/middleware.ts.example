@@ -1,0 +1,13 @@
+/**
+ * Middleware Astro — copie para `src/middleware.ts` quando o brief pedir
+ * auth, headers de segurança, A/B, ou lógica por request (SSR/edge).
+ *
+ * Em output static, middleware de request só aplica com adapter (ex. Cloudflare).
+ */
+import { defineMiddleware } from 'astro:middleware';
+
+export const onRequest = defineMiddleware(async (_context, next) => {
+  const response = await next();
+  // Ex.: response.headers.set('X-Content-Type-Options', 'nosniff');
+  return response;
+});

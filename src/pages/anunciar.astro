@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, waUrl } from '../config/site';
+---
+
+<BaseLayout
+  title={`Anunciar imóvel | ${site.name}`}
+  description="Anuncie grátis: site Uniplace, Quinto Andar e corretores associados. Um cadastro só."
+>
+  <section class="section">
+    <div class="container prose">
+      <p class="eyebrow">Vender</p>
+      <h1>Um cadastro. Vários canais.</h1>
+      <p>
+        Cadastro gratuito. Seu imóvel pode circular no site da Uniplace, no Quinto Andar e com os corretores
+        associados, sem espalhar anúncios desencontrados.
+      </p>
+      <ol>
+        <li>Fale no WhatsApp com a Maria</li>
+        <li>Alinhamos imóvel, docs e expectativa de preço</li>
+        <li>Publicamos e acompanhamos visitas e propostas</li>
+      </ol>
+      <p>Não prometemos prazo ou preço de venda. Prometemos processo claro.</p>
+      <a
+        class="btn btn-primary"
+        href={waUrl('Olá! Quero anunciar meu imóvel na Uniplace.')}
+        data-lead-source="anunciar"
+      >
+        Quero anunciar
+      </a>
+      <p><a href="/avaliacao">Prefere começar pela avaliação?</a> (Sprint 2)</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .prose {
+    max-width: 40rem;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: var(--text-eyebrow);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  .btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+  }
+</style>

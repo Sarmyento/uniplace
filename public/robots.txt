@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Trocar para o dominio real do cliente (PUBLIC_SITE_URL / site.domain)
+Sitemap: https://exemplo.com.br/sitemap-index.xml

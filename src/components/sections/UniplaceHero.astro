@@ -1,0 +1,103 @@
+---
+import { site } from '../../config/site';
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  title = site.tagline,
+  subtitle = 'Comprar, vender ou se associar. Imobiliária com corretores associados em Belo Horizonte, Nova Lima e Contagem.',
+} = Astro.props;
+---
+
+<section class="hero">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="container hero__content">
+    <p class="eyebrow">Uniplace Imóveis</p>
+    <h1>{title}</h1>
+    <p class="lead">{subtitle}</p>
+    <div class="hero__ctas">
+      <a class="btn btn-primary" href="/imoveis">Quero comprar</a>
+      <a class="btn btn-secondary" href="/anunciar">Quero vender</a>
+    </div>
+    <p class="hero__associate">
+      <a href="/associar">Sou corretor: quero me associar</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: min(88vh, 760px);
+    display: flex;
+    align-items: flex-end;
+    padding-block: clamp(4rem, 12vw, 7rem);
+    color: #fff;
+    overflow: hidden;
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(160deg, rgb(45 45 45 / 0.72) 0%, rgb(45 45 45 / 0.45) 45%, rgb(200 122 94 / 0.35) 100%),
+      radial-gradient(ellipse at 30% 20%, #8a9a86 0%, transparent 55%),
+      #2d2d2d;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    max-width: 40rem;
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: var(--text-eyebrow);
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+    opacity: 0.9;
+  }
+
+  h1 {
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+
+  .lead {
+    font-size: 1.125rem;
+    max-width: 38ch;
+    opacity: 0.95;
+    margin: 0 0 1.5rem;
+  }
+
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgb(255 255 255 / 0.7);
+  }
+
+  .btn-secondary:hover {
+    background: rgb(255 255 255 / 0.12);
+  }
+
+  .hero__associate {
+    margin: 1.25rem 0 0;
+    font-size: var(--text-small);
+  }
+
+  .hero__associate a {
+    color: #fff;
+    text-underline-offset: 3px;
+  }
+</style>

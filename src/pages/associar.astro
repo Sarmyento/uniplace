@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, waUrl } from '../config/site';
+
+const benefits = [
+  'Acesso à carteira de imóveis da Uniplace',
+  'Acesso à Comunidade CRM',
+  'Acesso a imóveis da Quinto Andar',
+  'Comissões até 50% da comissão bruta',
+  'Sem exclusividade',
+];
+---
+
+<BaseLayout
+  title={`Associar-se | ${site.name}`}
+  description="Associe-se à Uniplace: carteira, Comunidade CRM e Quinto Andar. Comissão até 50% bruta. Sem exclusividade."
+>
+  <section class="section">
+    <div class="container prose">
+      <p class="eyebrow">Corretores</p>
+      <h1>Quero me associar</h1>
+      <p>
+        A Uniplace é imobiliária com corretores associados e gancho para a parceria Quinto Andar. Associe-se e
+        trabalhe com estrutura, sem exclusividade.
+      </p>
+      <ul>
+        {benefits.map((b) => <li>{b}</li>)}
+      </ul>
+
+      <form class="form" id="form-associar" data-wa={site.whatsapp.number}>
+        <label>
+          Nome
+          <input name="name" type="text" required autocomplete="name" />
+        </label>
+        <label>
+          Telefone / WhatsApp
+          <input name="phone" type="tel" required autocomplete="tel" />
+        </label>
+        <label>
+          E-mail
+          <input name="email" type="email" required autocomplete="email" />
+        </label>
+        <label>
+          CRECI (opcional)
+          <input name="creci" type="text" />
+        </label>
+        <label class="check">
+          <input name="consent" type="checkbox" required />
+          <span>
+            Aceito o uso dos meus dados para contato sobre associação, conforme a
+            <a href="/privacidade">política de privacidade</a>.
+          </span>
+        </label>
+        <button class="btn btn-primary" type="submit">Quero me associar</button>
+      </form>
+
+      <p class="alt">
+        Prefere falar antes?
+        <a href={waUrl('Olá! Sou corretor e quero me associar à Uniplace. Gostaria de esclarecer detalhes e agendar reunião.')}>
+          WhatsApp com a Maria
+        </a>
+        (ela esclarece e agenda reunião com Cristiano ou Roberto).
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    var form = document.getElementById('form-associar');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var fd = new FormData(form);
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'generate_lead',
+        lead_source: 'associar-form',
+        page_path: location.pathname,
+      });
+      var name = String(fd.get('name') || '');
+      var phone = String(fd.get('phone') || '');
+      var msg = 'Olá! Quero me associar à Uniplace.\nNome: ' + name + '\nTelefone: ' + phone;
+      var num = form.getAttribute('data-wa') || '';
+      window.location.href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(msg);
+    });
+  })();
+</script>
+
+<style>
+  .prose {
+    max-width: 40rem;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: var(--text-eyebrow);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  .form {
+    display: grid;
+    gap: 0.85rem;
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+  label {
+    display: grid;
+    gap: 0.35rem;
+    font-weight: 500;
+    font-size: var(--text-small);
+  }
+  input[type='text'],
+  input[type='tel'],
+  input[type='email'] {
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font: inherit;
+  }
+  .check {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    font-weight: 400;
+  }
+  .check input {
+    margin-top: 0.2rem;
+  }
+  .btn {
+    border: 0;
+    cursor: pointer;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-md);
+    font: inherit;
+    font-weight: 600;
+  }
+  .alt {
+    font-size: var(--text-small);
+  }
+</style>

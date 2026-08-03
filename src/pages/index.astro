@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import UniplaceHero from '../components/sections/UniplaceHero.astro';
+import FeatureGrid from '../components/sections/FeatureGrid.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import RevealInit from '../components/sections/RevealInit.astro';
+import { site, waUrl } from '../config/site';
+
+const features = [
+  {
+    title: 'Quero comprar',
+    description: 'Imóveis reais em BH, Nova Lima e Contagem. Visita com corretor associado.',
+  },
+  {
+    title: 'Quero vender',
+    description: 'Um cadastro gratuito: site Uniplace, Quinto Andar e corretores associados.',
+  },
+  {
+    title: 'Quero me associar',
+    description: 'Carteira Uniplace, Comunidade CRM e imóveis Quinto Andar. Comissão até 50% bruta. Sem exclusividade.',
+  },
+];
+---
+
+<BaseLayout
+  title={`${site.name} | ${site.tagline}`}
+  description="Imobiliária em Belo Horizonte, Nova Lima e Contagem. Comprar, vender ou se associar. Tudo em um só lugar."
+>
+  <UniplaceHero />
+
+  <section class="section">
+    <div class="container paths">
+      <a class="path" href="/imoveis">
+        <h2>Comprar</h2>
+        <p>Ver imóveis e agendar visita.</p>
+      </a>
+      <a class="path" href="/anunciar">
+        <h2>Vender</h2>
+        <p>Anunciar com cadastro único.</p>
+      </a>
+      <a class="path path--accent" href="/associar">
+        <h2>Associar</h2>
+        <p>Corretor: cresça com a Uniplace.</p>
+      </a>
+    </div>
+  </section>
+
+  <FeatureGrid
+    title="Por que a Uniplace"
+    items={features.map((f) => ({ title: f.title, description: f.description }))}
+  />
+
+  <section class="section">
+    <div class="container about-teaser">
+      <h2>Imobiliária com corretores associados</h2>
+      <p>
+        Sócio público: {site.publicPartner}. Atendimento no WhatsApp com a Maria. Equipe de corretores associados,
+        sem exclusividade.
+      </p>
+      <p>
+        <a href="/sobre">Conhecer a Uniplace</a>
+        ·
+        <a href="/bairros">Explorar bairros</a>
+        ·
+        <a href="/blog">Ler o blog</a>
+      </p>
+    </div>
+  </section>
+
+  <CTASection
+    title="Fale com a Maria"
+    text="Tire dúvidas, agende visita ou comece seu anúncio."
+    ctaLabel="WhatsApp"
+    ctaHref={waUrl('Olá! Vim pelo site da Uniplace.')}
+  />
+  <RevealInit />
+</BaseLayout>
+
+<style>
+  .paths {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .paths {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .path {
+    display: block;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color var(--transition-base);
+  }
+
+  .path:hover {
+    border-color: var(--color-primary);
+  }
+
+  .path h2 {
+    font-size: 1.35rem;
+    color: var(--color-primary);
+  }
+
+  .path--accent {
+    background: color-mix(in srgb, var(--color-secondary) 12%, var(--color-surface));
+  }
+
+  .about-teaser {
+    max-width: 42rem;
+  }
+</style>

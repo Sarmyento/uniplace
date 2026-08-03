@@ -1,0 +1,176 @@
+/**
+ * Baixa fotos remotas do feed XML (P4) e grava WebP + AVIF local (card + detail).
+ * Reescreve URLs em public/data/listings.xml.
+ *
+ * Uso: node scripts/optimize-listing-images.mjs
+ *      npm run optimize:listings
+ * Roda depois de fetch-listings.mjs no prebuild:p4.
+ */
+import { createHash } from 'node:crypto';
+import { mkdir, readFile, writeFile, stat } from 'node:fs/promises';
+import { join, resolve } from 'node:path';
+import sharp from 'sharp';
+
+const root = resolve(process.cwd());
+const xmlPath = resolve(root, 'public/data/listings.xml');
+const outDir = resolve(root, 'public/images/listings/opt');
+
+const CARD_WIDTH = 800;
+const CARD_SM_WIDTH = 400;
+const DETAIL_WIDTH = 1400;
+const WEBP_QUALITY = 72;
+const AVIF_QUALITY = 55;
+
+function hashUrl(url) {
+  return createHash('sha1').update(url).digest('hex').slice(0, 12);
+}
+
+async function download(url) {
+  const response = await fetch(url, {
+    headers: { 'User-Agent': 'sarmy-sites-scaffold-optimizer/1.0' },
+    signal: AbortSignal.timeout(45000),
+  });
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status} for ${url}`);
+  }
+  return Buffer.from(await response.arrayBuffer());
+}
+
+async function writeVariant(buffer, outPath, width, format) {
+  let img = sharp(buffer).rotate().resize({ width, withoutEnlargement: true });
+  if (format === 'avif') {
+    await img.avif({ quality: AVIF_QUALITY, effort: 4 }).toFile(outPath);
+  } else {
+    await img.webp({ quality: WEBP_QUALITY, effort: 4 }).toFile(outPath);
+  }
+}
+
+async function ensureFromCard(cardAbs, destAbs, width, format) {
+  try {
+    await stat(destAbs);
+    return;
+  } catch {
+    // generate
+  }
+  let img = sharp(cardAbs).resize({ width, withoutEnlargement: true });
+  if (format === 'avif') {
+    await img.avif({ quality: AVIF_QUALITY, effort: 4 }).toFile(destAbs);
+  } else {
+    await img.webp({ quality: WEBP_QUALITY, effort: 4 }).toFile(destAbs);
+  }
+}
+
+async function optimizeUrl(url, cache) {
+  if (cache.has(url)) return cache.get(url);
+
+  const id = hashUrl(url);
+  const cardRel = `/images/listings/opt/${id}-card.webp`;
+  const cardSmRel = `/images/listings/opt/${id}-card-sm.webp`;
+  const detailRel = `/images/listings/opt/${id}-detail.webp`;
+  const cardAbs = join(outDir, `${id}-card.webp`);
+  const cardSmAbs = join(outDir, `${id}-card-sm.webp`);
+  const detailAbs = join(outDir, `${id}-detail.webp`);
+  const cardAvifAbs = join(outDir, `${id}-card.avif`);
+  const cardSmAvifAbs = join(outDir, `${id}-card-sm.avif`);
+
+  try {
+    const buffer = await download(url);
+    await writeVariant(buffer, cardAbs, CARD_WIDTH, 'webp');
+    await writeVariant(buffer, cardSmAbs, CARD_SM_WIDTH, 'webp');
+    await writeVariant(buffer, detailAbs, DETAIL_WIDTH, 'webp');
+    await writeVariant(buffer, cardAvifAbs, CARD_WIDTH, 'avif');
+    await writeVariant(buffer, cardSmAvifAbs, CARD_SM_WIDTH, 'avif');
+    const mapped = { card: cardRel, cardSm: cardSmRel, detail: detailRel };
+    cache.set(url, mapped);
+    console.log(`[optimize-listings] ${id} ok (${(buffer.length / 1024).toFixed(0)} KB → webp+avif)`);
+    return mapped;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn(`[optimize-listings] keep remote ${url}: ${message}`);
+    const mapped = { card: url, cardSm: url, detail: url };
+    cache.set(url, mapped);
+    return mapped;
+  }
+}
+
+async function ensureLocalVariants(xml) {
+  const localCards = [...xml.matchAll(/\/images\/listings\/opt\/([a-f0-9]+)-card\.webp/gi)].map((m) => m[1]);
+  for (const id of [...new Set(localCards)]) {
+    const cardAbs = join(outDir, `${id}-card.webp`);
+    const cardSmAbs = join(outDir, `${id}-card-sm.webp`);
+    const cardAvifAbs = join(outDir, `${id}-card.avif`);
+    const cardSmAvifAbs = join(outDir, `${id}-card-sm.avif`);
+    try {
+      await stat(cardAbs);
+      await ensureFromCard(cardAbs, cardSmAbs, CARD_SM_WIDTH, 'webp');
+      await ensureFromCard(cardAbs, cardAvifAbs, CARD_WIDTH, 'avif');
+      await ensureFromCard(cardAbs, cardSmAvifAbs, CARD_SM_WIDTH, 'avif');
+    } catch {
+      // card ausente
+    }
+  }
+}
+
+async function main() {
+  let xml;
+  try {
+    xml = await readFile(xmlPath, 'utf8');
+  } catch {
+    console.warn('[optimize-listings] listings.xml missing; skip.');
+    return;
+  }
+
+  const urls = [...xml.matchAll(/https?:\/\/[^\s<>|"']+\.(?:jpe?g|png|webp|gif)/gi)].map((m) => m[0]);
+  const unique = [...new Set(urls)];
+  if (!unique.length) {
+    console.log('[optimize-listings] no remote images found; ensuring local AVIF variants.');
+    await mkdir(outDir, { recursive: true });
+    await ensureLocalVariants(xml);
+    return;
+  }
+
+  await mkdir(outDir, { recursive: true });
+  const cache = new Map();
+
+  for (const url of unique) {
+    await optimizeUrl(url, cache);
+  }
+
+  let next = xml;
+  next = next.replace(/<image>([\s\S]*?)<\/image>/g, (_full, inner) => {
+    const url = String(inner).trim();
+    const mapped = cache.get(url);
+    return `<image>${mapped?.card ?? url}</image>`;
+  });
+
+  next = next.replace(/<images>([\s\S]*?)<\/images>/g, (_full, inner) => {
+    const parts = String(inner)
+      .split('|')
+      .map((item) => item.trim())
+      .filter(Boolean)
+      .map((url) => cache.get(url)?.detail ?? url);
+    return `<images>${parts.join('|')}</images>`;
+  });
+
+  for (const [url, mapped] of cache) {
+    if (url !== mapped.detail) {
+      next = next.split(url).join(mapped.detail);
+    }
+  }
+
+  next = next.replace(/<image>([\s\S]*?)<\/image>/g, (_full, inner) => {
+    const current = String(inner).trim();
+    const card = current.replace(/-detail\.webp$/i, '-card.webp');
+    return `<image>${card}</image>`;
+  });
+
+  await writeFile(xmlPath, next, 'utf8');
+  await ensureLocalVariants(next);
+
+  console.log(`[optimize-listings] rewritten ${unique.length} image URL(s) in listings.xml.`);
+}
+
+main().catch((error) => {
+  console.error('[optimize-listings]', error instanceof Error ? error.message : error);
+  process.exitCode = 1;
+});

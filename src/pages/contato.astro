@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, waUrl } from '../config/site';
+
+const intents = [
+  { id: 'comprar', label: 'Quero comprar', msg: 'Olá! Quero comprar um imóvel.' },
+  { id: 'vender', label: 'Quero vender', msg: 'Olá! Quero anunciar / vender meu imóvel.' },
+  { id: 'associar', label: 'Quero me associar', msg: 'Olá! Sou corretor e quero me associar à Uniplace.' },
+  { id: 'outro', label: 'Outro assunto', msg: 'Olá! Vim pelo site da Uniplace.' },
+];
+---
+
+<BaseLayout title={`Contato | ${site.name}`} description="Fale com a Maria no WhatsApp. Comprar, vender ou associar.">
+  <section class="section">
+    <div class="container prose">
+      <h1>Contato</h1>
+      <p>Escolha o assunto. A Maria atende no WhatsApp e encaminha o fluxo certo.</p>
+      <ul class="intents">
+        {
+          intents.map((i) => (
+            <li>
+              <a class="btn" href={waUrl(i.msg)} data-intent={i.id}>
+                {i.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="addr">{site.contact.address}</p>
+      <!--email_off-->
+      <p>{site.contact.email}</p>
+      <!--email_on-->
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .prose {
+    max-width: 36rem;
+  }
+  .intents {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .btn {
+    display: block;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: inherit;
+    background: var(--color-surface);
+  }
+  .btn:hover {
+    border-color: var(--color-primary);
+  }
+  .addr {
+    margin-top: 2rem;
+    font-size: var(--text-small);
+    color: var(--color-neutral-500);
+  }
+</style>

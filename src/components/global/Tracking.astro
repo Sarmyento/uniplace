@@ -1,0 +1,40 @@
+---
+/**
+ * Tracking Uniplace — modelo Tetê (GTM server-side via Stape).
+ * Env: PUBLIC_GTM_ID + PUBLIC_GTM_SERVER_ORIGIN (ex. https://v1.uniplace.com.br)
+ * Fallback legado: PUBLIC_GA4_ID (gtag direto) se GTM ainda não provisionado.
+ * Doc: clientes/uniplace/marca/plano-tracking-meta-google.md
+ */
+const gtmId = import.meta.env.PUBLIC_GTM_ID as string | undefined;
+const gtmOrigin = (import.meta.env.PUBLIC_GTM_SERVER_ORIGIN as string | undefined)?.replace(/\/$/, '');
+const ga4 = import.meta.env.PUBLIC_GA4_ID as string | undefined;
+---
+
+{gtmId && gtmOrigin && (
+  <script is:inline define:vars={{ gtmId, gtmOrigin }}>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = gtmOrigin + '/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', gtmId);
+  </script>
+)}
+
+{!gtmId && ga4 && (
+  <>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${ga4}`}></script>
+    <script is:inline define:vars={{ ga4 }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', ga4);
+    </script>
+  </>
+)}

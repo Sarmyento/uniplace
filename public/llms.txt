@@ -1,0 +1,13 @@
+# Cliente Exemplo
+
+> Presenca digital profissional. Substitua nome, resumo e links pelo dominio real do cliente.
+
+## Paginas principais
+
+- [Inicio](https://exemplo.com.br/)
+- [Contato](https://exemplo.com.br/contato)
+
+## Contato
+
+- WhatsApp: https://wa.me/5531999999999
+- E-mail: contato@exemplo.com.br
