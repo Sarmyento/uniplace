@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title = site.tagline,
-  subtitle = 'Comprar, vender ou se associar. Imobiliária com corretores associados em Belo Horizonte, Nova Lima e Contagem.',
+  subtitle = 'Comprar ou vender com clareza. Imóveis em Belo Horizonte, Nova Lima e Contagem.',
 } = Astro.props;
 ---
 
@@ -22,9 +22,6 @@ const {
       <a class="btn btn-primary btn-motion" href="/imoveis">Quero comprar</a>
       <a class="btn btn-secondary btn-motion" href="/anunciar">Quero vender</a>
     </div>
-    <p class="hero__associate reveal">
-      <a href="/associar">Sou corretor: quero me associar</a>
-    </p>
   </div>
 </section>
 
@@ -58,7 +55,7 @@ const {
     text-transform: uppercase;
     letter-spacing: 0.12em;
     font-size: var(--text-eyebrow);
-    font-weight: 600;
+    font-weight: 500;
     margin: 0 0 0.75rem;
     opacity: 0.9;
   }
@@ -89,15 +86,5 @@ const {
 
   .btn-secondary:hover {
     background: rgb(255 255 255 / 0.12);
-  }
-
-  .hero__associate {
-    margin: 1.25rem 0 0;
-    font-size: var(--text-small);
-  }
-
-  .hero__associate a {
-    color: #fff;
-    text-underline-offset: 3px;
   }
 </style>

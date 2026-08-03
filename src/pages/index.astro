@@ -12,18 +12,18 @@ const featured = getListings({ featuredOnly: true, limit: 3 });
 
 const features = [
   {
-    title: 'Quero comprar',
+    title: 'Comprar com clareza',
     description: 'Imóveis reais em BH, Nova Lima e Contagem. Visita com corretor associado.',
     icon: '/icons/3d/buy.webp',
   },
   {
-    title: 'Quero vender',
+    title: 'Vender sem dispersão',
     description: 'Um cadastro gratuito: site Uniplace, Quinto Andar e corretores associados.',
     icon: '/icons/3d/sell.webp',
   },
   {
-    title: 'Quero me associar',
-    description: 'Carteira Uniplace, Comunidade CRM e imóveis Quinto Andar. Comissão até 50% bruta. Sem exclusividade.',
+    title: 'Acompanhamento local',
+    description: 'Processo claro do interesse à visita, com atendimento no WhatsApp da Uniplace.',
     icon: '/icons/3d/visit.webp',
   },
 ];
@@ -31,29 +31,9 @@ const features = [
 
 <BaseLayout
   title={`${site.name} | ${site.tagline}`}
-  description="Imobiliária em Belo Horizonte, Nova Lima e Contagem. Comprar, vender ou se associar. Tudo em um só lugar."
+  description="Imobiliária em Belo Horizonte, Nova Lima e Contagem. Comprar ou vender. Tudo em um só lugar."
 >
   <UniplaceHero />
-
-  <section class="section">
-    <div class="container paths reveal-stagger">
-      <a class="path path-motion" href="/imoveis">
-        <img src="/icons/3d/buy.webp" alt="" width="48" height="48" loading="lazy" />
-        <h2>Comprar</h2>
-        <p>Ver imóveis e agendar visita.</p>
-      </a>
-      <a class="path path-motion" href="/anunciar">
-        <img src="/icons/3d/sell.webp" alt="" width="48" height="48" loading="lazy" />
-        <h2>Vender</h2>
-        <p>Anunciar com cadastro único.</p>
-      </a>
-      <a class="path path-motion path--accent" href="/associar">
-        <img src="/icons/3d/visit.webp" alt="" width="48" height="48" loading="lazy" />
-        <h2>Associar</h2>
-        <p>Corretor: cresça com a Uniplace.</p>
-      </a>
-    </div>
-  </section>
 
   <FeatureGrid
     title="Por que a Uniplace"
@@ -109,52 +89,15 @@ const features = [
 <style>
   .listing-grid {
     display: grid;
-    gap: 1.25rem;
-    margin: 1.25rem 0;
+    gap: 1rem;
+    margin: 1rem 0;
   }
   @media (min-width: 720px) {
     .listing-grid {
       grid-template-columns: repeat(3, 1fr);
+      align-items: stretch;
     }
   }
-  .paths {
-    display: grid;
-    gap: 1rem;
-  }
-
-  @media (min-width: 768px) {
-    .paths {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .path {
-    display: block;
-    padding: 1.5rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background: var(--color-surface);
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .path img {
-    width: 3rem;
-    height: 3rem;
-    object-fit: contain;
-    margin-bottom: 0.75rem;
-  }
-
-  .path h2 {
-    font-size: 1.35rem;
-    font-weight: 400;
-    color: var(--color-primary);
-  }
-
-  .path--accent {
-    background: color-mix(in srgb, var(--color-secondary) 12%, var(--color-surface));
-  }
-
   .about-teaser {
     max-width: 42rem;
   }

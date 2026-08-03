@@ -2,71 +2,18 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ListingsCatalog from '../../components/sections/ListingsCatalog.astro';
 import RevealInit from '../../components/sections/RevealInit.astro';
-import { getListings, isMockFeed } from '../../lib/listings';
-import { site, waUrl } from '../../config/site';
+import { getListings } from '../../lib/listings';
+import { site } from '../../config/site';
 
 const listings = getListings();
-const isMock = isMockFeed();
 ---
 
 <BaseLayout
   title={`Imóveis | ${site.name}`}
   description="Apartamentos e coberturas à venda em Belo Horizonte, Nova Lima e Contagem."
+  bodyClass="page-imoveis"
 >
-  <section class="section section--head">
-    <div class="container">
-      <p class="eyebrow reveal">Carteira Uniplace</p>
-      <h1 class="reveal">Imóveis à venda</h1>
-      <p class="lead reveal">
-        BH, Nova Lima e Contagem. Visita com corretor associado via WhatsApp.
-      </p>
-      {
-        isMock && (
-          <p class="banner reveal">
-            Feed CRM ainda não conectado. Exibindo mock local.
-          </p>
-        )
-      }
-      <div class="actions reveal">
-        <a class="btn btn-primary btn-motion" href={waUrl('Olá! Quero ver imóveis na Uniplace.')}>
-          WhatsApp
-        </a>
-        <a class="btn btn-secondary btn-motion" href="/alerta">
-          Criar alerta
-        </a>
-      </div>
-    </div>
-  </section>
-
+  <h1 class="sr-only">Imóveis à venda</h1>
   <ListingsCatalog listings={listings} />
   <RevealInit />
 </BaseLayout>
-
-<style>
-  .section--head {
-    padding-bottom: 0;
-  }
-  .eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: var(--text-eyebrow);
-    font-weight: 600;
-    color: var(--color-primary);
-  }
-  .lead {
-    max-width: 48ch;
-    color: var(--color-muted);
-  }
-  .banner {
-    padding: 0.75rem 1rem;
-    background: color-mix(in srgb, var(--color-accent) 18%, white);
-    border-radius: var(--radius-md);
-    font-size: var(--text-small);
-  }
-  .actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 1rem;
-  }
-</style>

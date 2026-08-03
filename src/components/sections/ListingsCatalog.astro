@@ -15,97 +15,100 @@ const locationSeed = [
 ];
 ---
 
-<section class="section section--tight" id="filtros" aria-labelledby="filtros-title">
-  <div class="container">
-    <div class="filters-bar reveal">
-      <div class="filters-bar__top">
-        <h2 id="filtros-title" class="filters-bar__title">Filtrar imóveis</h2>
-        <p class="filters-bar__count" data-results-count aria-live="polite">
-          {listings.length} imóveis
-        </p>
+<section class="listings-catalog" id="filtros" aria-labelledby="filtros-title">
+  <div class="filters-sticky">
+    <div class="container">
+      <div class="filters-bar">
+        <div class="filters-bar__top">
+          <h2 id="filtros-title" class="filters-bar__title">Filtros</h2>
+          <p class="filters-bar__count" data-results-count aria-live="polite">
+            {listings.length} imóveis
+          </p>
+        </div>
+
+        <form class="filters-form" data-listings-filter aria-label="Filtros de imóveis">
+          <div
+            class="filters-form__wide location-select"
+            data-location-select
+            data-seed={JSON.stringify(locationSeed)}
+          >
+            <span class="filters-form__label">Localização</span>
+            <div class="location-select__box" data-location-box>
+              <div class="location-select__chips" data-location-chips></div>
+              <input
+                type="search"
+                class="location-select__input"
+                data-location-input
+                placeholder="Bairro ou cidade (mín. 3 letras)"
+                autocomplete="off"
+                aria-autocomplete="list"
+                aria-controls="location-suggestions"
+                aria-expanded="false"
+              />
+            </div>
+            <ul
+              id="location-suggestions"
+              class="location-select__suggestions"
+              data-location-suggestions
+              hidden
+              role="listbox"
+            ></ul>
+            <div data-location-hidden></div>
+          </div>
+
+          <div class="multi-select" data-multi-select="type">
+            <span class="multi-select__label">Tipo</span>
+            <button type="button" class="multi-select__trigger" data-multi-select-trigger>Todos</button>
+            <div class="multi-select__dropdown" data-multi-select-dropdown hidden>
+              {
+                types.map((t) => (
+                  <label class="multi-select__option">
+                    <input type="checkbox" name="type" value={t} />
+                    <span>{t}</span>
+                  </label>
+                ))
+              }
+            </div>
+          </div>
+
+          <label>
+            <span>Quartos</span>
+            <select name="bedrooms">
+              <option value="">Qualquer</option>
+              <option value="1">1+</option>
+              <option value="2">2+</option>
+              <option value="3">3+</option>
+              <option value="4">4+</option>
+              <option value="5">5+</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Preço mín.</span>
+            <input type="number" name="priceMin" min="0" step="100000" placeholder="500000" />
+          </label>
+
+          <label>
+            <span>Preço máx.</span>
+            <input type="number" name="priceMax" min="0" step="100000" placeholder="2000000" />
+          </label>
+
+          <label>
+            <span>Área mín.</span>
+            <input type="number" name="areaMin" min="0" step="10" placeholder="80" />
+          </label>
+
+          <div class="filters-form__actions">
+            <button class="btn btn-primary btn-motion" type="submit">Aplicar</button>
+            <button class="btn btn-secondary btn-motion filters-form__reset" type="reset">Limpar</button>
+          </div>
+        </form>
       </div>
-
-      <form class="filters-form" data-listings-filter aria-label="Filtros de imóveis">
-        {/* Localização: multi-select + autocomplete a partir de 3 caracteres */}
-        <div
-          class="filters-form__wide location-select"
-          data-location-select
-          data-seed={JSON.stringify(locationSeed)}
-        >
-          <span class="filters-form__label">Localização</span>
-          <div class="location-select__box" data-location-box>
-            <div class="location-select__chips" data-location-chips></div>
-            <input
-              type="search"
-              class="location-select__input"
-              data-location-input
-              placeholder="Digite bairro ou cidade (mín. 3 letras)"
-              autocomplete="off"
-              aria-autocomplete="list"
-              aria-controls="location-suggestions"
-              aria-expanded="false"
-            />
-          </div>
-          <ul
-            id="location-suggestions"
-            class="location-select__suggestions"
-            data-location-suggestions
-            hidden
-            role="listbox"
-          ></ul>
-          <div data-location-hidden></div>
-        </div>
-
-        <div class="multi-select" data-multi-select="type">
-          <span class="multi-select__label">Tipo</span>
-          <button type="button" class="multi-select__trigger" data-multi-select-trigger>Todos</button>
-          <div class="multi-select__dropdown" data-multi-select-dropdown hidden>
-            {
-              types.map((t) => (
-                <label class="multi-select__option">
-                  <input type="checkbox" name="type" value={t} />
-                  <span>{t}</span>
-                </label>
-              ))
-            }
-          </div>
-        </div>
-
-        <label>
-          <span>Quartos (mín.)</span>
-          <select name="bedrooms">
-            <option value="">Qualquer</option>
-            <option value="1">1+</option>
-            <option value="2">2+</option>
-            <option value="3">3+</option>
-            <option value="4">4+</option>
-            <option value="5">5+</option>
-          </select>
-        </label>
-
-        <label>
-          <span>Preço mínimo</span>
-          <input type="number" name="priceMin" min="0" step="100000" placeholder="Ex: 500000" />
-        </label>
-
-        <label>
-          <span>Preço máximo</span>
-          <input type="number" name="priceMax" min="0" step="100000" placeholder="Ex: 2000000" />
-        </label>
-
-        <label>
-          <span>Área mínima (m²)</span>
-          <input type="number" name="areaMin" min="0" step="10" placeholder="Ex: 80" />
-        </label>
-
-        <div class="filters-form__actions">
-          <button class="btn btn-primary btn-motion" type="submit">Aplicar</button>
-          <button class="btn btn-secondary btn-motion filters-form__reset" type="reset">Limpar</button>
-        </div>
-      </form>
     </div>
+  </div>
 
-    <div class="listings-grid reveal-stagger" data-listings-grid>
+  <div class="container listings-catalog__body">
+    <div class="listings-grid" data-listings-grid>
       {
         listings.map((listing) => (
           <div
@@ -428,40 +431,60 @@ const locationSeed = [
 </script>
 
 <style>
+  .listings-catalog {
+    padding-bottom: 2.5rem;
+  }
+
+  .filters-sticky {
+    position: sticky;
+    top: var(--header-height);
+    z-index: 40;
+    padding: 0.55rem 0 0.65rem;
+    background: color-mix(in srgb, var(--color-background) 92%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .listings-catalog__body {
+    padding-top: 1.15rem;
+  }
+
   .filters-bar {
-    padding: 1rem 1.15rem 1.15rem;
-    margin-bottom: 1.75rem;
+    padding: 0.55rem 0.75rem 0.65rem;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-soft);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 2px 14px rgb(63 59 55 / 0.06);
   }
 
   .filters-bar__top {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
-    gap: 0.5rem 1rem;
-    margin-bottom: 0.85rem;
+    gap: 0.35rem 0.75rem;
+    margin-bottom: 0.45rem;
   }
 
   .filters-bar__title {
-    font-size: 1.35rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     margin: 0;
-    color: var(--color-ink);
+    color: var(--color-muted);
   }
 
   .filters-bar__count {
     margin: 0;
-    font-size: var(--text-small);
+    font-size: 0.75rem;
     color: var(--color-muted);
-    letter-spacing: 0.02em;
   }
 
   .filters-form {
     display: grid;
-    gap: 0.75rem;
+    gap: 0.45rem;
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -471,10 +494,19 @@ const locationSeed = [
     }
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1100px) {
     .filters-form {
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: minmax(12rem, 1.6fr) repeat(4, minmax(0, 1fr)) auto;
       align-items: end;
+    }
+
+    .filters-form__wide {
+      grid-column: auto;
+    }
+
+    .filters-form__actions {
+      grid-column: auto;
+      align-self: end;
     }
   }
 
@@ -486,8 +518,8 @@ const locationSeed = [
   .filters-form > label > span,
   .multi-select__label {
     display: block;
-    margin-bottom: 0.3rem;
-    font-size: 0.78rem;
+    margin-bottom: 0.18rem;
+    font-size: 0.65rem;
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -502,11 +534,13 @@ const locationSeed = [
   .filters-form select,
   .multi-select__trigger {
     font: inherit;
-    padding: 0.6rem 0.7rem;
+    font-size: 0.82rem;
+    padding: 0.38rem 0.5rem;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     background: var(--color-stone);
     color: var(--color-ink-soft);
+    min-height: 2rem;
   }
 
   .filters-form input::placeholder {
@@ -517,14 +551,19 @@ const locationSeed = [
     grid-column: 1 / -1;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.55rem;
+    gap: 0.35rem;
+  }
+
+  .filters-form__actions .btn {
+    padding: 0.38rem 0.7rem;
+    font-size: 0.8rem;
+    font-weight: 500;
   }
 
   .filters-form__reset {
     color: var(--color-ink-soft);
   }
 
-  /* Location multi + autocomplete */
   .location-select {
     position: relative;
   }
@@ -533,11 +572,11 @@ const locationSeed = [
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.4rem;
-    min-height: 2.75rem;
-    padding: 0.4rem 0.55rem;
+    gap: 0.28rem;
+    min-height: 2rem;
+    padding: 0.22rem 0.4rem;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     background: var(--color-stone);
     cursor: text;
   }
@@ -549,29 +588,31 @@ const locationSeed = [
   .location-select__chip {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.25rem 0.5rem;
+    gap: 0.25rem;
+    padding: 0.12rem 0.4rem;
     border: 1px solid var(--color-border);
     border-radius: 999px;
     background: var(--color-surface);
     color: var(--color-ink-soft);
-    font-size: 0.8rem;
+    font-size: 0.72rem;
     cursor: pointer;
   }
 
   .location-select__chip-kind {
-    font-size: 0.65rem;
+    font-size: 0.58rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--color-muted);
   }
 
   .location-select__input {
-    flex: 1 1 10rem;
-    min-width: 10rem;
+    flex: 1 1 8rem;
+    min-width: 8rem;
     border: none !important;
     background: transparent !important;
-    padding: 0.35rem 0.25rem !important;
+    padding: 0.2rem 0.15rem !important;
+    min-height: auto !important;
+    font-size: 0.82rem !important;
     outline: none;
     box-shadow: none;
   }
@@ -581,15 +622,15 @@ const locationSeed = [
     left: 0;
     right: 0;
     top: calc(100% + 2px);
-    z-index: 30;
+    z-index: 45;
     margin: 0;
-    padding: 0.35rem 0;
+    padding: 0.25rem 0;
     list-style: none;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-soft);
-    max-height: 240px;
+    max-height: 200px;
     overflow-y: auto;
   }
 
@@ -597,9 +638,10 @@ const locationSeed = [
     display: flex;
     justify-content: space-between;
     gap: 0.75rem;
-    padding: 0.55rem 0.75rem;
+    padding: 0.4rem 0.6rem;
     cursor: pointer;
     color: var(--color-ink-soft);
+    font-size: 0.85rem;
   }
 
   .location-select__suggestion:hover {
@@ -612,7 +654,7 @@ const locationSeed = [
   }
 
   .location-select__suggestion span {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-muted);
@@ -638,23 +680,24 @@ const locationSeed = [
     top: 100%;
     left: 0;
     right: 0;
-    z-index: 20;
+    z-index: 45;
     margin-top: 2px;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-soft);
-    max-height: 240px;
+    max-height: 200px;
     overflow-y: auto;
   }
 
   .multi-select__option {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.55rem 0.65rem;
+    gap: 0.45rem;
+    padding: 0.4rem 0.55rem;
     cursor: pointer;
     font-weight: 400;
+    font-size: 0.82rem;
     color: var(--color-ink-soft);
   }
 
@@ -664,8 +707,14 @@ const locationSeed = [
 
   .listings-grid {
     display: grid;
-    gap: 1.25rem;
+    gap: 1rem;
     grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .listings-grid__item {
+    min-width: 0;
+    height: 100%;
   }
 
   @media (min-width: 640px) {
@@ -682,7 +731,7 @@ const locationSeed = [
 
   .listings-empty {
     margin-top: 1.25rem;
-    padding: 1.25rem;
+    padding: 1rem;
     text-align: center;
     color: var(--color-muted);
     border: 1px dashed var(--color-border);
@@ -692,6 +741,6 @@ const locationSeed = [
   .listings-pagination {
     display: flex;
     justify-content: center;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
   }
 </style>
