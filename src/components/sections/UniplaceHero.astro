@@ -15,25 +15,14 @@ const {
 <section class="hero">
   <div class="hero__bg" aria-hidden="true"></div>
   <div class="container hero__content">
-    <div class="hero__wordmark reveal" role="img" aria-label="Uniplace">
-      <svg
-        class="hero__wordmark-svg"
-        viewBox="0 0 420 96"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <text
-          x="0"
-          y="68"
-          font-family="DM Serif Display, Georgia, Times New Roman, serif"
-          font-size="64"
-          font-weight="400"
-        >
-          <tspan fill="#C87A5E">Uni</tspan><tspan fill="#FFFFFF">place</tspan>
-        </text>
-      </svg>
-    </div>
+    <img
+      class="hero__wordmark reveal"
+      src="/brand/wordmark-1c-place-white.png"
+      alt="Uniplace"
+      width="420"
+      height="120"
+      decoding="async"
+    />
     <h1 class="reveal">{title}</h1>
     <p class="lead reveal">{subtitle}</p>
     <div class="hero__ctas reveal">
@@ -66,22 +55,15 @@ const {
   .hero__content {
     position: relative;
     z-index: 1;
-    max-width: 40rem;
+    max-width: 42rem;
   }
 
   .hero__wordmark {
     display: block;
-    width: min(16.5rem, 72vw);
-    margin: 0 0 1rem;
-    line-height: 0;
-    background: transparent;
-  }
-
-  .hero__wordmark-svg {
-    display: block;
-    width: 100%;
+    width: min(22rem, 88vw);
     height: auto;
-    overflow: visible;
+    margin: 0 0 1.1rem;
+    background: transparent;
   }
 
   h1 {
