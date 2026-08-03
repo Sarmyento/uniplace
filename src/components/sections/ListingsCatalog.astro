@@ -9,51 +9,51 @@ interface Props {
 
 const { listings } = Astro.props;
 const { cities, neighborhoods, types } = getListingFilterOptions(listings);
+const locationSeed = [
+  ...cities.map((name) => ({ name, kind: 'cidade' as const })),
+  ...neighborhoods.map((name) => ({ name, kind: 'bairro' as const })),
+];
 ---
 
 <section class="section section--tight" id="filtros" aria-labelledby="filtros-title">
   <div class="container">
-    <div class="filters-panel reveal">
-      <div class="filters-panel__head">
-        <div>
-          <p class="eyebrow">Busca avançada</p>
-          <h2 id="filtros-title">Encontre o imóvel ideal</h2>
-          <p class="filters-panel__lead">
-            Refine por localização, tipo, quartos, área e faixa de preço. Resultados na hora.
-          </p>
-        </div>
-        <p class="filters-panel__count" data-results-count aria-live="polite">
-          {listings.length} imóveis encontrados
+    <div class="filters-bar reveal">
+      <div class="filters-bar__top">
+        <h2 id="filtros-title" class="filters-bar__title">Filtrar imóveis</h2>
+        <p class="filters-bar__count" data-results-count aria-live="polite">
+          {listings.length} imóveis
         </p>
       </div>
 
-      <form class="filters-form" data-listings-filter aria-label="Filtros de busca">
-        <label class="filters-form__wide">
-          <span>Palavra-chave</span>
-          <input type="search" name="q" placeholder="Bairro, título ou código" autocomplete="off" />
-        </label>
-
-        <label>
-          <span>Cidade</span>
-          <select name="city">
-            <option value="">Todas</option>
-            {cities.map((city) => <option value={city}>{city}</option>)}
-          </select>
-        </label>
-
-        <div class="multi-select" data-multi-select="neighborhood">
-          <span class="multi-select__label">Bairro</span>
-          <button type="button" class="multi-select__trigger" data-multi-select-trigger>Todos</button>
-          <div class="multi-select__dropdown" data-multi-select-dropdown hidden>
-            {
-              neighborhoods.map((n) => (
-                <label class="multi-select__option">
-                  <input type="checkbox" name="neighborhood" value={n} />
-                  <span>{n}</span>
-                </label>
-              ))
-            }
+      <form class="filters-form" data-listings-filter aria-label="Filtros de imóveis">
+        {/* Localização: multi-select + autocomplete a partir de 3 caracteres */}
+        <div
+          class="filters-form__wide location-select"
+          data-location-select
+          data-seed={JSON.stringify(locationSeed)}
+        >
+          <span class="filters-form__label">Localização</span>
+          <div class="location-select__box" data-location-box>
+            <div class="location-select__chips" data-location-chips></div>
+            <input
+              type="search"
+              class="location-select__input"
+              data-location-input
+              placeholder="Digite bairro ou cidade (mín. 3 letras)"
+              autocomplete="off"
+              aria-autocomplete="list"
+              aria-controls="location-suggestions"
+              aria-expanded="false"
+            />
           </div>
+          <ul
+            id="location-suggestions"
+            class="location-select__suggestions"
+            data-location-suggestions
+            hidden
+            role="listbox"
+          ></ul>
+          <div data-location-hidden></div>
         </div>
 
         <div class="multi-select" data-multi-select="type">
@@ -99,7 +99,7 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
         </label>
 
         <div class="filters-form__actions">
-          <button class="btn btn-primary btn-motion" type="submit">Aplicar filtros</button>
+          <button class="btn btn-primary btn-motion" type="submit">Aplicar</button>
           <button class="btn btn-secondary btn-motion filters-form__reset" type="reset">Limpar</button>
         </div>
       </form>
@@ -149,6 +149,7 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
 
   let visibleLimit = PAGE_SIZE;
 
+  /* ---- Multi-select (tipo etc.) ---- */
   document.querySelectorAll('[data-multi-select]').forEach((container) => {
     const trigger = container.querySelector('[data-multi-select-trigger]');
     const dropdown = container.querySelector('[data-multi-select-dropdown]');
@@ -167,6 +168,7 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
       e.stopPropagation();
       const isOpen = !dropdown?.hasAttribute('hidden');
       document.querySelectorAll('[data-multi-select-dropdown]').forEach((d) => d.setAttribute('hidden', ''));
+      document.querySelectorAll('[data-location-suggestions]').forEach((d) => d.setAttribute('hidden', ''));
       dropdown?.toggleAttribute('hidden', isOpen);
     });
 
@@ -183,11 +185,132 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
     });
   });
 
+  /* ---- Localização: multi-select + autocomplete ≥3 chars ---- */
+  const locationRoot = document.querySelector('[data-location-select]');
+  /** @type {{ name: string, kind: 'cidade' | 'bairro' }[]} */
+  let selectedLocations = [];
+
+  function syncLocationHidden() {
+    const holder = locationRoot?.querySelector('[data-location-hidden]');
+    if (!holder) return;
+    holder.innerHTML = '';
+    selectedLocations.forEach((loc) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = loc.kind === 'cidade' ? 'city' : 'neighborhood';
+      input.value = loc.name;
+      holder.appendChild(input);
+    });
+  }
+
+  function renderLocationChips() {
+    const chips = locationRoot?.querySelector('[data-location-chips]');
+    if (!chips) return;
+    chips.innerHTML = '';
+    selectedLocations.forEach((loc, index) => {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'location-select__chip';
+      chip.innerHTML = `<span>${loc.name}</span><span class="location-select__chip-kind">${loc.kind}</span><span aria-hidden="true">×</span>`;
+      chip.setAttribute('aria-label', `Remover ${loc.name}`);
+      chip.addEventListener('click', () => {
+        selectedLocations.splice(index, 1);
+        renderLocationChips();
+        syncLocationHidden();
+        visibleLimit = PAGE_SIZE;
+        applyFilters();
+      });
+      chips.appendChild(chip);
+    });
+  }
+
+  if (locationRoot) {
+    const seed = JSON.parse(locationRoot.getAttribute('data-seed') || '[]');
+    const input = locationRoot.querySelector('[data-location-input]');
+    const suggestions = locationRoot.querySelector('[data-location-suggestions]');
+    const box = locationRoot.querySelector('[data-location-box]');
+
+    function closeSuggestions() {
+      suggestions?.setAttribute('hidden', '');
+      input?.setAttribute('aria-expanded', 'false');
+    }
+
+    function openSuggestions(matches) {
+      if (!suggestions) return;
+      suggestions.innerHTML = '';
+      if (!matches.length) {
+        closeSuggestions();
+        return;
+      }
+      matches.forEach((item) => {
+        const li = document.createElement('li');
+        li.setAttribute('role', 'option');
+        li.className = 'location-select__suggestion';
+        li.innerHTML = `<strong>${item.name}</strong><span>${item.kind}</span>`;
+        li.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          const exists = selectedLocations.some((s) => s.name === item.name && s.kind === item.kind);
+          if (!exists) {
+            selectedLocations.push(item);
+            renderLocationChips();
+            syncLocationHidden();
+            visibleLimit = PAGE_SIZE;
+            applyFilters();
+          }
+          if (input) input.value = '';
+          closeSuggestions();
+        });
+        suggestions.appendChild(li);
+      });
+      suggestions.removeAttribute('hidden');
+      input?.setAttribute('aria-expanded', 'true');
+    }
+
+    input?.addEventListener('input', () => {
+      const q = String(input.value || '')
+        .trim()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/\p{M}/gu, '');
+      if (q.length < 3) {
+        closeSuggestions();
+        return;
+      }
+      const matches = seed
+        .filter((item) => {
+          const name = String(item.name)
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/\p{M}/gu, '');
+          const already = selectedLocations.some((s) => s.name === item.name && s.kind === item.kind);
+          return !already && name.includes(q);
+        })
+        .slice(0, 12);
+      openSuggestions(matches);
+    });
+
+    input?.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && !input.value && selectedLocations.length) {
+        selectedLocations.pop();
+        renderLocationChips();
+        syncLocationHidden();
+        visibleLimit = PAGE_SIZE;
+        applyFilters();
+      }
+      if (e.key === 'Escape') closeSuggestions();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!locationRoot.contains(e.target)) closeSuggestions();
+    });
+
+    box?.addEventListener('click', () => input?.focus());
+  }
+
   function applyFilters() {
     if (!form) return;
     const data = new FormData(form);
-    const q = String(data.get('q') ?? '').trim().toLowerCase();
-    const city = String(data.get('city') ?? '');
+    const cities = data.getAll('city').filter(Boolean);
     const neighborhoods = data.getAll('neighborhood').filter(Boolean);
     const types = data.getAll('type').filter(Boolean);
     const bedrooms = Number(data.get('bedrooms') || 0);
@@ -197,8 +320,6 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
 
     let visible = 0;
     for (const item of items) {
-      const title = item.getAttribute('data-title') ?? '';
-      const id = item.getAttribute('data-id') ?? '';
       const itemCity = item.getAttribute('data-city') ?? '';
       const itemNeighborhood = item.getAttribute('data-neighborhood') ?? '';
       const itemType = item.getAttribute('data-type') ?? '';
@@ -206,10 +327,13 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
       const itemPrice = Number(item.getAttribute('data-price') ?? 0);
       const itemArea = Number(item.getAttribute('data-area') ?? 0);
 
+      const matchesLocation =
+        (cities.length === 0 && neighborhoods.length === 0) ||
+        cities.includes(itemCity) ||
+        neighborhoods.includes(itemNeighborhood);
+
       const show =
-        (!q || title.includes(q) || id.includes(q) || itemNeighborhood.toLowerCase().includes(q) || itemCity.toLowerCase().includes(q)) &&
-        (!city || itemCity === city) &&
-        (neighborhoods.length === 0 || neighborhoods.includes(itemNeighborhood)) &&
+        matchesLocation &&
         (types.length === 0 || types.includes(itemType)) &&
         (!bedrooms || itemBedrooms >= bedrooms) &&
         (!priceMin || itemPrice >= priceMin) &&
@@ -250,8 +374,8 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
   function updateCount(visible) {
     const shown = items.filter((item) => !item.hasAttribute('hidden')).length;
     if (countEl) {
-      countEl.textContent = `${visible} imóvel${visible === 1 ? '' : 'es'} encontrado${visible === 1 ? '' : 's'}${
-        visible !== shown ? ` (exibindo ${shown})` : ''
+      countEl.textContent = `${visible} imóvel${visible === 1 ? '' : 'es'}${
+        visible !== shown ? ` · exibindo ${shown}` : ''
       }`;
     }
     emptyEl?.toggleAttribute('hidden', visible > 0);
@@ -265,6 +389,11 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
   });
 
   form?.addEventListener('reset', () => {
+    selectedLocations = [];
+    renderLocationChips();
+    syncLocationHidden();
+    const locInput = locationRoot?.querySelector('[data-location-input]');
+    if (locInput) locInput.value = '';
     document.querySelectorAll('[data-multi-select] input[type="checkbox"]').forEach((cb) => {
       cb.checked = false;
     });
@@ -275,7 +404,7 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
     window.setTimeout(applyFilters, 0);
   });
 
-  form?.querySelectorAll('select, input[type="search"], input[type="number"]').forEach((field) => {
+  form?.querySelectorAll('select, input[type="number"]').forEach((field) => {
     field.addEventListener('change', () => {
       visibleLimit = PAGE_SIZE;
       applyFilters();
@@ -299,49 +428,40 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
 </script>
 
 <style>
-  .eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: var(--text-eyebrow);
-    font-weight: 600;
-    color: var(--color-primary);
-    margin: 0 0 0.35rem;
-  }
-
-  .filters-panel {
-    padding: 1.25rem;
-    margin-bottom: 2rem;
+  .filters-bar {
+    padding: 1rem 1.15rem 1.15rem;
+    margin-bottom: 1.75rem;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-soft);
   }
 
-  .filters-panel__head {
+  .filters-bar__top {
     display: flex;
     flex-wrap: wrap;
+    align-items: baseline;
     justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1.25rem;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.85rem;
   }
 
-  .filters-panel__lead {
-    max-width: 52ch;
-    color: var(--color-neutral-500);
+  .filters-bar__title {
+    font-size: 1.35rem;
     margin: 0;
+    color: var(--color-ink);
   }
 
-  .filters-panel__count {
-    align-self: end;
-    font-family: var(--font-heading);
-    font-size: 1.1rem;
-    color: var(--color-primary);
+  .filters-bar__count {
     margin: 0;
+    font-size: var(--text-small);
+    color: var(--color-muted);
+    letter-spacing: 0.02em;
   }
 
   .filters-form {
     display: grid;
-    gap: 0.85rem;
+    gap: 0.75rem;
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -351,9 +471,10 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
     }
   }
 
-  @media (min-width: 900px) {
+  @media (min-width: 1024px) {
     .filters-form {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: end;
     }
   }
 
@@ -361,39 +482,145 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
     grid-column: 1 / -1;
   }
 
+  .filters-form__label,
+  .filters-form > label > span,
+  .multi-select__label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
   .filters-form > label {
     display: grid;
-    gap: 0.35rem;
-    font-size: 0.875rem;
-    font-weight: 500;
   }
 
   .filters-form input,
-  .filters-form select {
+  .filters-form select,
+  .multi-select__trigger {
     font: inherit;
-    padding: 0.55rem 0.65rem;
+    padding: 0.6rem 0.7rem;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    background: var(--color-background);
+    border-radius: var(--radius-md);
+    background: var(--color-stone);
+    color: var(--color-ink-soft);
+  }
+
+  .filters-form input::placeholder {
+    color: var(--color-muted);
   }
 
   .filters-form__actions {
     grid-column: 1 / -1;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.65rem;
+    gap: 0.55rem;
   }
 
   .filters-form__reset {
-    color: var(--color-neutral-900);
+    color: var(--color-ink-soft);
+  }
+
+  /* Location multi + autocomplete */
+  .location-select {
+    position: relative;
+  }
+
+  .location-select__box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.75rem;
+    padding: 0.4rem 0.55rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-stone);
+    cursor: text;
+  }
+
+  .location-select__chips {
+    display: contents;
+  }
+
+  .location-select__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    color: var(--color-ink-soft);
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+
+  .location-select__chip-kind {
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .location-select__input {
+    flex: 1 1 10rem;
+    min-width: 10rem;
+    border: none !important;
+    background: transparent !important;
+    padding: 0.35rem 0.25rem !important;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .location-select__suggestions {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 2px);
+    z-index: 30;
+    margin: 0;
+    padding: 0.35rem 0;
+    list-style: none;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    max-height: 240px;
+    overflow-y: auto;
+  }
+
+  .location-select__suggestion {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.55rem 0.75rem;
+    cursor: pointer;
+    color: var(--color-ink-soft);
+  }
+
+  .location-select__suggestion:hover {
+    background: var(--color-stone);
+  }
+
+  .location-select__suggestion strong {
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .location-select__suggestion span {
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-muted);
   }
 
   .multi-select {
     position: relative;
     display: grid;
-    gap: 0.35rem;
-    font-size: 0.875rem;
-    font-weight: 500;
   }
 
   .multi-select__trigger {
@@ -401,14 +628,9 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    font: inherit;
-    padding: 0.55rem 0.65rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    background: var(--color-background);
     cursor: pointer;
     text-align: left;
-    color: var(--color-neutral-500);
+    color: var(--color-ink-soft);
   }
 
   .multi-select__dropdown {
@@ -420,7 +642,7 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
     margin-top: 2px;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     box-shadow: var(--shadow-soft);
     max-height: 240px;
     overflow-y: auto;
@@ -433,6 +655,7 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
     padding: 0.55rem 0.65rem;
     cursor: pointer;
     font-weight: 400;
+    color: var(--color-ink-soft);
   }
 
   .multi-select__option:hover {
@@ -461,7 +684,7 @@ const { cities, neighborhoods, types } = getListingFilterOptions(listings);
     margin-top: 1.25rem;
     padding: 1.25rem;
     text-align: center;
-    color: var(--color-neutral-500);
+    color: var(--color-muted);
     border: 1px dashed var(--color-border);
     border-radius: var(--radius-md);
   }
