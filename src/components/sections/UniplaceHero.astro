@@ -15,7 +15,14 @@ const {
 <section class="hero">
   <div class="hero__bg" aria-hidden="true"></div>
   <div class="container hero__content">
-    <p class="eyebrow reveal">Uniplace Imóveis</p>
+    <img
+      class="hero__wordmark reveal"
+      src="/brand/wordmark-1c-place-white.png"
+      alt="Uniplace"
+      width="280"
+      height="80"
+      decoding="async"
+    />
     <h1 class="reveal">{title}</h1>
     <p class="lead reveal">{subtitle}</p>
     <div class="hero__ctas reveal">
@@ -51,13 +58,12 @@ const {
     max-width: 40rem;
   }
 
-  .eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: var(--text-eyebrow);
-    font-weight: 500;
-    margin: 0 0 0.75rem;
-    opacity: 0.9;
+  .hero__wordmark {
+    display: block;
+    width: min(16.5rem, 72vw);
+    height: auto;
+    margin: 0 0 1rem;
+    background: transparent;
   }
 
   h1 {
