@@ -5,7 +5,7 @@ import {
   getListingMapEmbedUrl,
   getListingMapExternalUrl,
 } from '../../lib/listings';
-import { waUrl } from '../../config/site';
+import { site } from '../../config/site';
 
 interface Props {
   listing: Listing;
@@ -18,6 +18,7 @@ const mapExternalUrl = getListingMapExternalUrl(listing);
 const galleryImages = listing.images.length ? listing.images : listing.image ? [listing.image] : [];
 const mainSrc = galleryImages[0] ?? '';
 const defaultMessage = `Olá! Tenho interesse no imóvel ${listing.title} (cód. ${listing.id}).`;
+const waNumber = site.whatsapp.number;
 
 const specs = [
   { icon: '/icons/3d/bed.webp', value: String(listing.bedrooms), label: 'quartos', show: true },
@@ -195,26 +196,19 @@ const specs = [
             <textarea id="lead-msg" name="msg" rows="5" required>{defaultMessage}</textarea>
           </div>
           <button class="btn btn-primary btn-motion listing-detail__submit" type="submit">
-            Enviar no WhatsApp
+            Enviar
           </button>
         </form>
         <p class="listing-detail__privacy">
           Ao informar seus dados, você concorda com a <a href="/privacidade">política de privacidade</a>.
         </p>
-        <a class="listing-detail__wa-direct" href={waUrl(defaultMessage)}>
-          Ou abrir WhatsApp direto
-        </a>
       </div>
     </aside>
   </div>
 </article>
 
-<script>
+<script define:vars={{ waNumber }}>
   const form = document.getElementById('listing-lead-form');
-  const waAnchor = document.querySelector('.listing-detail__wa-direct');
-  const waHref = waAnchor?.getAttribute('href') ?? '';
-  const waMatch = waHref.match(/wa\.me\/(\d+)/);
-  const waNumber = waMatch?.[1] ?? '';
 
   form?.addEventListener('submit', (event) => {
     event.preventDefault();

@@ -1,6 +1,5 @@
 ---
 import type { Listing } from '../../lib/listings';
-import { formatListingAddress } from '../../lib/listings';
 
 interface Props {
   listing: Listing;
@@ -8,7 +7,7 @@ interface Props {
 
 const { listing } = Astro.props;
 const href = `/imoveis/${listing.slug}`;
-const address = formatListingAddress(listing);
+const address = [listing.street, listing.neighborhood].filter(Boolean).join(', ');
 
 const meta = [
   listing.bedrooms ? `${listing.bedrooms} quartos` : '',
@@ -41,7 +40,7 @@ const meta = [
       {listing.type && <span class="listing-card__type">{listing.type}</span>}
     </div>
     <div class="listing-card__body">
-      <p class="listing-card__location">{address || `${listing.neighborhood}, ${listing.city}`}</p>
+      {address && <p class="listing-card__location">{address}</p>}
       <h3 class="listing-card__title">{listing.title}</h3>
       {meta && <p class="listing-card__meta">{meta}</p>}
       <p class="listing-card__price">{listing.price}</p>
