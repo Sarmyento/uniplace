@@ -7,9 +7,14 @@ const current = Astro.url.pathname;
 <header class="header">
   <div class="container header__inner">
     <a class="logo" href="/" aria-label={`${site.name}, início`}>
-      <span class="logo__wordmark" aria-hidden="true">
-        <span class="logo__uni">Uni</span><span class="logo__place">place</span>
-      </span>
+      <img
+        src="/brand/wordmark-1c.png"
+        alt=""
+        width="190"
+        height="54"
+        class="logo__wordmark"
+        decoding="async"
+      />
     </a>
     <nav aria-label="Principal">
       <ul class="nav">
@@ -56,29 +61,19 @@ const current = Astro.url.pathname;
     display: inline-flex;
     align-items: center;
     text-decoration: none;
-    line-height: 1;
+    line-height: 0;
   }
 
-  /* Wordmark 1C: Uni terracota + place charcoal */
   .logo__wordmark {
-    font-family: var(--font-heading);
-    font-size: 1.55rem;
-    font-weight: 400;
-    letter-spacing: 0.01em;
-    line-height: 1;
-  }
-
-  .logo__uni {
-    color: var(--color-primary);
-  }
-
-  .logo__place {
-    color: #2d2d2d;
+    display: block;
+    height: 2rem;
+    width: auto;
+    background: transparent;
   }
 
   @media (min-width: 900px) {
     .logo__wordmark {
-      font-size: 1.75rem;
+      height: 2.35rem;
     }
   }
 
@@ -113,7 +108,7 @@ const current = Astro.url.pathname;
       font-size: 0.8rem;
     }
     .logo__wordmark {
-      font-size: 1.35rem;
+      height: 1.75rem;
     }
   }
 </style>
