@@ -6,16 +6,10 @@ const current = Astro.url.pathname;
 
 <header class="header">
   <div class="container header__inner">
-    <a class="logo" href="/" aria-label={`${site.name} — início`}>
-      <img
-        src="/icons/3d/brand-b3.webp"
-        alt=""
-        width="68"
-        height="68"
-        class="logo__icon"
-        decoding="async"
-      />
-      <span class="logo__text">Uniplace</span>
+    <a class="logo" href="/" aria-label={`${site.name}, início`}>
+      <span class="logo__wordmark" aria-hidden="true">
+        <span class="logo__uni">Uni</span><span class="logo__place">place</span>
+      </span>
     </a>
     <nav aria-label="Principal">
       <ul class="nav">
@@ -61,35 +55,30 @@ const current = Astro.url.pathname;
   .logo {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
     text-decoration: none;
-    color: var(--color-ink);
-  }
-
-  .logo__icon {
-    width: 62px;
-    height: 62px;
-    object-fit: contain;
-    flex-shrink: 0;
-    background: transparent;
-  }
-
-  .logo__text {
-    font-family: var(--font-heading);
-    font-size: 1.45rem;
-    font-weight: 400;
-    letter-spacing: 0.01em;
-    color: var(--color-ink);
     line-height: 1;
   }
 
+  /* Wordmark 1C: Uni terracota + place charcoal */
+  .logo__wordmark {
+    font-family: var(--font-heading);
+    font-size: 1.55rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+
+  .logo__uni {
+    color: var(--color-primary);
+  }
+
+  .logo__place {
+    color: #2d2d2d;
+  }
+
   @media (min-width: 900px) {
-    .logo__icon {
-      width: 68px;
-      height: 68px;
-    }
-    .logo__text {
-      font-size: 1.6rem;
+    .logo__wordmark {
+      font-size: 1.75rem;
     }
   }
 
@@ -123,12 +112,8 @@ const current = Astro.url.pathname;
     .nav a {
       font-size: 0.8rem;
     }
-    .logo__icon {
-      width: 52px;
-      height: 52px;
-    }
-    .logo__text {
-      font-size: 1.25rem;
+    .logo__wordmark {
+      font-size: 1.35rem;
     }
   }
 </style>
