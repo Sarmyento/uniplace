@@ -26,6 +26,8 @@ const specs = [
   { icon: '/icons/3d/area.webp', value: String(listing.area || '—'), label: 'm²', show: true },
   { icon: '/icons/3d/garage.webp', value: String(listing.parking), label: 'vagas', show: true },
 ];
+import { sitePath } from '../../lib/paths';
+
 ---
 
 <article class="listing-detail">
@@ -200,7 +202,7 @@ const specs = [
           </button>
         </form>
         <p class="listing-detail__privacy">
-          Ao informar seus dados, você concorda com a <a href="/privacidade">política de privacidade</a>.
+          Ao informar seus dados, você concorda com a <a href={sitePath("/privacidade")}>política de privacidade</a>.
         </p>
       </div>
     </aside>

@@ -1,5 +1,6 @@
 ---
 import { site, nav } from '../../config/site';
+import { sitePath } from '../../lib/paths';
 const year = new Date().getFullYear();
 const footerNav = nav.filter((n) => n.href !== '/');
 ---
@@ -17,14 +18,14 @@ const footerNav = nav.filter((n) => n.href !== '/');
       <p>{site.contact.email}</p>
       <!--email_on-->
       <p>{site.contact.address}</p>
-      <p><a href="/privacidade">Privacidade</a> · <a href="/termos">Termos</a></p>
+      <p><a href={sitePath('/privacidade')}>Privacidade</a> · <a href={sitePath('/termos')}>Termos</a></p>
     </div>
     <div>
       <p class="label">Navegação</p>
       <ul class="footer__nav">
         {footerNav.map((item) => (
           <li>
-            <a href={item.href}>{item.label}</a>
+            <a href={sitePath(item.href)}>{item.label}</a>
           </li>
         ))}
       </ul>

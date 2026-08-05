@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { site, waUrl } from '../../config/site';
+import { sitePath } from '../../lib/paths';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => data.draft !== true);
@@ -13,7 +14,8 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const cta = post.data.cta_primary || '/imoveis';
+const ctaRaw = post.data.cta_primary || '/imoveis';
+const cta = ctaRaw.startsWith('/') ? sitePath(ctaRaw) : ctaRaw;
 ---
 
 <BaseLayout title={`${post.data.title} | ${site.name}`} description={post.data.description}>
@@ -38,7 +40,7 @@ const cta = post.data.cta_primary || '/imoveis';
         <a class="btn" href={waUrl(`Olá! Li o post: ${post.data.title}`)}>
           WhatsApp
         </a>
-        <p><a href="/blog">Voltar ao blog</a></p>
+        <p><a href={sitePath("/blog")}>Voltar ao blog</a></p>
       </footer>
     </div>
   </article>

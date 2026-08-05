@@ -6,6 +6,7 @@ import WhatsAppFloat from '../components/global/WhatsAppFloat.astro';
 import Tracking from '../components/global/Tracking.astro';
 import { site } from '../config/site';
 import { organizationJsonLd, websiteJsonLd } from '../lib/seo';
+import { assetPath } from '../lib/paths';
 import dmSans400 from '@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff2?url';
 import dmSans500 from '@fontsource/dm-sans/files/dm-sans-latin-500-normal.woff2?url';
 import dmSerif from '@fontsource/dm-serif-display/files/dm-serif-display-latin-400-normal.woff2?url';
@@ -30,7 +31,7 @@ const {
 
 const origin = Astro.site ?? new URL(site.domain);
 const canonical = new URL(Astro.url.pathname, origin).href;
-const ogImage = new URL(image, origin).href;
+const ogImage = new URL(image.startsWith('http') ? image : assetPath(image), origin).href;
 
 const baseLd = [organizationJsonLd(site, origin.href), websiteJsonLd(site, origin.href)];
 const pageLd = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
@@ -59,8 +60,8 @@ const gtmOrigin = (import.meta.env.PUBLIC_GTM_SERVER_ORIGIN as string | undefine
     <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="pt_BR" />
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" href="/brand/icon-b3.png" />
+    <link rel="icon" type="image/svg+xml" href={assetPath('/favicon.svg')} />
+    <link rel="icon" type="image/png" href={assetPath('/brand/icon-b3.png')} />
     <link rel="preload" as="font" type="font/woff2" href={dmSerif} crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={dmSans400} crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={dmSans500} crossorigin />

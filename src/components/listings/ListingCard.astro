@@ -1,12 +1,13 @@
 ---
 import type { Listing } from '../../lib/listings';
+import { sitePath } from '../../lib/paths';
 
 interface Props {
   listing: Listing;
 }
 
 const { listing } = Astro.props;
-const href = `/imoveis/${listing.slug}`;
+const href = sitePath(`/imoveis/${listing.slug}`);
 const address = [listing.street, listing.neighborhood].filter(Boolean).join(', ');
 
 const meta = [

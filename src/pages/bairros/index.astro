@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { site } from '../../config/site';
+import { sitePath } from '../../lib/paths';
 
 const hubs = [
   { href: '/bairros', label: 'Índice de bairros', note: 'SEO local A33' },
@@ -22,7 +23,7 @@ const hubs = [
         {
           hubs.map((h) => (
             <li>
-              <a href={h.href}>{h.label}</a>
+              <a href={sitePath(h.href)}>{h.label}</a>
               <span>{h.note}</span>
             </li>
           ))

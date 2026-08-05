@@ -3,8 +3,14 @@ import { defineConfig, memoryCache, logHandlers } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { astroStack } from './src/config/astro-stack.mjs';
 
+const previewSite = 'https://sarmyento.github.io/uniplace';
+const previewBase = '/uniplace/';
+const isPreviewBuild = process.env.PUBLIC_DEPLOY_TARGET === 'github-pages';
+
 /** @type {string} */
-const siteUrl = process.env.PUBLIC_SITE_URL ?? 'https://exemplo.com.br';
+const siteUrl =
+  process.env.PUBLIC_SITE_URL ?? (isPreviewBuild ? previewSite : 'https://uniplace.com.br');
+const base = process.env.PUBLIC_BASE_PATH ?? (isPreviewBuild ? previewBase : undefined);
 
 if (astroStack.cloudflare && astroStack.output === 'static') {
   console.warn(
@@ -35,6 +41,7 @@ if (astroStack.mdx) {
 /** @type {import('astro').AstroUserConfig} */
 const config = {
   site: siteUrl,
+  base,
   trailingSlash: 'never',
   output: astroStack.output,
   integrations,

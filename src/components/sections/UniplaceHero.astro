@@ -1,5 +1,6 @@
 ---
 import { site } from '../../config/site';
+import { assetPath, sitePath } from '../../lib/paths';
 
 interface Props {
   title?: string;
@@ -17,7 +18,7 @@ const {
   <div class="container hero__content">
     <img
       class="hero__wordmark reveal"
-      src="/brand/wordmark-1c-place-white.png"
+      src={assetPath('/brand/wordmark-1c-place-white.png')}
       alt="Uniplace"
       width="420"
       height="120"
@@ -26,8 +27,8 @@ const {
     <h1 class="reveal">{title}</h1>
     <p class="lead reveal">{subtitle}</p>
     <div class="hero__ctas reveal">
-      <a class="btn btn-primary btn-motion" href="/imoveis">Quero comprar</a>
-      <a class="btn btn-secondary btn-motion" href="/anunciar">Quero vender</a>
+      <a class="btn btn-primary btn-motion" href={sitePath('/imoveis')}>Quero comprar</a>
+      <a class="btn btn-secondary btn-motion" href={sitePath('/anunciar')}>Quero vender</a>
     </div>
   </div>
 </section>

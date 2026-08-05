@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site, waUrl } from '../config/site';
+import { sitePath } from '../lib/paths';
+
 ---
 
 <BaseLayout
@@ -28,7 +30,7 @@ import { site, waUrl } from '../config/site';
       >
         Quero anunciar
       </a>
-      <p><a href="/avaliacao">Prefere começar pela avaliação?</a> (Sprint 2)</p>
+      <p><a href={sitePath("/avaliacao")}>Prefere começar pela avaliação?</a> (Sprint 2)</p>
     </div>
   </section>
 </BaseLayout>

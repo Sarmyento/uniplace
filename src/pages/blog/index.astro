@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { site } from '../../config/site';
+import { sitePath } from '../../lib/paths';
 
 const posts = (await getCollection('blog', ({ data }) => data.draft !== true)).sort((a, b) => {
   const orderA = a.data.pub_order ?? 999;
@@ -11,7 +12,7 @@ const posts = (await getCollection('blog', ({ data }) => data.draft !== true)).s
 });
 
 function postHref(post: (typeof posts)[number]) {
-  return `/blog/${post.data.slug ?? post.id}`;
+  return sitePath(`/blog/${post.data.slug ?? post.id}`);
 }
 
 function icpLabel(icp?: string) {
@@ -48,9 +49,9 @@ function icpLabel(icp?: string) {
       </ul>
 
       <p class="foot">
-        <a href="/associar">Corretor? Conheça a associação</a>
+        <a href={sitePath("/associar")}>Corretor? Conheça a associação</a>
         ·
-        <a href="/imoveis">Ver imóveis</a>
+        <a href={sitePath("/imoveis")}>Ver imóveis</a>
       </p>
     </div>
   </section>

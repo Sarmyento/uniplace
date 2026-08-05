@@ -9,6 +9,8 @@ const benefits = [
   'Comissões até 50% da comissão bruta',
   'Sem exclusividade',
 ];
+import { sitePath } from '../lib/paths';
+
 ---
 
 <BaseLayout
@@ -48,7 +50,7 @@ const benefits = [
           <input name="consent" type="checkbox" required />
           <span>
             Aceito o uso dos meus dados para contato sobre associação, conforme a
-            <a href="/privacidade">política de privacidade</a>.
+            <a href={sitePath("/privacidade")}>política de privacidade</a>.
           </span>
         </label>
         <button class="btn btn-primary" type="submit">Enviar</button>

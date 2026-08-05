@@ -5,6 +5,7 @@ import RevealInit from '../../components/sections/RevealInit.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import { getListingBySlug, getListingSlugs } from '../../lib/listings';
 import { waUrl } from '../../config/site';
+import { sitePath } from '../../lib/paths';
 
 export function getStaticPaths() {
   const slugs = getListingSlugs();
@@ -39,7 +40,7 @@ const listing = slug ? getListingBySlug(slug) : undefined;
         <div class="container">
           <h1>Imóvel não encontrado</h1>
           <p>
-            <a href="/imoveis">Ver imóveis</a>
+            <a href={sitePath("/imoveis")}>Ver imóveis</a>
           </p>
         </div>
       </section>

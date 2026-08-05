@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site, waUrl } from '../config/site';
+import { sitePath } from '../lib/paths';
+
 ---
 
 <BaseLayout
@@ -21,7 +23,7 @@ import { site, waUrl } from '../config/site';
       </p>
       <p>Não exigimos exclusividade dos corretores associados.</p>
       <p>
-        <a class="btn btn-primary" href="/associar">Quero me associar</a>
+        <a class="btn btn-primary" href={sitePath("/associar")}>Quero me associar</a>
         <a class="btn" href={waUrl('Olá! Quero falar com a Uniplace.')}>WhatsApp</a>
       </p>
       <p class="addr">{site.contact.address}</p>

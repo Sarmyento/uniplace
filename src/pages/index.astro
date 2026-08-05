@@ -7,6 +7,7 @@ import RevealInit from '../components/sections/RevealInit.astro';
 import ListingCard from '../components/listings/ListingCard.astro';
 import { getListings } from '../lib/listings';
 import { site, waUrl } from '../config/site';
+import { sitePath } from '../lib/paths';
 
 const featured = getListings({ featuredOnly: true, limit: 3 });
 
@@ -52,7 +53,7 @@ const features = [
             ))}
           </div>
           <p class="reveal">
-            <a href="/imoveis">Ver todos os imóveis</a>
+            <a href={sitePath('/imoveis')}>Ver todos os imóveis</a>
           </p>
         </div>
       </section>
@@ -68,11 +69,11 @@ const features = [
         sem exclusividade.
       </p>
       <p>
-        <a href="/sobre">Conhecer a Uniplace</a>
+        <a href={sitePath('/sobre')}>Conhecer a Uniplace</a>
         ·
-        <a href="/bairros">Explorar bairros</a>
+        <a href={sitePath('/bairros')}>Explorar bairros</a>
         ·
-        <a href="/blog">Ler o blog</a>
+        <a href={sitePath('/blog')}>Ler o blog</a>
       </p>
     </div>
   </section>

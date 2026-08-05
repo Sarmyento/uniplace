@@ -1,4 +1,6 @@
 ---
+import { assetPath } from '../../lib/paths';
+
 interface Item {
   title: string;
   description: string;
@@ -11,6 +13,11 @@ interface Props {
 }
 
 const { title = 'Por que nos escolher', items } = Astro.props;
+
+const resolved = items.map((item) => ({
+  ...item,
+  icon: item.icon ? assetPath(item.icon) : undefined,
+}));
 ---
 
 <section class="section">
@@ -19,7 +26,7 @@ const { title = 'Por que nos escolher', items } = Astro.props;
     <h2 class="reveal">{title}</h2>
     <ul class="grid reveal-stagger">
       {
-        items.map((item) => (
+        resolved.map((item) => (
           <li class="card path-motion">
             {item.icon && <img src={item.icon} alt="" width="48" height="48" loading="lazy" />}
             <h3>{item.title}</h3>

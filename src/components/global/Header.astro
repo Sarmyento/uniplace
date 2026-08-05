@@ -1,14 +1,15 @@
 ---
 import { site, nav } from '../../config/site';
+import { assetPath, isCurrentPath, sitePath } from '../../lib/paths';
 
 const current = Astro.url.pathname;
 ---
 
 <header class="header">
   <div class="container header__inner">
-    <a class="logo" href="/" aria-label={`${site.name}, início`}>
+    <a class="logo" href={sitePath('/')} aria-label={`${site.name}, início`}>
       <img
-        src="/brand/wordmark-1c.png"
+        src={assetPath('/brand/wordmark-1c.png')}
         alt=""
         width="190"
         height="54"
@@ -22,12 +23,8 @@ const current = Astro.url.pathname;
           nav.map((item) => (
             <li>
               <a
-                href={item.href}
-                aria-current={
-                  current === item.href || (item.href !== '/' && current.startsWith(item.href))
-                    ? 'page'
-                    : undefined
-                }
+                href={sitePath(item.href)}
+                aria-current={isCurrentPath(item.href, current) ? 'page' : undefined}
               >
                 {item.label}
               </a>
@@ -80,7 +77,7 @@ const current = Astro.url.pathname;
   .nav {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: end;
     gap: 0.65rem 1.1rem;
     list-style: none;
     margin: 0;
