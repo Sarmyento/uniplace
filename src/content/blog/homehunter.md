@@ -103,7 +103,7 @@ Acolhedora, clara, confiável. Sem pressão de fechamento no primeiro "oi". Sem 
 
 Se faz sentido alguém buscar com você, chame no WhatsApp e diga: bairros, tipologias e faixa. A Uniplace abre o contato e a operação segue com corretor associado.
 
-[Falar no WhatsApp sobre homehunter](https://wa.me/?text=Quero%20ajuda%20de%20homehunter%20%7C%20utm_content%3Dblog-homehunter)
+[Falar no WhatsApp sobre homehunter](https://wa.me/5531984064436?text=Quero%20ajuda%20de%20homehunter)
 
 ## FAQ
 

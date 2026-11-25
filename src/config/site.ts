@@ -9,8 +9,7 @@ export const site = {
   domain: 'https://uniplace.com.br',
   locale: 'pt-BR',
   whatsapp: {
-    /** TODO: número oficial WhatsApp Uniplace (E.164 sem +) */
-    number: '5531999999999',
+    number: '5531984064436',
     message: 'Olá! Vim pelo site da Uniplace.',
   },
   contact: {

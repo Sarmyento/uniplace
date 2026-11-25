@@ -101,7 +101,7 @@ Tudo em um só lugar: imóveis à venda no site, WhatsApp da Uniplace, visita co
 
 Quer marcar uma visita ou mandar o código do imóvel que viu? Fale no WhatsApp com a Uniplace e diga o bairro ou o anúncio. A Uniplace direciona para um corretor associado e você sai do "salvo no celular" para um horário concreto.
 
-[Agendar visita no WhatsApp](https://wa.me/?text=Tenho%20interesse%20em%20visitar%20um%20im%C3%B3vel%20%7C%20utm_content%3Dblog-jornada-comprador-uniplace)
+[Agendar visita no WhatsApp](https://wa.me/5531984064436?text=Tenho%20interesse%20em%20visitar%20um%20im%C3%B3vel)
 
 Enquanto isso, você também pode [ver imóveis à venda](/imoveis) e filtrar por região.
 
