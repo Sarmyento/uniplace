@@ -1,7 +1,7 @@
 ---
 title: "Corretores associados: o que muda versus um corretor só"
 description: "Por que a Uniplace atende com corretores associados, o papel do Roberto Fonseca e da Uniplace no WhatsApp, e o que isso muda na visita e na venda."
-slug: "rede-de-corretores"
+slug: "corretores-associados-o-que-muda"
 pubDate: 2026-08-23
 fase: 1
 id: "T1-11"

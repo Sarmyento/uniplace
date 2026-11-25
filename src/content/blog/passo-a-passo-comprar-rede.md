@@ -1,7 +1,7 @@
 ---
 title: "Passo a passo para comprar imóvel com corretor associado da Uniplace em BH"
 description: "Do WhatsApp à chave: como funciona comprar apartamento em Belo Horizonte com corretor associado da Uniplace, sem burocracia desnecessária."
-slug: "passo-a-passo-comprar-rede"
+slug: "passo-a-passo-comprar-corretor-associado"
 pubDate: 2026-08-04
 fase: 1
 id: "M1-02"

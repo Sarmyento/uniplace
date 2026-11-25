@@ -24,7 +24,7 @@ const {
   title = `${site.name} | ${site.tagline}`,
   description = site.tagline,
   image = '/og-default.svg',
-  noindex = false,
+  noindex = import.meta.env.PUBLIC_DEPLOY_TARGET === 'github-pages',
   bodyClass = '',
   jsonLd,
 } = Astro.props;

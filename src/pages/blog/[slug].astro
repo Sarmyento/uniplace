@@ -14,8 +14,25 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const ctaRaw = post.data.cta_primary || '/imoveis';
-const cta = ctaRaw.startsWith('/') ? sitePath(ctaRaw) : ctaRaw;
+// cta_primary pode vir como caminho ("/anunciar"), URL completa ou um rótulo de produção
+// ("visita_whatsapp", "bairros"). Rótulos nunca podem virar href.
+const ctaRaw = (post.data.cta_primary || '').trim();
+const ctaKey = ctaRaw.toLowerCase();
+let cta = sitePath('/imoveis');
+let ctaLabel = 'Ver imóveis';
+if (ctaRaw.startsWith('/')) {
+  cta = sitePath(ctaRaw);
+  ctaLabel = 'Continuar no site';
+} else if (/^https?:\/\//.test(ctaRaw)) {
+  cta = ctaRaw;
+  ctaLabel = 'Continuar';
+} else if (ctaKey.includes('whatsapp') || ctaKey.includes('visita_wa') || ctaKey === 'wa') {
+  cta = waUrl(`Olá! Li o post: ${post.data.title}`);
+  ctaLabel = 'Falar no WhatsApp';
+} else if (ctaKey === 'bairros') {
+  cta = sitePath('/bairros');
+  ctaLabel = 'Ver bairros';
+}
 ---
 
 <BaseLayout title={`${post.data.title} | ${site.name}`} description={post.data.description}>
@@ -35,7 +52,7 @@ const cta = ctaRaw.startsWith('/') ? sitePath(ctaRaw) : ctaRaw;
       <Content />
       <footer class="cta">
         <a class="btn btn-primary" href={cta}>
-          Continuar no site
+          {ctaLabel}
         </a>
         <a class="btn" href={waUrl(`Olá! Li o post: ${post.data.title}`)}>
           WhatsApp

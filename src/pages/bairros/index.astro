@@ -2,56 +2,81 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { site } from '../../config/site';
 import { sitePath } from '../../lib/paths';
+import { getListings } from '../../lib/listings';
 
-const hubs = [
-  { href: '/bairros', label: 'Índice de bairros', note: 'SEO local A33' },
-  { href: '/bh', label: 'Belo Horizonte', note: 'Hub cidade · Sprint 2' },
-  { href: '/nova-lima', label: 'Nova Lima', note: 'Hub cidade · Sprint 2' },
-  { href: '/contagem', label: 'Contagem', note: 'Hub cidade · Sprint 2' },
-];
+const listings = getListings();
+
+const byCity = new Map<string, Map<string, number>>();
+for (const item of listings) {
+  if (!item.city || !item.neighborhood) continue;
+  const city = byCity.get(item.city) ?? new Map<string, number>();
+  city.set(item.neighborhood, (city.get(item.neighborhood) ?? 0) + 1);
+  byCity.set(item.city, city);
+}
+
+const cities = [...byCity.entries()]
+  .map(([city, hoods]) => ({
+    city,
+    total: [...hoods.values()].reduce((a, b) => a + b, 0),
+    hoods: [...hoods.entries()]
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, 'pt-BR')),
+  }))
+  .sort((a, b) => b.total - a.total);
 ---
 
 <BaseLayout
   title={`Bairros | ${site.name}`}
-  description="Bairros com imóveis Uniplace em Belo Horizonte, Nova Lima e Contagem."
+  description="Bairros com imóveis à venda na Uniplace em Belo Horizonte, Nova Lima e Contagem."
 >
   <section class="section">
     <div class="container">
       <h1>Bairros</h1>
-      <p>Páginas de bairro com imóveis do feed (N≥1). Bloco inicial no Sprint 1; hubs de cidade no Sprint 2.</p>
-      <ul class="list">
-        {
-          hubs.map((h) => (
-            <li>
-              <a href={sitePath(h.href)}>{h.label}</a>
-              <span>{h.note}</span>
-            </li>
-          ))
-        }
-      </ul>
+      <p>
+        Veja onde estão os imóveis da Uniplace hoje. Para filtrar por bairro, use a busca em
+        <a href={sitePath('/imoveis')}>Imóveis</a>.
+      </p>
+      {
+        cities.map((c) => (
+          <section class="city">
+            <h2>
+              {c.city} <span class="count">{c.total} {c.total === 1 ? 'imóvel' : 'imóveis'}</span>
+            </h2>
+            <ul class="chips">
+              {c.hoods.map((h) => (
+                <li>
+                  {h.name} <span class="count">{h.count}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .list {
-    list-style: none;
-    padding: 0;
-    margin: 1.5rem 0 0;
-    display: grid;
-    gap: 0.75rem;
+  .city {
+    margin-top: 2rem;
   }
-  .list li {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1rem;
-    padding: 1rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-surface);
-  }
-  .list span {
+  .count {
     color: var(--color-neutral-500);
     font-size: var(--text-small);
+    font-weight: 400;
+  }
+  .chips {
+    list-style: none;
+    padding: 0;
+    margin: 0.75rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .chips li {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
   }
 </style>
