@@ -1,0 +1,2 @@
+# Coloque PNG de hero aqui. Rode: npm run optimize:static
+# Variantes: full + -1280 (desktop). Nomes com mobile/vertical → + -768.

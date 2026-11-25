@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Uniplace mark">
+  <title>Uniplace mark</title>
+  <rect width="64" height="64" rx="12" fill="#FDFBF7"/>
+  <g transform="translate(10,6) scale(0.28)">
+    <g transform="translate(20,78)">
+      <path d="M100 28 L128 14 L128 78 L100 92 Z" fill="#A3634D"/>
+      <path d="M12 28 L40 14 L128 14 L100 28 Z" fill="#D99B85"/>
+      <path d="M12 28 L100 28 L100 92 L12 92 Z" fill="#C87A5E"/>
+      <path d="M44 92 V68 A12 12 0 0 1 68 68 V92 Z" fill="#FDFBF7"/>
+    </g>
+    <g transform="translate(20,42)">
+      <path d="M72 28 L100 14 L100 50 L72 64 Z" fill="#6F7F6B"/>
+      <path d="M12 28 L40 14 L100 14 L72 28 Z" fill="#A4B1A1"/>
+      <path d="M12 28 L72 28 L72 64 L12 64 Z" fill="#8A9A86"/>
+      <path d="M72 48 L100 48 L100 64 L72 64 Z" fill="#7E8E7A"/>
+    </g>
+    <g transform="translate(20,18)">
+      <path d="M44 28 L72 14 L72 42 L44 56 Z" fill="#B88243"/>
+      <path d="M12 28 L40 14 L72 14 L44 28 Z" fill="#E3B680"/>
+      <path d="M12 28 L44 28 L44 56 L12 56 Z" fill="#D9A05B"/>
+    </g>
+  </g>
+</svg>
